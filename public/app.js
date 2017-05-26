@@ -1,37 +1,32 @@
-$('#upload').on('change', () => {
-  getFileURL();
+$(() => {
+  // document ready functions
+  handleSearch();
 });
 
-let imgUrl;
+window.state = {
 
-const getFileURL = () => {
-  var file = document.getElementById('upload').files[0];
-  var reader = new FileReader();
-  
-  reader.readAsDataURL(file);
-
-  reader.onloadend = () => {
-    imgUrl = reader.result;
-    // console.log(imgUrl);
-    gapi.load('client', initGoogleImageSearch);
-  }
 }
 
-const initGoogleImageSearch = () => {
-  gapi.client.init({
-    apiKey: 'AIzaSyCkza6KueTNrnNOfWHXJLaHWdR6_hgzl7E',
-    discoveryDocs: ['https://www.googleapis.com/discovery/v1/apis/customsearch/v1/rest'],
-  })
-  .then(() => {
-    return gapi.client.search.cse.list({
-      q: imgUrl,
-      cx: '005474769488126929950:2kswgarcnca',
-      key: 'AIzaSyCkza6KueTNrnNOfWHXJLaHWdR6_hgzl7E',
-      searchType: 'image'
-    });
-  })
-  .then(response => {
-    console.log(response);
-  })
+const handleSearch = () => {
+  $('#search-form').on('submit', (e) => {
+    e.preventDefault();
+    let searchRequest = {
+      artist: $('#search-artist').val(),
+      album: $('#search-album').val()
+    }
+    callDiscogsAPI(JSON.stringify(searchRequest));
+  });
 }
 
+
+const callDiscogsAPI = (searchRequest) => {
+  $.ajax({
+    type: 'POST',
+    url: '/search',
+    processData: false,
+    data: searchRequest,
+    contentType: 'application/json'
+  }).done((data) => {
+    console.log(data);
+  });
+}
