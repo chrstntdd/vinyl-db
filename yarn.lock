@@ -185,6 +185,16 @@ diff@3.2.0:
   version "3.2.0"
   resolved "https://registry.yarnpkg.com/diff/-/diff-3.2.0.tgz#c9ce393a4b7cbd0b058a725c93df299027868ff9"
 
+disconnect@^1.1.0:
+  version "1.1.0"
+  resolved "https://registry.yarnpkg.com/disconnect/-/disconnect-1.1.0.tgz#ced5a98a24654f4d4c9cbb2649dfae603e531b13"
+  dependencies:
+    oauth-1.0a "2.x.x"
+
+dotenv@^4.0.0:
+  version "4.0.0"
+  resolved "https://registry.yarnpkg.com/dotenv/-/dotenv-4.0.0.tgz#864ef1379aced55ce6f95debecdce179f7a0cd1d"
+
 ee-first@1.1.1:
   version "1.1.1"
   resolved "https://registry.yarnpkg.com/ee-first/-/ee-first-1.1.1.tgz#590c61156b0ae2f4f0255732a158b266bc56b21d"
@@ -546,6 +556,10 @@ muri@1.2.1:
 negotiator@0.6.1:
   version "0.6.1"
   resolved "https://registry.yarnpkg.com/negotiator/-/negotiator-0.6.1.tgz#2b327184e8992101177b28563fb5e7102acd0ca9"
+
+oauth-1.0a@2.x.x:
+  version "2.1.1"
+  resolved "https://registry.yarnpkg.com/oauth-1.0a/-/oauth-1.0a-2.1.1.tgz#bf85d1c8be4587123bedf8c07d31aeda95b9d017"
 
 on-finished@~2.3.0:
   version "2.3.0"
