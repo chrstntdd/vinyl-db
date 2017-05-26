@@ -7,6 +7,11 @@ const Discogs = require('disconnect').Client;
 
 const app = express();
 
+const db = new Discogs({
+  consumerKey: process.env.CONSUMER_KEY,
+  consumerSecret: process.env.CONSUMER_SECRET
+}).database();
+
 app.use(express.static('public'));
 app.use(bodyParser.json());
 app.use(morgan('common'));
@@ -21,19 +26,22 @@ app.get('*', (req, res) => {
   });
 });
 
-const db = new Discogs({
-  consumerKey: process.env.CONSUMER_KEY,
-  consumerSecret: process.env.CONSUMER_SECRET
-}).database();
+app.post('/search', (req, res) => {
 
-db.search('Basement', {
-    release_title: 'Songs About The Weather'
-  })
-  .then(function (release) {
-    console.log(release.results);
-  });
+  let artist = req.body.artist;
+  let album = req.body.album;
+
+  db.search(artist, {
+      artist: artist,
+      title: album,
+      release_title: album
+    })
+    .then((release) => {
+      res.json(release.results);
+    });
+});
 
 
-app.listen(PORT = 2727, () => {
+app.listen(PORT = process.env.PORT || 2727, () => {
   console.log(`Listening on port ${PORT}`);
 });
