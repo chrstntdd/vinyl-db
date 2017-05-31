@@ -1,0 +1,210 @@
+[
+  {
+    "Artist": "Drake",
+    "Title": "Views",
+    "Purchase Date": "12/21/2012",
+    "Release Year": 2017,
+    "Genre": [
+      "Hip-Hop"
+    ],
+    "Rating": 0.001,
+    "Mood": [
+      "Rejected",
+      "Giddy"
+    ],
+    "Play Count": 1,
+    "Comments": "",
+    "Vinyl Color": "Black",
+    "Accolades": [
+      "Lowest Rated"
+    ]
+  },
+  {
+    "Artist": "Lil Yachty",
+    "Title": "Teenage Emotion",
+    "Purchase Date": "5/28/2017",
+    "Release Year": 2017,
+    "Genre": [
+      "Hip-Hop",
+      "Nonsense"
+    ],
+    "Rating": 2,
+    "Mood": [
+      "Joyous",
+      "Silly",
+      "Envious"
+    ],
+    "Play Count": 666,
+    "Comments": "",
+    "Vinyl Color": "Obsidian",
+    "Accolades": [
+      "Most Played"
+    ]
+  },
+  {
+    "Artist": "The Postal Service",
+    "Title": "Give Up",
+    "Purchase Date": "3/19/14",
+    "Release Year": 2007,
+    "Genre": [
+      "Electronic",
+      "Rock",
+      "Pop"
+    ],
+    "Rating": 5,
+    "Mood": [
+      "Mellow",
+      "Peaceful",
+      "Gloomy"
+    ],
+    "Play Count": 9000,
+    "Comments": "GOAT",
+    "Vinyl Color": "Platinum",
+    "Accolades": [
+      "Most Played",
+      "Highest Rated"
+    ]
+  },
+  {
+    "Artist": "DIIV",
+    "Title": "Is The Is Are",
+    "Purchase Date": "8/3/2016",
+    "Release Year": 2016,
+    "Genre": [
+      "Rock"
+    ],
+    "Rating": 4,
+    "Mood": [
+      "Guilty",
+      "Indifferent",
+      "Dreamy"
+    ],
+    "Play Count": 10,
+    "Comments": "",
+    "Vinyl Color": "Red and Blue Spatter",
+    "Accolades": []
+  },
+  {
+    "Artist": "Radiohead",
+    "Title": "Kid A",
+    "Purchase Date": "10/14/2002",
+    "Release Year": 2000,
+    "Genre": [
+      "Electronic",
+      "Rock"
+    ],
+    "Rating": 5,
+    "Mood": [
+      "Depressed",
+      "Gloomy",
+      "Sympathetic"
+    ],
+    "Play Count": 76,
+    "Comments": "I'm not here. This isn't happening.",
+    "Vinyl Color": "Grey",
+    "Accolades": [
+      "Oldest"
+    ]
+  },
+  {
+    "Artist": "Beach Fossils",
+    "Title": "What A Pleasure",
+    "Purchase Date": "11/11/2012",
+    "Release Year": 2011,
+    "Genre": [
+      "Rock",
+      "Pop"
+    ],
+    "Rating": 4,
+    "Mood": [
+      "Care-free",
+      "Content",
+      "Calm"
+    ],
+    "Play Count": 3,
+    "Comments": "",
+    "Vinyl Color": "White",
+    "Accolades": []
+  },
+  {
+    "Artist": "Kendrick Lamar",
+    "Title": "DAMN",
+    "Purchase Date": "4/29/2017",
+    "Release Year": 2017,
+    "Genre": [
+      "Hip-Hop"
+    ],
+    "Rating": 5,
+    "Mood": [
+      "Depressed",
+      "Inspired",
+      "Energetic"
+    ],
+    "Play Count": 43,
+    "Comments": "",
+    "Vinyl Color": "Black",
+    "Accolades": [
+      "Most woke"
+    ]
+  },
+  {
+    "Artist": "Neon Indian",
+    "Title": "Vega Intl. Night School",
+    "Purchase Date": "3/5/2016",
+    "Release Year": 2015,
+    "Genre": [
+      "Electronic",
+      "Pop",
+      "Rock"
+    ],
+    "Rating": 3,
+    "Mood": [
+      "Groovy",
+      "Calm",
+      "Joyful"
+    ],
+    "Play Count": 3,
+    "Comments": "",
+    "Vinyl Color": "Pink",
+    "Accolades": []
+  },
+  {
+    "Artist": "Beach House",
+    "Title": "Depression Cherry",
+    "Purchase Date": "12/05/2015",
+    "Release Year": 2015,
+    "Genre": [
+      "Rock",
+      "Pop"
+    ],
+    "Rating": 2,
+    "Mood": [
+      "Depressed",
+      "Cold",
+      "Okay"
+    ],
+    "Play Count": 8,
+    "Comments": "",
+    "Vinyl Color": "Red",
+    "Accolades": []
+  },
+  {
+    "Artist": "Pity Sex",
+    "Title": "White Hot Moon",
+    "Purchase Date": "8/14/2016",
+    "Release Year": 2016,
+    "Genre": [
+      "Rock"
+    ],
+    "Rating": 4,
+    "Mood": [
+      "Melancholy",
+      "Hopeful",
+      "Enthralled"
+    ],
+    "Play Count": 7,
+    "Comments": "",
+    "Vinyl Color": "White and Pink Spatter",
+    "Accolades": []
+  }
+]
