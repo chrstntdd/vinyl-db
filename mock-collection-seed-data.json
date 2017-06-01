@@ -1,210 +1,210 @@
 [
   {
-    "Artist": "Drake",
-    "Title": "Views",
-    "Purchase Date": "12/21/2012",
-    "Release Year": 2017,
-    "Genre": [
+    "artist": "Drake",
+    "album": "Views",
+    "purchaseDate": "12/21/2012",
+    "releaseYear": 2017,
+    "genre": [
       "Hip-Hop"
     ],
-    "Rating": 0.001,
-    "Mood": [
+    "rating": 0.001,
+    "mood": [
       "Rejected",
       "Giddy"
     ],
-    "Play Count": 1,
-    "Comments": "",
-    "Vinyl Color": "Black",
-    "Accolades": [
+    "playCount": 1,
+    "notes": "",
+    "vinylColor": "Black",
+    "accolades": [
       "Lowest Rated"
     ]
   },
   {
-    "Artist": "Lil Yachty",
-    "Title": "Teenage Emotion",
-    "Purchase Date": "5/28/2017",
-    "Release Year": 2017,
-    "Genre": [
+    "artist": "Lil Yachty",
+    "album": "Teenage Emotion",
+    "purchaseDate": "5/28/2017",
+    "releaseYear": 2017,
+    "genre": [
       "Hip-Hop",
       "Nonsense"
     ],
-    "Rating": 2,
-    "Mood": [
+    "rating": 2,
+    "mood": [
       "Joyous",
       "Silly",
       "Envious"
     ],
-    "Play Count": 666,
-    "Comments": "",
-    "Vinyl Color": "Obsidian",
-    "Accolades": [
+    "playCount": 666,
+    "notes": "",
+    "vinylColor": "Obsidian",
+    "accolades": [
       "Most Played"
     ]
   },
   {
-    "Artist": "The Postal Service",
-    "Title": "Give Up",
-    "Purchase Date": "3/19/14",
-    "Release Year": 2007,
-    "Genre": [
+    "artist": "The Postal Service",
+    "album": "Give Up",
+    "purchaseDate": "3/19/14",
+    "releaseYear": 2007,
+    "genre": [
       "Electronic",
       "Rock",
       "Pop"
     ],
-    "Rating": 5,
-    "Mood": [
+    "rating": 5,
+    "mood": [
       "Mellow",
       "Peaceful",
       "Gloomy"
     ],
-    "Play Count": 9000,
-    "Comments": "GOAT",
-    "Vinyl Color": "Platinum",
-    "Accolades": [
+    "playCount": 9000,
+    "notes": "GOAT",
+    "vinylColor": "Platinum",
+    "accolades": [
       "Most Played",
       "Highest Rated"
     ]
   },
   {
-    "Artist": "DIIV",
-    "Title": "Is The Is Are",
-    "Purchase Date": "8/3/2016",
-    "Release Year": 2016,
-    "Genre": [
+    "artist": "DIIV",
+    "album": "Is The Is Are",
+    "purchaseDate": "8/3/2016",
+    "releaseYear": 2016,
+    "genre": [
       "Rock"
     ],
-    "Rating": 4,
-    "Mood": [
+    "rating": 4,
+    "mood": [
       "Guilty",
       "Indifferent",
       "Dreamy"
     ],
-    "Play Count": 10,
-    "Comments": "",
-    "Vinyl Color": "Red and Blue Spatter",
-    "Accolades": []
+    "playCount": 10,
+    "notes": "",
+    "vinylColor": "Red and Blue Spatter",
+    "accolades": []
   },
   {
-    "Artist": "Radiohead",
-    "Title": "Kid A",
-    "Purchase Date": "10/14/2002",
-    "Release Year": 2000,
-    "Genre": [
+    "artist": "Radiohead",
+    "album": "Kid A",
+    "purchaseDate": "10/14/2002",
+    "releaseYear": 2000,
+    "genre": [
       "Electronic",
       "Rock"
     ],
-    "Rating": 5,
-    "Mood": [
+    "rating": 5,
+    "mood": [
       "Depressed",
       "Gloomy",
       "Sympathetic"
     ],
-    "Play Count": 76,
-    "Comments": "I'm not here. This isn't happening.",
-    "Vinyl Color": "Grey",
-    "Accolades": [
+    "playCount": 76,
+    "notes": "I'm not here. This isn't happening.",
+    "vinylColor": "Grey",
+    "accolades": [
       "Oldest"
     ]
   },
   {
-    "Artist": "Beach Fossils",
-    "Title": "What A Pleasure",
-    "Purchase Date": "11/11/2012",
-    "Release Year": 2011,
-    "Genre": [
+    "artist": "Beach Fossils",
+    "album": "What A Pleasure",
+    "purchaseDate": "11/11/2012",
+    "releaseYear": 2011,
+    "genre": [
       "Rock",
       "Pop"
     ],
-    "Rating": 4,
-    "Mood": [
+    "rating": 4,
+    "mood": [
       "Care-free",
       "Content",
       "Calm"
     ],
-    "Play Count": 3,
-    "Comments": "",
-    "Vinyl Color": "White",
-    "Accolades": []
+    "playCount": 3,
+    "notes": "",
+    "vinylColor": "White",
+    "accolades": []
   },
   {
-    "Artist": "Kendrick Lamar",
-    "Title": "DAMN",
-    "Purchase Date": "4/29/2017",
-    "Release Year": 2017,
-    "Genre": [
+    "artist": "Kendrick Lamar",
+    "album": "DAMN",
+    "purchaseDate": "4/29/2017",
+    "releaseYear": 2017,
+    "genre": [
       "Hip-Hop"
     ],
-    "Rating": 5,
-    "Mood": [
+    "rating": 5,
+    "mood": [
       "Depressed",
       "Inspired",
       "Energetic"
     ],
-    "Play Count": 43,
-    "Comments": "",
-    "Vinyl Color": "Black",
-    "Accolades": [
+    "playCount": 43,
+    "notes": "",
+    "vinylColor": "Black",
+    "accolades": [
       "Most woke"
     ]
   },
   {
-    "Artist": "Neon Indian",
-    "Title": "Vega Intl. Night School",
-    "Purchase Date": "3/5/2016",
-    "Release Year": 2015,
-    "Genre": [
+    "artist": "Neon Indian",
+    "album": "Vega Intl. Night School",
+    "purchaseDate": "3/5/2016",
+    "releaseYear": 2015,
+    "genre": [
       "Electronic",
       "Pop",
       "Rock"
     ],
-    "Rating": 3,
-    "Mood": [
+    "rating": 3,
+    "mood": [
       "Groovy",
       "Calm",
       "Joyful"
     ],
-    "Play Count": 3,
-    "Comments": "",
-    "Vinyl Color": "Pink",
-    "Accolades": []
+    "playCount": 3,
+    "notes": "",
+    "vinylColor": "Pink",
+    "accolades": []
   },
   {
-    "Artist": "Beach House",
-    "Title": "Depression Cherry",
-    "Purchase Date": "12/05/2015",
-    "Release Year": 2015,
-    "Genre": [
+    "artist": "Beach House",
+    "album": "Depression Cherry",
+    "purchaseDate": "12/05/2015",
+    "releaseYear": 2015,
+    "genre": [
       "Rock",
       "Pop"
     ],
-    "Rating": 2,
-    "Mood": [
+    "rating": 2,
+    "mood": [
       "Depressed",
       "Cold",
       "Okay"
     ],
-    "Play Count": 8,
-    "Comments": "",
-    "Vinyl Color": "Red",
-    "Accolades": []
+    "playCount": 8,
+    "notes": "",
+    "vinylColor": "Red",
+    "accolades": []
   },
   {
-    "Artist": "Pity Sex",
-    "Title": "White Hot Moon",
-    "Purchase Date": "8/14/2016",
-    "Release Year": 2016,
-    "Genre": [
+    "artist": "Pity Sex",
+    "album": "White Hot Moon",
+    "purchaseDate": "8/14/2016",
+    "releaseYear": 2016,
+    "genre": [
       "Rock"
     ],
-    "Rating": 4,
-    "Mood": [
+    "rating": 4,
+    "mood": [
       "Melancholy",
       "Hopeful",
       "Enthralled"
     ],
-    "Play Count": 7,
-    "Comments": "",
-    "Vinyl Color": "White and Pink Spatter",
-    "Accolades": []
+    "playCount": 7,
+    "notes": "",
+    "vinylColor": "White and Pink Spatter",
+    "accolades": []
   }
 ]
