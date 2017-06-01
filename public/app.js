@@ -20,13 +20,17 @@ const handleSearch = () => {
 
 
 const callDiscogsAPI = (searchRequest) => {
-  $.ajax({
+  const request = $.ajax({
     type: 'POST',
     url: '/search',
     processData: false,
     data: searchRequest,
     contentType: 'application/json'
-  }).done((data) => {
+  });
+  request.done((data) => {
     console.log(data);
+  });
+  request.fail((jqXHR, textStatus) => {
+    console.error(`Request Failed: ${textStatus}`);
   });
 }
