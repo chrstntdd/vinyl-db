@@ -6,6 +6,7 @@ const morgan      = require('morgan');
 const compression = require('compression');
 const mongoose    = require('mongoose');
 const path        = require('path');
+const _           = require('lodash')
 const logger      = require('./logger').logger;
 const Discogs     = require('disconnect').Client;
 const { Record }  = require('../models/records');
@@ -47,6 +48,109 @@ app.get('/records', (req, res) => {
       });
     });
 });
+
+// RETRIEVE RECORD BY ID
+app.get('/records/:id', (req, res) => {
+  Record
+    .findById(req.params.id)
+    .exec()
+    .then(record => res.json(record))
+    .catch(err => {
+      logger.error(err);
+      res.status(500).json({
+        error: 'INTERNAL SERVER ERROR. EVERYTHING IS ON FIRE'
+      });
+    });
+});
+
+// POST NEW RECORD
+app.post('/records', (req, res) => {
+  const reqFields = ['artist', 'album', 'releaseYear', 'genre'];
+  _.map(reqFields, (field) => {
+    if (!(field in req.body)) {
+      const message = `Missing ${field} in the request body.`;
+      logger.error(message);
+      return res.status(400).send(message);
+    }
+  });
+
+  Record
+    .create({
+      artist: req.body.artist,
+      album: req.body.album,
+      releaseYear: req.body.releaseYear,
+      purchaseDate: req.body.purchaseDate,
+      genre: req.body.genre,
+      rating: req.body.rating,
+      mood: req.body.mood,
+      playCount: req.body.playCount,
+      notes: req.body.notes,
+      vinylColor: req.body.vinylColor,
+      accolades: req.body.accolades
+    })
+    .then(newRecord => res.status(201).json(newRecord))
+    .catch(err => {
+      logger.error(err);
+      res.status(500).json({
+        error: 'N-TERNAL SERVER ERROR. PRAY FOR HELP'
+      });
+    });
+});
+
+// DELETE RECORD BY ID
+app.delete('/records/:id', (req, res) => {
+  Record
+    .findByIdAndRemove(req.params.id)
+    .exec()
+    .then(() => {
+      let message = `Successfully deleted the record with an id of ${req.params.id}`;
+      logger.info(message);
+      res.status(204).end();
+    })
+    .catch(err => {
+      logger.error(err);
+      res.status(500).json({
+        error: 'INTERNAL SERVER ERROR. BREAK ALL THE WINDOWS.'
+      });
+    });
+});
+
+// UPDATE RECORD BY ID
+app.put('/records/:id', (req, res) => {
+  if (!(req.params.id && req.body.id === req.body.id)) {
+    res.status(400).json({
+      error: 'Request path id and request body id must match. Try again.'
+    });
+  }
+
+  const updated = {};
+  const updatableFields = ['artist', 'album', 'releaseYear', 'purchaseDate', 'genre', 'rating', 'mood', 'playCount', 'notes', 'vinylColor', 'accolades'];
+  // ONLY UPDATE FIELDS THAT EXIST ON EACH RECORD
+  _.map(updatableFields, (field) => {
+    if (field in req.body) {
+      updated[field] = req.body[field];
+    }
+  });
+
+  Record
+    .findByIdAndUpdate(req.params.id, {
+      $set: updated
+    }, {
+      new: true
+    })
+    .exec()
+    .then(updatedRecord => {
+      let message = `Successfully updated the record with an id of ${req.params.id}`;
+      logger.info(message);
+      res.status(201).json(updatedRecord);
+    })
+    .catch(err => {
+      res.status(500).json({
+        error: 'INTERNAL SERVER ERROR. THE WORLD IS ENDING AS WE KNOW IT.'
+      });
+    });
+});
+
 
 // MAIN API CALL FOR DISCOGS SEARCH
 app.post('/search', (req, res) => {
@@ -93,7 +197,7 @@ const runServer = (DATABASE_URL = process.env.DATABASE_URL, PORT = process.env.P
         return reject(err);
       }
       server = app.listen(PORT, () => {
-        logger.log(`Your app is listening on port ${PORT}.`);
+        logger.info(`Your app is listening on port ${PORT}.`);
         resolve();
       })
         .on('error', err => {
@@ -107,7 +211,7 @@ const runServer = (DATABASE_URL = process.env.DATABASE_URL, PORT = process.env.P
 const closeServer = () => {
   return mongoose.disconnect().then(() => {
     return new Promise((resolve, reject) => {
-      logger.log('Closing server. Goodbye old friend.');
+      logger.info('Closing server. Goodbye old friend.');
       server.close(err => {
         if (err) {
           return reject(err);
