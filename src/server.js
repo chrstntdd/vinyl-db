@@ -6,7 +6,7 @@ const morgan      = require('morgan');
 const compression = require('compression');
 const mongoose    = require('mongoose');
 const path        = require('path');
-const _           = require('lodash')
+const map         = require('lodash.map');
 const logger      = require('./logger').logger;
 const Discogs     = require('disconnect').Client;
 const { Record }  = require('../models/records');
@@ -66,7 +66,7 @@ app.get('/records/:id', (req, res) => {
 // POST NEW RECORD
 app.post('/records', (req, res) => {
   const reqFields = ['artist', 'album', 'releaseYear', 'genre'];
-  _.map(reqFields, (field) => {
+  map(reqFields, (field) => {
     if (!(field in req.body)) {
       const message = `Missing ${field} in the request body.`;
       logger.error(message);
@@ -126,7 +126,7 @@ app.put('/records/:id', (req, res) => {
   const updated = {};
   const updatableFields = ['artist', 'album', 'releaseYear', 'purchaseDate', 'genre', 'rating', 'mood', 'playCount', 'notes', 'vinylColor', 'accolades'];
   // ONLY UPDATE FIELDS THAT EXIST ON EACH RECORD
-  _.map(updatableFields, (field) => {
+  map(updatableFields, (field) => {
     if (field in req.body) {
       updated[field] = req.body[field];
     }
