@@ -4,6 +4,10 @@
   "main": "index.js",
   "author": "Christian Todd <christiantodd27@icloud.com>",
   "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/chrstntdd/vinyl-db.git"
+  },
   "dependencies": {
     "body-parser": "^1.17.2",
     "compression": "^1.6.2",
