@@ -5,7 +5,6 @@ const winston = require('winston');
 const consoleOptions = {
   level: 'debug',
   handleExceptions: true,
-  json: true,
   colorize: true,
   prettyPrint: true
 };
