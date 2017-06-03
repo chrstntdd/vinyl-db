@@ -35,6 +35,11 @@ app.get('/', (req, res) => {
   res.sendFile(path.join(__dirname, '../public/views', 'index.html'));
 });
 
+// SEARCH VIEW
+app.get('/search', (req, res) => {
+  res.sendFile(path.join(__dirname, '../public/views', 'search.html'));
+});
+
 // RETRIEVE ALL RECORDS
 app.get('/records', (req, res) => {
   Record
@@ -159,13 +164,25 @@ app.post('/search', (req, res) => {
   let album = req.body.album;
 
   db.search(artist, {
-    artist: artist,
-    title: album,
-    release_title: album,
-    format: 'vinyl'
-  })
+      artist: artist,
+      title: album,
+      release_title: album,
+      format: 'vinyl'
+    })
     .then((release) => {
-      res.json(release.results);
+      if (release.results.length > 0) {
+        res.json(release.results);
+      } else {
+        res.json({
+          error: 'No results found. Please try your search again.'
+        });
+      };
+    })
+    .catch((err) => {
+      logger.error(err);
+      res.status(500).json({
+        error: `INTERNAL SERVER ERROR. DISCOGS MACHINE BROKE.`
+      });
     });
 });
 

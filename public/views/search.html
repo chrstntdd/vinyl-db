@@ -13,17 +13,24 @@
 
 <body>
   <main>
-    <h1>Vinyl DB-HOME</h1>
+    <h1>Search</h1>
     <nav>
       <ul>
         <li><a href='/'>Home</a></li>
         <li><a href='/search'>Search</a></li>
       </ul>
     </nav>
-    <!--<form id='create-collection'>
-      <input type='text' placeholder='collection name' required>
-      <button>Create Collection</button>
-    </form>-->
+
+    <form id='search-form'>
+      <input id='search-artist' type="text" placeholder="Artist" required>
+      <input id='search-album' type="text" placeholder="Album" required>
+      <button id='search-btn' type="submit">Search</button>
+    </form>
+
+    <section>
+      <ul id='results'>
+      </ul>
+    </section>
   </main>
 
   <script src="https://code.jquery.com/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
