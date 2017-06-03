@@ -40,6 +40,10 @@ app.get('/search', (req, res) => {
   res.sendFile(path.join(__dirname, '../public/views', 'search.html'));
 });
 
+app.get('/search/details', (req, res) => {
+  res.sendFile(path.join(__dirname, '../public/views', 'details.html'));
+});
+
 // RETRIEVE ALL RECORDS
 app.get('/records', (req, res) => {
   Record
