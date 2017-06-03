@@ -33,19 +33,31 @@ const callDiscogsAPI = (searchRequest) => {
     contentType: 'application/json'
   });
   request.done((data) => {
-    console.log(data);
-    if (data.error) {
-      renderNoResultsFound(data.error);
-    } else {
-      renderRecord(data[0]);
-    };
+    data.error ?
+      renderNoResultsFound(data.error) :
+      getRelevantData(data[0]);
   });
   request.fail((jqXHR, textStatus) => {
     console.error(`Request Failed: ${textStatus}`);
   });
 };
 
-const bindToHTML = (data) => {
+const getRelevantData = (data) => {
+  const recordData = {
+    // DECONSTRUCT ARTIST NAME AND ALBUM TITLE FROM API RESPONSE
+    artist: _.trim(data.title.substr(0, (data.title + '-').indexOf('-'))),
+    album: _.trim(data.title.substr(data.title.indexOf('-') + 1)),
+    releaseYear: data.year,
+    // USE STYLE PROPERTY FOR GENRE IF IT EXISTS.
+    genre: data.style.length > 0 ? data.style[0] : data.genre[0],
+    thumb: data.thumb,
+    id: data.id,
+  }
+  renderRecord(recordData);
+  tempStoreData(recordData);
+}
+
+const bindToHTML = (recordData) => {
   let recordHTML = (
     `<li id=''>
       <img src=''>
@@ -59,21 +71,12 @@ const bindToHTML = (data) => {
 
   let $record = $(recordHTML);
 
-  // DECONSTRUCT ARTIST NAME AND ALBUM TITLE FROM API RESPONSE
-  let artist = _.trim(data.title.substr(0, (data.title + '-').indexOf('-')));
-  let album = _.trim(data.title.substr(data.title.indexOf('-') + 1));
-
-  $record.data(data);
-  $record.find('img').attr('src', data.thumb);
-  $record.attr('id', data.id);
-  $record.find('.artist').text((artist));
-  $record.find('.album').text((album));
-  $record.find('.releaseYear').text(data.year);
-  if (data.style.length > 0) {
-    $record.find('.genre').text(data.style[0]);
-  } else {
-    $record.find('.genre').text(data.genre[0]);
-  };
+  $record.find('img').attr('src', recordData.thumb);
+  $record.attr('id', recordData.id);
+  $record.find('.artist').text(recordData.artist);
+  $record.find('.album').text(recordData.album);
+  $record.find('.releaseYear').text(recordData.year);
+  $record.find('.genre').text(recordData.genre);
 
   return $record;
 };
@@ -95,6 +98,11 @@ const renderNoResultsFound = (error) => {
   $('#results').append($error);
 };
 
+const tempStoreData = (recordData) => {
+  // SET OBJECT IN STORAGE
+  sessionStorage.tempDataStore = JSON.stringify(recordData);
+}
+
 const renderCreateCustomRecordBtn = () => {
   if ($('#custom-btn').length == 0) {
     $('#results').after(`<a id='custom-btn' href='#'>Create Custom</a>`);
@@ -107,18 +115,18 @@ const handleDetailsSubmit = () => {
     let formData = $('#record-details form').serializeJSON();
 
     $.ajax({
-      method: 'POST',
-      url: '/records',
-      processData: false,
-      dataType: 'json',
-      contentType: 'application/json',
-      data: formData,
-    })
-    .done((data) => {
-      console.log('success');
-    })
-    .fail((err) => {
-      console.log(':(');
-    });
+        method: 'POST',
+        url: '/records',
+        processData: false,
+        dataType: 'json',
+        contentType: 'application/json',
+        data: formData,
+      })
+      .done((data) => {
+        console.log(data);
+      })
+      .fail((err) => {
+        console.log(':(');
+      });
   });
 };
