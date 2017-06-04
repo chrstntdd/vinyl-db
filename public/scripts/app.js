@@ -1,12 +1,8 @@
 $(() => {
   // document ready functions
   handleSearch();
-  handleDetailsSubmit();
 });
 
-window.state = {
-
-};
 
 const handleSearch = () => {
   $('#search-form').on('submit', (e) => {
@@ -51,7 +47,7 @@ const getRelevantData = (data) => {
     // USE STYLE PROPERTY FOR GENRE IF IT EXISTS.
     genre: data.style.length > 0 ? data.style[0] : data.genre[0],
     thumb: data.thumb,
-    id: data.id,
+    discogsId: data.id,
   }
   renderRecord(recordData);
   tempStoreData(recordData);
@@ -72,7 +68,7 @@ const bindToHTML = (recordData) => {
   let $record = $(recordHTML);
 
   $record.find('img').attr('src', recordData.thumb);
-  $record.attr('id', recordData.id);
+  $record.attr('id', recordData.discogsId);
   $record.find('.artist').text(recordData.artist);
   $record.find('.album').text(recordData.album);
   $record.find('.releaseYear').text(recordData.year);
@@ -107,26 +103,4 @@ const renderCreateCustomRecordBtn = () => {
   if ($('#custom-btn').length == 0) {
     $('#results').after(`<a id='custom-btn' href='#'>Create Custom</a>`);
   };
-};
-
-const handleDetailsSubmit = () => {
-  $('#record-details form').on('submit', (e) => {
-    e.preventDefault();
-    let formData = $('#record-details form').serializeJSON();
-
-    $.ajax({
-        method: 'POST',
-        url: '/records',
-        processData: false,
-        dataType: 'json',
-        contentType: 'application/json',
-        data: formData,
-      })
-      .done((data) => {
-        console.log(data);
-      })
-      .fail((err) => {
-        console.log(':(');
-      });
-  });
 };
