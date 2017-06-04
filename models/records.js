@@ -11,7 +11,9 @@ const recordSchema = mongoose.Schema({
   playCount: { type: Number, default: 0 },
   notes: String,
   vinylColor: String,
-  accolades: [String]
+  accolades: [String],
+  discogsId: Number,
+  thumb: String,
 });
 
 const Record = mongoose.model('Record', recordSchema);
