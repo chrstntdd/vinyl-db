@@ -1,31 +1,34 @@
 require('dotenv').config();
 
-const express     = require('express');
-const bodyParser  = require('body-parser');
-const morgan      = require('morgan');
+const express = require('express');
+const bodyParser = require('body-parser');
+const morgan = require('morgan');
 const compression = require('compression');
-const mongoose    = require('mongoose');
-const path        = require('path');
-const map         = require('lodash.map');
-const logger      = require('./logger').logger;
-const Discogs     = require('disconnect').Client;
-const { Record }  = require('../models/records');
+const mongoose = require('mongoose');
+const path = require('path');
+const map = require('lodash.map');
+const logger = require('./logger').logger;
+const Discogs = require('disconnect').Client;
+const { Record } = require('../models/records');
+
+const DATABASE_URL = process.env.DATABASE_URL;
+const PORT = process.env.PORT;
 
 const app = express();
 
 const db = new Discogs({
   consumerKey: process.env.CONSUMER_KEY,
-  consumerSecret: process.env.CONSUMER_SECRET
+  consumerSecret: process.env.CONSUMER_SECRET,
 }).database();
 
 app.use(compression());
 app.use(express.static('public'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({
-  extended: true
+  extended: true,
 }));
 app.use(morgan('common', {
-  stream: logger.stream
+  stream: logger.stream,
 }));
 
 mongoose.Promise = global.Promise;
@@ -40,8 +43,14 @@ app.get('/search', (req, res) => {
   res.sendFile(path.join(__dirname, '../public/views', 'search.html'));
 });
 
+// RECORD DETAILS VIEW
 app.get('/search/details', (req, res) => {
   res.sendFile(path.join(__dirname, '../public/views', 'details.html'));
+});
+
+// COLLECTION VIEW
+app.get('/collection', (req, res) => {
+  res.sendFile(path.join(__dirname, '../public/views', 'collection.html'));
 });
 
 // RETRIEVE ALL RECORDS
@@ -50,10 +59,10 @@ app.get('/records', (req, res) => {
     .find()
     .exec()
     .then(records => res.json(records))
-    .catch(err => {
+    .catch((err) => {
       logger.error(err);
       res.status(500).json({
-        error: 'INTERNAL SERVER ERROR. IT BLEW UP.'
+        error: 'INTERNAL SERVER ERROR. IT BLEW UP.',
       });
     });
 });
@@ -64,10 +73,10 @@ app.get('/records/:id', (req, res) => {
     .findById(req.params.id)
     .exec()
     .then(record => res.json(record))
-    .catch(err => {
+    .catch((err) => {
       logger.error(err);
       res.status(500).json({
-        error: 'INTERNAL SERVER ERROR. EVERYTHING IS ON FIRE'
+        error: 'INTERNAL SERVER ERROR. EVERYTHING IS ON FIRE',
       });
     });
 });
@@ -95,13 +104,15 @@ app.post('/records', (req, res) => {
       playCount: req.body.playCount,
       notes: req.body.notes,
       vinylColor: req.body.vinylColor,
-      accolades: req.body.accolades
+      accolades: req.body.accolades,
+      discogsId: req.body.discogsId,
+      thumb: req.body.thumb,
     })
     .then(newRecord => res.status(201).json(newRecord))
-    .catch(err => {
+    .catch((err) => {
       logger.error(err);
       res.status(500).json({
-        error: 'N-TERNAL SERVER ERROR. PRAY FOR HELP'
+        error: 'N-TERNAL SERVER ERROR. PRAY FOR HELP',
       });
     });
 });
@@ -116,10 +127,10 @@ app.delete('/records/:id', (req, res) => {
       logger.info(message);
       res.status(204).end();
     })
-    .catch(err => {
+    .catch((err) => {
       logger.error(err);
       res.status(500).json({
-        error: 'INTERNAL SERVER ERROR. BREAK ALL THE WINDOWS.'
+        error: 'INTERNAL SERVER ERROR. BREAK ALL THE WINDOWS.',
       });
     });
 });
@@ -128,7 +139,7 @@ app.delete('/records/:id', (req, res) => {
 app.put('/records/:id', (req, res) => {
   if (!(req.params.id && req.body.id === req.body.id)) {
     res.status(400).json({
-      error: 'Request path id and request body id must match. Try again.'
+      error: 'Request path id and request body id must match. Try again.',
     });
   }
 
@@ -143,19 +154,20 @@ app.put('/records/:id', (req, res) => {
 
   Record
     .findByIdAndUpdate(req.params.id, {
-      $set: updated
+      $set: updated,
     }, {
-      new: true
+      new: true,
     })
     .exec()
-    .then(updatedRecord => {
+    .then((updatedRecord) => {
       let message = `Successfully updated the record with an id of ${req.params.id}`;
       logger.info(message);
       res.status(201).json(updatedRecord);
     })
-    .catch(err => {
+    .catch((err) => {
+      logger.error(err);
       res.status(500).json({
-        error: 'INTERNAL SERVER ERROR. THE WORLD IS ENDING AS WE KNOW IT.'
+        error: 'INTERNAL SERVER ERROR. THE WORLD IS ENDING AS WE KNOW IT.',
       });
     });
 });
@@ -163,29 +175,28 @@ app.put('/records/:id', (req, res) => {
 
 // MAIN API CALL FOR DISCOGS SEARCH
 app.post('/search', (req, res) => {
-
   let artist = req.body.artist;
   let album = req.body.album;
 
   db.search(artist, {
-      artist: artist,
-      title: album,
-      release_title: album,
-      format: 'vinyl'
-    })
+    artist: artist,
+    title: album,
+    release_title: album,
+    format: 'vinyl',
+  })
     .then((release) => {
       if (release.results.length > 0) {
         res.json(release.results);
       } else {
         res.json({
-          error: 'No results found. Please try your search again.'
+          error: 'No results found. Please try your search again.',
         });
-      };
+      }
     })
     .catch((err) => {
       logger.error(err);
       res.status(500).json({
-        error: `INTERNAL SERVER ERROR. DISCOGS MACHINE BROKE.`
+        error: 'INTERNAL SERVER ERROR. DISCOGS MACHINE BROKE.',
       });
     });
 });
@@ -194,14 +205,14 @@ app.post('/search', (req, res) => {
 // CATCH ALL HANDLERS
 app.get('*', (req, res) => {
   res.status(404).json({
-    message: '404 ERROR: Page not found.'
+    message: '404 ERROR: Page not found.',
   });
 });
 
-app.use((err, req, res, next) => {
+app.use((err, req, res) => {
   logger.error(err);
   res.status(500).json({
-    error: 'Something went wrong'
+    error: 'Something went wrong',
   }).end();
 });
 
@@ -211,37 +222,36 @@ app.use((err, req, res, next) => {
 // and then assign a value to it in run
 let server;
 
-const runServer = (DATABASE_URL = process.env.DATABASE_URL, PORT = process.env.PORT) => {
+const runServer = () => new Promise((resolve, reject) => {
+  mongoose.connect(DATABASE_URL, (err) => {
+    if (err) {
+      return reject(err);
+    }
+    server = app.listen(PORT, () => {
+      logger.info(`Your app is listening on port ${PORT}.`);
+      resolve();
+    })
+      .on('error', (err) => {
+        mongoose.disconnect();
+        reject(err);
+      });
+  });
+});
+
+
+const closeServer = () => mongoose.disconnect().then(() => {
   return new Promise((resolve, reject) => {
-    mongoose.connect(DATABASE_URL, err => {
+    logger.info('Closing server. Goodbye old friend.');
+    server.close((err) => {
       if (err) {
         return reject(err);
       }
-      server = app.listen(PORT, () => {
-        logger.info(`Your app is listening on port ${PORT}.`);
-        resolve();
-      })
-        .on('error', err => {
-          mongoose.disconnect();
-          reject(err);
-        });
+      return resolve();
     });
   });
-}
+});
 
-const closeServer = () => {
-  return mongoose.disconnect().then(() => {
-    return new Promise((resolve, reject) => {
-      logger.info('Closing server. Goodbye old friend.');
-      server.close(err => {
-        if (err) {
-          return reject(err);
-        }
-        resolve();
-      });
-    });
-  });
-}
+
 
 if (require.main === module) {
   runServer().catch(err => logger.error(err));
