@@ -1,6 +1,7 @@
 $(() => {
   // DOCUMENT READY FUNCTIONS
   getCollection();
+  handleRecordSelection();
 });
 
 const getCollection = () => {
@@ -30,8 +31,8 @@ const bindRecordDataToHTML = (res) => {
 
   let $record = $(basicRecordHTML);
   $record.find('img').attr('src', res.thumb);
-  $record.find('a').attr('href', `/records/${res._id}`)
-  $record.attr('id', res.discogsId);
+  $record.find('a').attr('href', `/collection/details`)
+  $record.attr('id', res._id);
   $record.find('.artist').text(`Artist: ${res.artist}`);
   $record.find('.album').text(`Album: ${res.album}`);
   $record.find('.release-year').text(`Released: ${res.releaseYear}`);
@@ -45,4 +46,12 @@ const renderRecords = (res) => {
     let basicRecordHTML = bindRecordDataToHTML(record);
     $('#record-collection').append(basicRecordHTML);
   });
-}
+};
+
+const handleRecordSelection = () => {
+  // SET SELECTED RECORD DISCOGS ID FOR USE IN COLLECTION DETAILS
+  $('#record-collection').on('click', 'a', (e) => {
+    let selectedRecordDiscogsdId = e.currentTarget.parentNode.id;
+    localStorage.tempDataStore = selectedRecordDiscogsdId;
+  });
+};
