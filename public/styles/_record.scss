@@ -1,0 +1,26 @@
+$VINYL_COLOR: #A5211C;
+$VINYL_LABEL: #da5b33;
+.record {
+  // https://codepen.io/thebabydino/pen/HjJlL?editors=1100
+  position: relative;
+  margin: 19px auto;
+  width: 262px;
+  height: 262px;
+  border-radius: 50%;
+  background: linear-gradient(30deg, transparent 40%, rgba(42, 41, 40, .85)) no-repeat 100% 0, linear-gradient(60deg, rgba(42, 41, 40, .85), transparent 80%) no-repeat 0 100%, repeating-radial-gradient($VINYL_COLOR, $VINYL_COLOR 4px, #ada9a0 5px, $VINYL_COLOR 6px);
+  background-size: 50% 100%, 100% 50%, 100% 100%;
+}
+
+.record:after {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  margin: -35px;
+  border: solid 1px #d9a388;
+  width: 68px;
+  height: 68px;
+  border-radius: 50%;
+  box-shadow: 0 0 0 4px $VINYL_LABEL, inset 0 0 0 27px $VINYL_LABEL;
+  background: #b5ac9a;
+  content: '';
+}
