@@ -43,14 +43,19 @@ app.get('/search', (req, res) => {
   res.sendFile(path.join(__dirname, '../public/views', 'search.html'));
 });
 
-// RECORD DETAILS VIEW
+// SEARCH DETAILS VIEW
 app.get('/search/details', (req, res) => {
-  res.sendFile(path.join(__dirname, '../public/views', 'details.html'));
+  res.sendFile(path.join(__dirname, '../public/views', 'search-details.html'));
 });
 
 // COLLECTION VIEW
 app.get('/collection', (req, res) => {
   res.sendFile(path.join(__dirname, '../public/views', 'collection.html'));
+});
+
+// COLLECTION DETAILS VIEW
+app.get('/collection/details', (req, res) => {
+  res.sendFile(path.join(__dirname, '../public/views', 'collection-details.html'));
 });
 
 // RETRIEVE ALL RECORDS
@@ -125,7 +130,9 @@ app.delete('/records/:id', (req, res) => {
     .then(() => {
       let message = `Successfully deleted the record with an id of ${req.params.id}`;
       logger.info(message);
-      res.status(204).end();
+      res.status(204).json({
+        message: message,
+      }).end();
     })
     .catch((err) => {
       logger.error(err);
