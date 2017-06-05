@@ -58,6 +58,11 @@ app.get('/collection/details', (req, res) => {
   res.sendFile(path.join(__dirname, '../public/views', 'collection-details.html'));
 });
 
+// COLLECTION DETAILS VIEW
+app.get('/collection/details/edit', (req, res) => {
+  res.sendFile(path.join(__dirname, '../public/views', 'collection-edit.html'));
+});
+
 // RETRIEVE ALL RECORDS
 app.get('/records', (req, res) => {
   Record
