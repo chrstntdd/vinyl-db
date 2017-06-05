@@ -4,6 +4,7 @@ $(() => {
   console.log(selectedRecordId);
   getRecordDetails(selectedRecordId);
   handleModal();
+  handleDelete(selectedRecordId);
 });
 
 const getRecordDetails = (selectedRecordId) => {
@@ -98,4 +99,19 @@ const handleModal = () => {
   $('.btn-return').on('click', () => {
     $(deleteModal).toggleClass('global-modal-show');
   });
-}
+};
+
+const handleDelete = (selectedRecordId) => {
+  $('.btn-delete').on('click', (e) => {
+    $.ajax({
+        method: 'DELETE',
+        url: `/records/${selectedRecordId}`,
+      })
+      .done((res) => {
+        window.location.replace('/collection');
+      })
+      .fail((err) => {
+        console.error(err);
+      });
+  });
+};
