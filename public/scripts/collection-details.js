@@ -1,8 +1,8 @@
 $(() => {
   // DOCUMENT READY FUNCTIONS
   let selectedRecordId = localStorage.tempDataStore;
-  console.log(selectedRecordId);
   getRecordDetails(selectedRecordId);
+  
   handleModal();
   handleDelete(selectedRecordId);
 });
@@ -32,7 +32,7 @@ const bindRecordDataToHTML = (res) => {
         <p class='mood'></p>
         <p class='rating'></p>
         <p class='notes'></p>
-        <a href=''>
+        <a id='edit-record' href='/collection/details/edit'>
           <button>Edit details</button>
         </a>
         <button id='delete-record'>Delete</button>
