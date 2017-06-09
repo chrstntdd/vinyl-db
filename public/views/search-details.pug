@@ -1,0 +1,29 @@
+doctype html
+
+html(lang='en')
+  include includes/head.pug
+  body
+    include includes/nav.pug
+    main
+      h1 Search
+      section#record-details
+        form(action='/records' method='POST')
+          //- HIDDEN INPUTS ARE NEEDED TO PASS DATA TO SERVER FROM API RESPONSE
+          input(name='discogsId' type='hidden')
+          input(name='thumb' type='hidden')
+          img(src='')
+          label(for='artist' type='text') Artist
+            input(name='artist', type='text')
+          label(for='album' type='text') Album
+            input(name='album', type='text')
+          label(for='releaseYear' type='text') Release Year
+            input(name='releaseYear', type='text')
+          label(for='genre' type='text') Genre
+            input(name='genre', type='text')
+          button(type='submit') Add to collection
+
+    script(src='https://code.jquery.com/jquery-3.2.1.min.js' integrity='sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=' crossorigin='anonymous')
+    script(src='https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.17.4/lodash.js')
+    script(src='/scripts/jq-serialize-obj.js')
+    script(src='/scripts/search-details.js')
+    script(src='/scripts/nav.js')

@@ -1,0 +1,20 @@
+doctype html
+
+html(lang='en')
+  include includes/head.pug
+  body
+    include includes/nav.pug
+    main
+      h1 My Collection
+      form#search-form
+        label(for='artist' type='text') Artist
+          input#search-artist(name='artist', type='text' placeholder='Artist')
+        label(for='album' type='text') Album
+          input#search-album(name='album', type='text' placeholder='Album')
+        button#search-btn(type='submit') Search
+      section: ul#results
+
+    script(src='https://code.jquery.com/jquery-3.2.1.min.js' integrity='sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=' crossorigin='anonymous')
+    script(src='https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.17.4/lodash.js')
+    script(src='/scripts/app.js')
+    script(src='/scripts/nav.js')

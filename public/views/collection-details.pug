@@ -1,0 +1,23 @@
+doctype html
+
+html(lang='en')
+  include includes/head.pug
+  body
+    include includes/nav.pug
+    main
+      h1 My Collection
+      .global-modal
+        .overlay
+        .global-modal_contents.modal-transition
+          .global-modal-header
+            h3: span(Ahhh) You really want to get rid of this?
+          .global-modal-body
+            .content-left
+              button.btn-delete Its time has come
+            .content-right
+              button.btn-return On second thought...
+      #record-details.container
+    script(src='https://code.jquery.com/jquery-3.2.1.min.js' integrity='sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=' crossorigin='anonymous')
+    script(src='https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.17.4/lodash.js')
+    script(src='/scripts/collection-details.js')
+    script(src='/scripts/nav.js')
