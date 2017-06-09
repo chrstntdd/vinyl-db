@@ -14,37 +14,42 @@
 <body>
   <main>
     <h1>My Collection</h1>
-    <nav>
-      <ul>
-        <li><a href='/'>Home</a></li>
-        <li><a href='/search'>Search</a></li>
-        <li><a href='/collection'>My Collection</a></li>
-        <li><a href='/search'>Add a Record</a></li>
-      </ul>
-    </nav>
+    <div id='cd-nav'>
+      <a href='#' class='cd-nav-trigger'>Menu<span></span></a>
+      <nav id='cd-main-nav'>
+        <ul>
+          <li><a href='/'>Home</a></li>
+          <li><a href='/search'>Search</a></li>
+          <li><a href='/collection'>My Collection</a></li>
+        </ul>
+      </nav>
+    </div>
     <section id='record-details' class='container'>
-      <h1>thiccer</h1>
       <section id='record-details'>
-      <form action='/records' method='POST'>
-        <!--HIDDEN INPUTS ARE NEEDED TO PASS DATA TO SERVER FROM API RESPONSE-->
-        <input name='discogsId' type='hidden'></input>
-        <input name='thumb' type='hidden'></input>
-        <img src=''>
-        <label for='artist'>Artist
+        <form action='/records' method='POST'>
+          <!--HIDDEN INPUTS ARE NEEDED TO PASS DATA TO SERVER FROM API RESPONSE-->
+          <input name='discogsId' type='hidden'></input>
+          <input name='thumb' type='hidden'></input>
+          <img src=''>
+          <label for='artist'>Artist
           <input name='artist' type='text'></input>
         </label>
-        <label for='album'>Album
+          <label for='album'>Album
           <input name='album' type='text'></input>
         </label>
-        <label for='releaseYear'>Release Year
+          <label for='releaseYear'>Release Year
           <input name='releaseYear' type='text'></input>
         </label>
-        <label for='genre'>Genre
+          <label for='genre'>Genre
           <input name='genre' type='text'></input>
         </label>
-        <button type='submit'>Update details</button>
-      </form>
-    </section>
+          <label for='rating'>Rating
+          <input name='rating' type='text'></input>
+        </label>
+
+          <button type='submit'>Update details</button>
+        </form>
+      </section>
     </section>
   </main>
 
@@ -53,6 +58,7 @@
   <script src='https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.17.4/lodash.js'></script>
   <script src='/scripts/jq-serialize-obj.js'></script>
   <script src='/scripts/collection-edit.js'></script>
+  <script src='/scripts/nav.js'></script>
 </body>
 
 </html>

@@ -14,14 +14,16 @@
 <body>
   <main>
     <h1>My Collection</h1>
-    <nav>
-      <ul>
-        <li><a href='/'>Home</a></li>
-        <li><a href='/search'>Search</a></li>
-        <li><a href='/collection'>My Collection</a></li>
-        <li><a href='/search'>Add a Record</a></li>
-      </ul>
-    </nav>
+    <div id='cd-nav'>
+      <a href='#' class='cd-nav-trigger'>Menu<span></span></a>
+      <nav id='cd-main-nav'>
+        <ul>
+          <li><a href='/'>Home</a></li>
+          <li><a href='/search'>Search</a></li>
+          <li><a href='/collection'>My Collection</a></li>
+        </ul>
+      </nav>
+    </div>
     <div class='global-modal'>
       <div class='overlay'></div>
       <div class='global-modal_contents modal-transition'>
@@ -46,6 +48,7 @@
     crossorigin='anonymous'></script>
   <script src='https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.17.4/lodash.js'></script>
   <script src='../scripts/collection-details.js'></script>
+  <script src='/scripts/nav.js'></script>
 </body>
 
 </html>

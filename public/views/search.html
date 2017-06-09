@@ -14,13 +14,16 @@
 <body>
   <main>
     <h1>Search</h1>
-    <nav>
-      <ul>
-        <li><a href='/'>Home</a></li>
-        <li><a href='/search'>Search</a></li>
-        <li><a href='/collection'>My Collection</a></li>
-      </ul>
-    </nav>
+    <div id='cd-nav'>
+      <a href='#' class='cd-nav-trigger'>Menu<span></span></a>
+      <nav id='cd-main-nav'>
+        <ul>
+          <li><a href='/'>Home</a></li>
+          <li><a href='/search'>Search</a></li>
+          <li><a href='/collection'>My Collection</a></li>
+        </ul>
+      </nav>
+    </div>
 
     <form id='search-form'>
       <input id='search-artist' type="text" placeholder="Artist" required>
@@ -37,7 +40,8 @@
   <script src="https://code.jquery.com/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
     crossorigin="anonymous"></script>
   <script src='https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.17.4/lodash.js'></script>
-  <script src='../scripts/app.js'></script>
+  <script src='/scripts/app.js'></script>
+  <script src='/scripts/nav.js'></script>
 </body>
 
 </html>

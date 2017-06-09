@@ -1,11 +1,34 @@
+@import 'navbar';
 @import 'record';
 @import 'modal';
-* {
-  box-sizing: border-box
+// COLOR PALETTE
+$PINKINSH: #EF476F;
+$KINDAYELLOW: #FFD166;
+$MINTYGREEN: #06D6A0;
+$SKYBLUE: #118AB2;
+$DARKTEAL: #073B4C;
+/////////////
+// GLOBALS //
+/////////////
+html * {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
-h1 {
-  color: pink;
+*,
+*:after,
+*:before {
+  box-sizing: border-box;
+}
+
+header {
+  img {
+    position: fixed;
+    top: 0;
+    left: 0;
+    min-width: 100%;
+    min-height: 100%;
+  }
 }
 
 label {

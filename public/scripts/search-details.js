@@ -18,13 +18,13 @@ const handleDetailsSubmit = () => {
     const formData = $('#record-details form').serializeJSON();
 
     $.ajax({
-      method: 'POST',
-      url: '/records',
-      processData: false,
-      dataType: 'json',
-      contentType: 'application/json',
-      data: formData,
-    })
+        method: 'POST',
+        url: '/records',
+        processData: false,
+        dataType: 'json',
+        contentType: 'application/json',
+        data: formData,
+      })
       .done((data) => {
         console.log(`${data.album} has been added to your collection!`);
       })

@@ -14,13 +14,16 @@
 <body>
   <main>
     <h1>Search</h1>
-    <nav>
-      <ul>
-        <li><a href='/'>Home</a></li>
-        <li><a href='/search'>Search</a></li>
-        <li><a href='/collection'>My Collection</a></li>
-      </ul>
-    </nav>
+    <div id='cd-nav'>
+      <a href='#' class='cd-nav-trigger'>Menu<span></span></a>
+      <nav id='cd-main-nav'>
+        <ul>
+          <li><a href='/'>Home</a></li>
+          <li><a href='/search'>Search</a></li>
+          <li><a href='/collection'>My Collection</a></li>
+        </ul>
+      </nav>
+    </div>
     <section id='record-details'>
       <form action='/records' method='POST'>
         <!--HIDDEN INPUTS ARE NEEDED TO PASS DATA TO SERVER FROM API RESPONSE-->
@@ -48,6 +51,7 @@
     crossorigin='anonymous'></script>
   <script src='../scripts/jq-serialize-obj.js'></script>
   <script src='../scripts/search-details.js'></script>
+  <script src='/scripts/nav.js'></script>
 </body>
 
 </html>
