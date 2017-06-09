@@ -22,6 +22,8 @@ const app = express();
 app.set('view engine', 'pug');
 app.set('views', path.join(__dirname, '../public/views'));
 
+const env = app.get('env');
+
 // MIDDLEWARE STACK //
 app.use(compression());
 app.use(express.static('public'));
@@ -53,8 +55,6 @@ mongoose.Promise = global.Promise;
 app.use('/', router);
 
 
-
-
 // closeServer needs access to a server object, but that only
 // gets created when `runServer` runs, so we declare `server` here
 // and then assign a value to it in run
@@ -66,7 +66,7 @@ const runServer = () => new Promise((resolve, reject) => {
       return reject(err);
     }
     server = app.listen(PORT, () => {
-      logger.info(`Your app is listening on port ${PORT}.`);
+      logger.info(`Your app is listening on port ${PORT} in a ${env} environment.`);
       resolve();
     })
       .on('error', (err) => {

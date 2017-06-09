@@ -64,14 +64,8 @@ router.get('/collection/details/edit', (req, res) => {
 });
 
 // SIGN-UP VIEW
-router.get('/signup', (req, res) => {
-  
-});
-
 router.route('/signup')
-  .get((req, res) => {
-    res.sendFile(path.join(__dirname, '../public/views', 'signup.html'));
-  })
+  .get((req, res) => res.render('signup'))
   .post((req, res, next) => {
     passport.authenticate('local-signup', (err, user, info) => {
       if (err) {
@@ -80,22 +74,47 @@ router.route('/signup')
       if (!user) {
         return res.status(409);
       }
-      req.login((err) => {
+      req.login(user, (err) => {
         if (err) {
           console.error(err);
           return next(err);
         }
-        return res.redirect('/home');
+        return res.redirect('/');
       });
     })(req, res, next);
   });
 
-router.get('/home', isLoggedIn, (req, res) => {
-  return res.sendFile(path.join(__dirname, '../public/views', 'home.html'));
+// LOGIN VIEW
+router.route('/login')
+  .get((req, res) => res.render('login'))
+  .post((req, res, next) => {
+    passport.authenticate('local-login', (err, user, info) => {
+      if (err) {
+        return next(err) //GENERATES A 500 ERROR
+      }
+      if (!user) {
+        return res.status(409);
+      }
+      req.login(user, (err) => {
+        if (err) {
+          console.error(err);
+          return next(err);
+        }
+        return res.redirect('/');
+      });
+    })(req, res, next);
+  });
+
+// LOGOUT HANDLER
+router.get('/logout', (req, res) => {
+  req.logout();
+  req.session.destroy();
+  return res.redirect('/');
 });
 
-
+//=================================================
 // RECORD API CRUD OPERATIONS =====================
+//=================================================
 
 // RETRIEVE ALL RECORDS
 router.get('/records', (req, res) => {
