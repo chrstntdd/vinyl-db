@@ -1,24 +1,13 @@
 const mongoose = require('mongoose');
+const { recordSchema } = require('./records');
 const bcrypt = require('bcrypt-nodejs');
 
 const userSchema = mongoose.Schema({
-  username: {
-    type: String,
-    required: true,
-  },
-  email: {
-    type: String,
-    required: true,
-    unique: true,
-  },
-  password: {
-    type: String,
-    required: true,
-  },
-  created_on: {
-    type: Date,
-    default: Date.now,
-  },
+  username: { type: String, required: true, unique: true },
+  email: { type: String, required: true, unique: true },
+  password: { type: String, required: true },
+  created_on: { type: Date, default: Date.now },
+  music: [recordSchema],
 });
 
 userSchema.methods.generateHash = function (password) {
