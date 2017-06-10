@@ -1,9 +1,10 @@
 $(() => {
   // DOCUMENT READY FUNCTIONS
   let tempDataStore = JSON.parse(sessionStorage.tempDataStore);
+  let userId = localStorage.userId;
   populate($('#record-details form'), tempDataStore);
   sessionStorage.clear();
-  handleDetailsSubmit();
+  handleDetailsSubmit(userId);
 });
 
 const populate = (form, data) => {
@@ -12,21 +13,21 @@ const populate = (form, data) => {
   });
 };
 
-const handleDetailsSubmit = () => {
+const handleDetailsSubmit = (userId) => {
   $('#record-details form').on('submit', (e) => {
     e.preventDefault();
     const formData = $('#record-details form').serializeJSON();
 
     $.ajax({
         method: 'POST',
-        url: '/records',
+        url: `/records/${userId}`,
         processData: false,
         dataType: 'json',
         contentType: 'application/json',
         data: formData,
       })
       .done((data) => {
-        console.log(`${data.album} has been added to your collection!`);
+        window.location.replace('/collection');
       })
       .fail((err) => {
         console.log(err);

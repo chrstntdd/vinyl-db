@@ -1,16 +1,17 @@
 $(() => {
   // DOCUMENT READY FUNCTIONS
   let selectedRecordId = localStorage.tempDataStore;
-  getRecordDetails(selectedRecordId);
+  let userId = localStorage.userId;
+  getRecordDetails(userId, selectedRecordId);
   
   handleModal();
-  handleDelete(selectedRecordId);
+  handleDelete(userId, selectedRecordId);
 });
 
-const getRecordDetails = (selectedRecordId) => {
+const getRecordDetails = (userId, selectedRecordId) => {
   $.ajax({
     method: 'GET',
-    url: `/records/${selectedRecordId}`,
+    url: `/records/${userId}/${selectedRecordId}`,
     dataType: 'json',
   }).then((res) => {
     renderRecord(res);
@@ -101,11 +102,11 @@ const handleModal = () => {
   });
 };
 
-const handleDelete = (selectedRecordId) => {
+const handleDelete = (userId, selectedRecordId) => {
   $('.btn-delete').on('click', (e) => {
     $.ajax({
         method: 'DELETE',
-        url: `/records/${selectedRecordId}`,
+        url: `/records/${userId}/${selectedRecordId}`,
       })
       .done((res) => {
         window.location.replace('/collection');

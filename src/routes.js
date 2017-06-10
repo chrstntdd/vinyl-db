@@ -4,10 +4,8 @@ const utilities = require('../models/util');
 const map = require('lodash.map');
 const logger = require('./logger').logger;
 const Discogs = require('disconnect').Client;
-const path = require('path');
 
-
-const { Record } = require('../models/records');
+const { User } = require('../models/user');
 
 const router = express.Router();
 
@@ -35,31 +33,31 @@ router.use(passport.session());
 
 // ROOT / HOMEPAGE
 router.get('/', (req, res) => {
-  res.render('index');
+  res.render('index', {userId: JSON.stringify(req.session.userId)});
 });
 
 // SEARCH VIEW
-router.get('/search', (req, res) => {
+router.get('/search', isLoggedIn, (req, res) => {
   res.render('search');
 });
 
 // SEARCH DETAILS VIEW
-router.get('/search/details', (req, res) => {
+router.get('/search/details', isLoggedIn, (req, res) => {
   res.render('search-details');
 });
 
 // COLLECTION VIEW
-router.get('/collection', (req, res) => {
+router.get('/collection', isLoggedIn, (req, res) => {
   res.render('collection');
 });
 
 // COLLECTION DETAILS VIEW
-router.get('/collection/details', (req, res) => {
+router.get('/collection/details', isLoggedIn, (req, res) => {
   res.render('collection-details');
 });
 
 // COLLECTION DETAILS VIEW
-router.get('/collection/details/edit', (req, res) => {
+router.get('/collection/details/edit', isLoggedIn, (req, res) => {
   res.render('collection-edit');
 });
 
@@ -91,15 +89,16 @@ router.route('/login')
     passport.authenticate('local-login', (err, user, info) => {
       if (err) {
         return next(err) //GENERATES A 500 ERROR
-      }
+      };
       if (!user) {
         return res.status(409);
-      }
+      };
       req.login(user, (err) => {
         if (err) {
           console.error(err);
           return next(err);
-        }
+        };
+        req.session.userId = user.$__._id; // SET USER ID FOR USE BY CLIENT API CALLS
         return res.redirect('/');
       });
     })(req, res, next);
@@ -117,10 +116,13 @@ router.get('/logout', (req, res) => {
 //=================================================
 
 // RETRIEVE ALL RECORDS
-router.get('/records', (req, res) => {
-  Record
-    .find()
-    .exec()
+router.get('/records/:userId', (req, res) => {
+  User
+    .findById(req.params.userId)
+    .then((res) => {
+      let records = res.music;
+      return records;
+    })
     .then(records => res.json(records))
     .catch((err) => {
       logger.error(err);
@@ -131,10 +133,13 @@ router.get('/records', (req, res) => {
 });
 
 // RETRIEVE RECORD BY ID
-router.get('/records/:id', (req, res) => {
-  Record
-    .findById(req.params.id)
-    .exec()
+router.get('/records/:userId/:id', (req, res) => {
+  User
+    .findById(req.params.userId)
+    .then((res) => {
+      let record = res.music.id(req.params.id);
+      return record;
+    })
     .then(record => res.json(record))
     .catch((err) => {
       logger.error(err);
@@ -145,7 +150,7 @@ router.get('/records/:id', (req, res) => {
 });
 
 // POST NEW RECORD
-router.post('/records', (req, res) => {
+router.post('/records/:userId', (req, res) => {
   const reqFields = ['artist', 'album', 'releaseYear', 'genre'];
   map(reqFields, (field) => {
     if (!(field in req.body)) {
@@ -155,21 +160,27 @@ router.post('/records', (req, res) => {
     }
   });
 
-  Record
-    .create({
-      artist: req.body.artist,
-      album: req.body.album,
-      releaseYear: req.body.releaseYear,
-      purchaseDate: req.body.purchaseDate,
-      genre: req.body.genre,
-      rating: req.body.rating,
-      mood: req.body.mood,
-      playCount: req.body.playCount,
-      notes: req.body.notes,
-      vinylColor: req.body.vinylColor,
-      accolades: req.body.accolades,
-      discogsId: req.body.discogsId,
-      thumb: req.body.thumb,
+  User
+    .findById(req.params.userId)
+    .then((res) => {
+      let newRecord = {
+        artist: req.body.artist,
+        album: req.body.album,
+        releaseYear: req.body.releaseYear,
+        purchaseDate: req.body.purchaseDate,
+        genre: req.body.genre,
+        rating: req.body.rating,
+        mood: req.body.mood,
+        playCount: req.body.playCount,
+        notes: req.body.notes,
+        vinylColor: req.body.vinylColor,
+        accolades: req.body.accolades,
+        discogsId: req.body.discogsId,
+        thumb: req.body.thumb,
+      }
+      res.music.push(newRecord);
+      res.save();
+      return newRecord;
     })
     .then(newRecord => res.status(201).json(newRecord))
     .catch((err) => {
@@ -181,10 +192,13 @@ router.post('/records', (req, res) => {
 });
 
 // DELETE RECORD BY ID
-router.delete('/records/:id', (req, res) => {
-  Record
-    .findByIdAndRemove(req.params.id)
-    .exec()
+router.delete('/records/:userId/:id', (req, res) => {
+  User
+    .findById(req.params.userId)
+    .then((res) => {
+      res.music.pull(req.params.id);
+      res.save()
+    })
     .then(() => {
       let message = `Successfully deleted the record with an id of ${req.params.id}`;
       logger.info(message);
@@ -201,7 +215,7 @@ router.delete('/records/:id', (req, res) => {
 });
 
 // UPDATE RECORD BY ID
-router.put('/records/:id', (req, res) => {
+router.put('/records/:userId/:id', (req, res) => {
   if (!(req.params.id && req.body.id === req.body.id)) {
     res.status(400).json({
       error: 'Request path id and request body id must match. Try again.',
@@ -216,14 +230,15 @@ router.put('/records/:id', (req, res) => {
       updated[field] = req.body[field];
     }
   });
-
-  Record
-    .findByIdAndUpdate(req.params.id, {
-      $set: updated,
-    }, {
-      new: true,
+  
+  // DOESN'T USE THE CHECK FROM ABOVE TO SET NEW CONTENT
+  User
+    .findById(req.params.userId)
+    .then((res) => {
+      let subDoc = res.music.id(req.params.id);
+      subDoc.set(req.body);
+      res.save();
     })
-    .exec()
     .then((updatedRecord) => {
       let message = `Successfully updated the record with an id of ${req.params.id}`;
       logger.info(message);

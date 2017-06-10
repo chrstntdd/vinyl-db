@@ -86,7 +86,7 @@ passport.use('local-login', new LocalStrategy({
           errMsg: 'Invalid password try again'
         });
       };
-      console.log('Successfully logged in')
+      console.log('Successfully logged in');
       return done(null, user);
     });
   }));

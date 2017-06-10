@@ -1,13 +1,13 @@
 $(() => {
   // DOCUMENT READY FUNCTIONS
-  getCollection();
+  getCollection(localStorage.userId);
   handleRecordSelection();
 });
 
-const getCollection = () => {
+const getCollection = (userId) => {
   $.ajax({
     method: 'GET',
-    url: '/records',
+    url: `/records/${userId}`,
     dataType: 'json',
   }).then((res) => {
     renderRecords(res);

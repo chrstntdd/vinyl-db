@@ -1,8 +1,9 @@
 $(() => {
   // DOCUMENT READY FUNCTIONS
   let selectedRecordId = localStorage.tempDataStore;
-  getRecordDetails(selectedRecordId);
-  handlePutRecordDetails(selectedRecordId);
+  let userId = localStorage.userId;
+  getRecordDetails(userId, selectedRecordId);
+  handlePutRecordDetails(userId, selectedRecordId);
 });
 
 const populate = (form, data) => {
@@ -11,10 +12,10 @@ const populate = (form, data) => {
   });
 };
 
-const getRecordDetails = (selectedRecordId) => {
+const getRecordDetails = (userId, selectedRecordId) => {
   $.ajax({
       method: 'GET',
-      url: `/records/${selectedRecordId}`,
+      url: `/records/${userId}/${selectedRecordId}`,
       processData: false,
       dataType: 'json',
       contentType: 'application/json',
@@ -27,7 +28,7 @@ const getRecordDetails = (selectedRecordId) => {
     });
 };
 
-const handlePutRecordDetails = (selectedRecordId) => {
+const handlePutRecordDetails = (userId, selectedRecordId) => {
   $('#record-details form').on('submit', (e) => {
     e.preventDefault();
     let formData = $('#record-details form').serializeJSON();
@@ -35,9 +36,9 @@ const handlePutRecordDetails = (selectedRecordId) => {
 
     $.ajax({
         method: 'PUT',
-        url: `/records/${selectedRecordId}`,
+        url: `/records/${userId}/${selectedRecordId}`,
         processData: false,
-        dataType: 'json',
+        dataType: 'text', // THROWS ERROR WITH 'JSON'
         contentType: 'application/json',
         data: formData,
       })
