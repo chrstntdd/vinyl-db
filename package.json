@@ -36,6 +36,7 @@
   },
   "scripts": {
     "start": "node src/server.js",
+    "watch": "nodemon src/server.js",
     "test": "mocha -c"
   }
 }
