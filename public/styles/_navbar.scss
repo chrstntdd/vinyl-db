@@ -1,3 +1,5 @@
+@import 'colors';
+
 /* -------------------------------- 
 
 Modules - reusable parts of our design
@@ -7,7 +9,7 @@ Modules - reusable parts of our design
 .cd-container {
   /* this class is used to give a max-width to the element it is applied to, and center it horizontally when it reaches that max-width */
   width: 90%;
-  max-width: 1170px;
+  max-width: 766px;
   margin: 0 auto;
 }
 
@@ -90,7 +92,7 @@ Main components
   border-bottom: none;
 }
 
-@media only screen and (min-width: 1170px) {
+@media only screen and (min-width: 766px) {
   #cd-nav ul {
     /* the navigation moves to the top */
     position: absolute;
@@ -112,9 +114,6 @@ Main components
     padding: .4em;
     margin-left: 1.6em;
     border-bottom: none;
-  }
-  #cd-nav li a:hover {
-    color: #00bd9b;
   }
   #cd-nav.is-fixed ul {
     /* when the user scrolls down, the navigation moves to the bottom right in Fixed position - as on touch devices */
@@ -230,7 +229,7 @@ Main components
   transform: rotate(225deg);
 }
 
-@media only screen and (min-width: 1170px) {
+@media only screen and (min-width: 766px) {
   .cd-nav-trigger {
     /* the the menu triger is hidden by default on desktop devices */
     visibility: hidden;
@@ -269,7 +268,7 @@ Main components
   }
 }
 
-@media only screen and (min-width: 1170px) {
+@media only screen and (min-width: 766px) {
   #cd-gallery-items li {
     width: 31%;
     float: left;
