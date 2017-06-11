@@ -38,27 +38,27 @@ router.get('/', (req, res) => {
 
 // SEARCH VIEW
 router.get('/search', isLoggedIn, (req, res) => {
-  res.render('search');
+  res.render('search', {userId: JSON.stringify(req.session.userId)});
 });
 
 // SEARCH DETAILS VIEW
 router.get('/search/details', isLoggedIn, (req, res) => {
-  res.render('search-details');
+  res.render('search-details', {userId: JSON.stringify(req.session.userId)});
 });
 
 // COLLECTION VIEW
 router.get('/collection', isLoggedIn, (req, res) => {
-  res.render('collection');
+  res.render('collection', {userId: JSON.stringify(req.session.userId)});
 });
 
 // COLLECTION DETAILS VIEW
 router.get('/collection/details', isLoggedIn, (req, res) => {
-  res.render('collection-details');
+  res.render('collection-details', {userId: JSON.stringify(req.session.userId)});
 });
 
 // COLLECTION DETAILS VIEW
 router.get('/collection/details/edit', isLoggedIn, (req, res) => {
-  res.render('collection-edit');
+  res.render('collection-edit', {userId: JSON.stringify(req.session.userId)});
 });
 
 // SIGN-UP VIEW
