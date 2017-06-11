@@ -1,9 +1,12 @@
 #cd-nav
   a.cd-nav-trigger(href='#'): span
   nav#cd-main-nav: ul
-    li: a(href='/') Home
-    li: a(href='/search') Search
-    li: a(href='/collection') My Colleciton
-    li: a(href='/signup') Sign in / Sign up
-    li: a(href='/login') Login
-    li: a(href='logout') Logout
+    if userId
+      li: a(href='/') Home
+      li: a(href='/collection') My Collection
+      li: a(href='/search') Search
+      li: a(href='#') Profile
+      li#logout: a(href='/logout') Logout
+    else if userId == undefined
+      li: a(href='/login') Login
+      li: a(href='/signup') Sign up
