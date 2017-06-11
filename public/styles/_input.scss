@@ -1,0 +1,45 @@
+// GLOBAL TEXT INPUT
+@mixin input ($LABEL-COLOR) {
+  .input-group {
+    text-align: center;
+    position: relative;
+    padding-top: 20px;
+    margin-top: 20px;
+    &:after {
+      content: '';
+      display: table;
+      clear: both;
+    }
+    input {
+      border: none;
+      border-bottom: solid 1px #aaa;
+      width: 100%;
+      padding: 10px 0;
+      background-color: #eeeeee;
+      transition: border-color 0.2s ease, box-shadow 0.2s ease;
+      &:focus {
+        outline: none;
+        border-color: $LABEL-COLOR;
+        box-shadow: 0 1px 0 0 $LABEL-COLOR;
+      }
+      &:focus+label {
+        color: $LABEL-COLOR;
+      }
+    }
+    label {
+      position: absolute;
+      top: 30px;
+      left: 0;
+      color: darken(#aaa, 70%);
+      font-weight: 300;
+      transition: transform 0.2s ease, color 0.2s ease;
+      &:hover {
+        cursor: text;
+      }
+    }
+  }
+  .input-group input:focus+label,
+  .input-group input.active+label {
+    transform: translateY(-30px);
+  }
+}

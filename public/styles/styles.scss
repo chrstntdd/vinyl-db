@@ -2,7 +2,7 @@
 @import 'navbar';
 @import 'record';
 @import 'modal';
-
+@import 'input';
 // GLOBALS //
 html * {
   -webkit-font-smoothing: antialiased;
@@ -17,7 +17,9 @@ html * {
 
 body {
   font-family: "Source Sans Pro", sans-serif;
-  background-color: $DARKTEAL2;
+  background-image: linear-gradient(45deg, rgb(53, 57, 74) 0%, rgb(31, 34, 46) 100%);
+  height: 100vh;
+  margin: 0;
 }
 
 a {
@@ -30,7 +32,6 @@ a {
 }
 
 //////////////////
-
 header {
   img {
     position: fixed;
@@ -38,16 +39,6 @@ header {
     left: 0;
     min-width: 100%;
     min-height: 100%;
-  }
-}
-
-label {
-  display: block;
-  margin: 10px auto;
-  input {
-    border: 1px solid black;
-    padding: 12px;
-    border-radius: 3px;
   }
 }
 
@@ -89,8 +80,61 @@ label {
   }
 }
 
+// GLOBAL BUTTON STYLES
 button {
-  padding: 12px;
-  border-radius: 3px;
-  border: 1px solid black;
+  border-radius: 50px;
+  background: transparent;
+  padding: 10px 50px;
+  border: 2px solid $MINTYGREEN;
+  color: $MINTYGREEN;
+  text-transform: uppercase;
+  font-size: 11px;
+  transition-property: background, color;
+  transition-duration: 0.2s;
+  &:hover {
+    color: white;
+    background: $MINTYGREEN;
+    transition-property: background, color;
+  }
+}
+
+@mixin card-center ($HEIGHT) {
+  background-color: #eee;
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  margin: auto;
+  z-index: 1;
+  height: $HEIGHT;
+  max-width: 560px;
+  width: 95%;
+  padding: 20px;
+  border-radius: 2px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
+}
+
+#login-card {
+  @include card-center(350px);
+  @include input($MINTYGREEN);
+  h1 {
+    text-align: center;
+  }
+  button {
+    display: block;
+    margin: 20px auto 20px auto;
+  }
+}
+
+#signup-card {
+  @include card-center(430px);
+  @include input($MINTYGREEN);
+  h1 {
+    text-align: center;
+  }
+  button {
+    display: block;
+    margin: 20px auto 20px auto;
+  }
 }
