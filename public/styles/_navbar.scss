@@ -42,7 +42,7 @@ Main components
   visibility: hidden;
   /* remove overflow:hidden if you want to create a drop-down menu - but then remember to fix/eliminate the list items animation */
   overflow: hidden;
-  z-index: 1;
+  z-index: 5;
   /* Force Hardware Acceleration in WebKit */
   backface-visibility: hidden;
   transform: scale(0);
@@ -165,7 +165,7 @@ Main components
   overflow: hidden;
   text-indent: 100%;
   white-space: nowrap;
-  z-index: 2;
+  z-index: 100;
 }
 
 .cd-nav-trigger span {

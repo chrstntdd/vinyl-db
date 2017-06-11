@@ -1,4 +1,4 @@
-$DELTE: #ff0000;
+$DELETE: #ff0000;
 $RETURN: #47ba6b;
 @mixin button ($BUTTON_COLOR) {
   border: 1px solid $BUTTON_COLOR;
@@ -25,7 +25,7 @@ $RETURN: #47ba6b;
 }
 
 .btn-delete {
-  @include button($DELTE)
+  @include button($DELETE)
 }
 
 .btn-return {
