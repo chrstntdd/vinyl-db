@@ -30,7 +30,7 @@ const bindRecordDataToHTML = (res) => {
   );
 
   let $record = $(basicRecordHTML);
-  $record.find('img').attr('src', res.thumb);
+  $record.find('img').attr('src', res.thumb ? res.thumb : '../img/album-art-placeholder.svg');
   $record.find('a').attr('href', `/collection/details`)
   $record.attr('id', res._id);
   $record.find('.artist').text(`Artist: ${res.artist}`);

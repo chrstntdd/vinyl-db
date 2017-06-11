@@ -1,6 +1,7 @@
 $(() => {
   // document ready functions
   handleSearch();
+  handleLogout();
 });
 
 
@@ -80,7 +81,6 @@ const bindToHTML = (recordData) => {
 const renderRecord = (data) => {
   let recordHTML = bindToHTML(data);
   $('#results').append(recordHTML);
-  renderCreateCustomRecordBtn();
 };
 
 const renderNoResultsFound = (error) => {
@@ -99,8 +99,17 @@ const tempStoreData = (recordData) => {
   sessionStorage.tempDataStore = JSON.stringify(recordData);
 }
 
-const renderCreateCustomRecordBtn = () => {
-  if ($('#custom-btn').length == 0) {
-    $('#results').after(`<a id='custom-btn' href='#'>Create Custom</a>`);
-  };
+const handleLogout = () => {
+  $('nav #logout').on('click', (e) => {
+    localStorage.clear();
+  });
 };
+
+// FEATURE FOR A LATER DATE
+
+// const handleCustomBtn = () => {
+//   // FORGO POPULATING DETAILS FORM WHEN CREATING A CUSTOM RECORD
+//   $('#custom-btn').on('click', (e) => {
+//     sessionStorage.clear();
+//   });
+// };
