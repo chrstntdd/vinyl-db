@@ -8,6 +8,7 @@ $(() => {
 
 const populate = (form, data) => {
   $.each(data, (key, value) => {
+    $(`[name=${key}]`, form).focus();
     $(`[name=${key}]`, form).val(value);
   });
 };

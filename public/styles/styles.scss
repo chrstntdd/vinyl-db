@@ -18,8 +18,14 @@ html * {
 body {
   font-family: "Source Sans Pro", sans-serif;
   background-image: linear-gradient(45deg, rgb(53, 57, 74) 0%, rgb(31, 34, 46) 100%);
-  height: 100vh;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  height: 100%;
   margin: 0;
+}
+
+html {
+  height: 100%;
 }
 
 a {
@@ -115,9 +121,9 @@ button {
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
 }
 
-#login-card {
-  @include card-center(350px);
-  @include input($MINTYGREEN);
+@mixin forms ($HEIGHT, $COLOR) {
+  @include card-center($HEIGHT);
+  @include input($COLOR);
   h1 {
     text-align: center;
   }
@@ -127,14 +133,22 @@ button {
   }
 }
 
+#login-card {
+  @include forms(350px, $MINTYGREEN);
+}
+
 #signup-card {
-  @include card-center(430px);
-  @include input($MINTYGREEN);
-  h1 {
-    text-align: center;
-  }
-  button {
-    display: block;
-    margin: 20px auto 20px auto;
-  }
+  @include forms(430px, $MINTYGREEN);
+}
+
+#search-card {
+  @include forms(430px, $MINTYGREEN);
+}
+
+#record-details-card {
+  @include forms(430px, $MINTYGREEN);
+}
+
+#edit-details-card {
+  @include forms(600px, $MINTYGREEN);
 }
