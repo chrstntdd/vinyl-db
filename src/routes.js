@@ -2,6 +2,7 @@ const express = require('express');
 const passport = require('./passport');
 const utilities = require('../models/util');
 const map = require('lodash.map');
+const trim = require('lodash.trim');
 const logger = require('./logger').logger;
 const Discogs = require('disconnect').Client;
 
@@ -41,9 +42,30 @@ router.get('/search', isLoggedIn, (req, res) => {
   res.render('search', {userId: JSON.stringify(req.session.userId)});
 });
 
+// SEARCH RESULTS VIEW
+
+router.get('/search/results', isLoggedIn, (req, res) => {
+  res.render('search-results', 
+  { userId: req.session.userId,
+    title: req.session.searchResult.title,
+    genre: req.session.searchResult.genre[0],
+    thumb: req.session.searchResult.thumb,
+    year: req.session.searchResult.year,
+    searchResult: JSON.stringify(req.session.searchResult),
+  });
+});
+
 // SEARCH DETAILS VIEW
 router.get('/search/details', isLoggedIn, (req, res) => {
-  res.render('search-details', {userId: JSON.stringify(req.session.userId)});
+  res.render('search-details',
+  { userId: JSON.stringify(req.session.userId),
+    artist: trim(req.session.searchResult.title.substr(0, (req.session.searchResult.title + '-').indexOf('-'))),
+    album: trim(req.session.searchResult.title.substr(req.session.searchResult.title.indexOf('-') + 1)),
+    genre: req.session.searchResult.genre[0],
+    thumb: req.session.searchResult.thumb,
+    year: req.session.searchResult.year,
+    searchResult: JSON.stringify(req.session.searchResult),
+  });
 });
 
 // COLLECTION VIEW
@@ -265,7 +287,9 @@ router.post('/search', (req, res) => {
   })
     .then((release) => {
       if (release.results.length > 0) {
-        res.json(release.results);
+        // ADD SEARCH RESULTS TO SESSION FOR RENDER IN RESULTS VIEW
+        req.session.searchResult = release.results[0];
+        res.end();
       } else {
         res.json({
           error: 'No results found. Please try your search again.',

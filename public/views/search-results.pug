@@ -1,0 +1,23 @@
+doctype html
+
+html(lang='en')
+  include includes/head.pug
+  body
+    include includes/nav.pug
+    main
+      h1 Is this what you were looking for?
+        article#result-card
+          h2= title
+          h3= year
+          h3= genre
+          img(src=thumb)
+          a(href='/search/details'): button Yup!
+          a(href='/search'): button Try again...
+
+    script.
+      //- CAPTURES THE SEARCH RESULT AND SETS IN LOCALSTORAGE FOR USE IN API CALLS
+     localStorage.searchResult = !{searchResult};
+    script(src='https://code.jquery.com/jquery-3.2.1.min.js' integrity='sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=' crossorigin='anonymous')
+    script(src='https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.17.4/lodash.js')
+    script(src='/scripts/app.js')
+    script(src='/scripts/nav.js')
