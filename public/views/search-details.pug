@@ -10,6 +10,7 @@ html(lang='en')
         section#record-details
           form(action='/records' method='POST' autocomplete='off')
             input(name='thumb' type='hidden' value=thumb)
+            input(name='discogsId' type='hidden' value=discogsId)
             .input-group
               input.m-input(name='artist', type='text' value=artist)
               label(for='artist' type='text') Artist

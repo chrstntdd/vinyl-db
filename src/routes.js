@@ -47,10 +47,11 @@ router.get('/search', isLoggedIn, (req, res) => {
 router.get('/search/results', isLoggedIn, (req, res) => {
   res.render('search-results', 
   { userId: req.session.userId,
-    title: req.session.searchResult.title,
-    genre: req.session.searchResult.genre[0],
-    thumb: req.session.searchResult.thumb,
+    title: `${req.session.searchResult.title} - ${req.session.searchResult.artists[0].name}`,
+    genre: req.session.searchResult.genres[0],
+    thumb: req.session.searchResult.images[0].resource_url,
     year: req.session.searchResult.year,
+    discogsId: req.session.searchResult.id,
     searchResult: JSON.stringify(req.session.searchResult),
   });
 });
@@ -58,12 +59,13 @@ router.get('/search/results', isLoggedIn, (req, res) => {
 // SEARCH DETAILS VIEW
 router.get('/search/details', isLoggedIn, (req, res) => {
   res.render('search-details',
-  { userId: JSON.stringify(req.session.userId),
-    artist: trim(req.session.searchResult.title.substr(0, (req.session.searchResult.title + '-').indexOf('-'))),
-    album: trim(req.session.searchResult.title.substr(req.session.searchResult.title.indexOf('-') + 1)),
-    genre: req.session.searchResult.genre[0],
-    thumb: req.session.searchResult.thumb,
+  { userId: req.session.userId,
+    artist: req.session.searchResult.artists[0].name,
+    album: req.session.searchResult.title,
+    genre: req.session.searchResult.genres[0],
+    thumb: req.session.searchResult.images[0].resource_url,
     year: req.session.searchResult.year,
+    discogsId: req.session.searchResult.id,
     searchResult: JSON.stringify(req.session.searchResult),
   });
 });
@@ -283,13 +285,21 @@ router.post('/search', (req, res) => {
     artist: artist,
     title: album,
     release_title: album,
+    type: 'release',
     format: 'vinyl',
   })
     .then((release) => {
       if (release.results.length > 0) {
-        // ADD SEARCH RESULTS TO SESSION FOR RENDER IN RESULTS VIEW
-        req.session.searchResult = release.results[0];
-        res.end();
+        // MAKE CALL FOR DETAILS
+        db.getRelease(release.results[0].id)
+          .then((response) => {
+            // ADD SEARCH RESULTS TO SESSION FOR RENDER IN RESULTS VIEW
+            req.session.searchResult = response;
+            res.json(response);
+          })
+          .catch((err) => {
+            logger.info(err);
+          });
       } else {
         res.json({
           error: 'No results found. Please try your search again.',

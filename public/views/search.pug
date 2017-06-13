@@ -9,10 +9,10 @@ html(lang='en')
         h1 Search
         form#search-form(autocomplete='off')
           .input-group
-            input#search-artist.m-input(name='artist', type='text')
+            input#search-artist.m-input(name='artist', type='text' required)
             label(for='artist' type='text') Artist
           .input-group
-            input#search-album.m-input(name='album', type='text')
+            input#search-album.m-input(name='album', type='text' required)
             label(for='album' type='text') Album
           .input-group
             button#search-btn(type='submit') Search

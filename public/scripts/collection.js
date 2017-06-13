@@ -10,7 +10,6 @@ const getCollection = (userId) => {
     url: `/records/${userId}`,
     dataType: 'json',
   }).then((res) => {
-    console.log(res);
     renderRecords(res);
   }).fail((err) => {
     console.error(err);

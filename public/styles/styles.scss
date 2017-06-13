@@ -134,6 +134,11 @@ header {
   width: 25rem;
   padding: 10px;
   background-color: white;
+  img {
+    object-fit: cover;
+    width: 100%;
+    height: 100%;
+  }
   .btn-group {
     text-align: center;
     button.confirm {
