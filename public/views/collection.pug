@@ -6,10 +6,11 @@ html(lang='en')
     include includes/nav.pug
     main
       h1 My Collection
-      section#record-collection
+      .cards.contianer
 
     script(src='https://code.jquery.com/jquery-3.2.1.min.js' integrity='sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=' crossorigin='anonymous')
     script(src='https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.17.4/lodash.js')
     script(src='/scripts/jq-serialize-obj.js')
+    script(src='/scripts/foldout-cards.js')
     script(src='/scripts/collection.js')
     script(src='/scripts/nav.js')

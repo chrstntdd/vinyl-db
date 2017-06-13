@@ -3,6 +3,7 @@
 @import 'record';
 @import 'modal';
 @import 'input';
+@import 'foldout-cards';
 // GLOBALS //
 html * {
   -webkit-font-smoothing: antialiased;
@@ -20,8 +21,10 @@ body {
   background-image: linear-gradient(45deg, rgb(53, 57, 74) 0%, rgb(31, 34, 46) 100%);
   background-repeat: no-repeat;
   background-attachment: fixed;
+  text-rendering: optimizeLegibility;
   height: 100%;
   margin: 0;
+  overflow-x: hidden;
 }
 
 html {
@@ -48,34 +51,6 @@ header {
   }
 }
 
-#record-collection {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: space-around;
-  article {
-    margin: 10px 20px;
-    border: 1px solid black;
-    padding: 10px;
-    box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.10), 0px 10px 20px rgba(0, 0, 0, 0.05), 0px 20px 20px rgba(0, 0, 0, 0.05), 0px 30px 20px rgba(0, 0, 0, 0.05);
-    height: 400px;
-    width: 320px;
-    background-color: $KINDAYELLOW;
-    a {
-      text-decoration: none;
-      color: #747274;
-      transition: color 0.5s;
-      &:hover {
-        color: black;
-      }
-      img {
-        display: block;
-        margin: 0 auto;
-        width: 250px;
-      }
-    }
-  }
-}
-
 #record-details {
   p {
     font-family: "Century Gothic", CenturyGothic, AppleGothic, sans-serif;
@@ -87,19 +62,19 @@ header {
 }
 
 // GLOBAL BUTTON STYLES
-button {
+@mixin button($COLOR) {
   border-radius: 50px;
   background: transparent;
   padding: 10px 50px;
-  border: 2px solid $MINTYGREEN;
-  color: $MINTYGREEN;
+  border: 2px solid $COLOR;
+  color: $COLOR;
   text-transform: uppercase;
   font-size: 11px;
   transition-property: background, color;
   transition-duration: 0.2s;
   &:hover {
     color: white;
-    background: $MINTYGREEN;
+    background: $COLOR;
     transition-property: background, color;
   }
 }
@@ -128,6 +103,7 @@ button {
     text-align: center;
   }
   button {
+    @include button($COLOR);
     display: block;
     margin: 20px auto 20px auto;
   }
@@ -151,4 +127,50 @@ button {
 
 #edit-details-card {
   @include forms(600px, $MINTYGREEN);
+}
+
+#result-card {
+  margin: 10% auto 0 auto;
+  width: 25rem;
+  padding: 10px;
+  background-color: white;
+  .btn-group {
+    text-align: center;
+    button.confirm {
+      @include button($MINTYGREEN);
+      display: inline-block;
+      width: 150px;
+    }
+    button.deny {
+      @include button(red);
+      display: inline-block;
+      width: 150px;
+    }
+  }
+}
+
+#record-details.collection-details {
+  #edit-record button {
+    @include button($MINTYGREEN);
+  }
+  button#delete-record {
+    @include button(red);
+  }
+}
+
+#btn-rec-details {
+  button {
+    @include button($MINTYGREEN);
+  }
+}
+
+.card {
+  h2 {
+    margin-top: 0;
+    margin-bottom: 0;
+  }
+  h3 {
+    margin-top: 0;
+    margin-bottom: 0;
+  }
 }

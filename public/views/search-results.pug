@@ -5,14 +5,15 @@ html(lang='en')
   body
     include includes/nav.pug
     main
-      h1 Is this what you were looking for?
-        article#result-card
-          h2= title
-          h3= year
-          h3= genre
-          img(src=thumb)
-          a(href='/search/details'): button Yup!
-          a(href='/search'): button Try again...
+      article#result-card
+        h1 Is this what you were looking for?
+        img(src=thumb)
+        h2= title
+        h3= year
+        h3= genre
+        .btn-group
+          a(href='/search/details'): button.confirm That's right
+          a(href='/search'): button.deny Try again...
 
     script.
       //- CAPTURES THE SEARCH RESULT AND SETS IN LOCALSTORAGE FOR USE IN API CALLS

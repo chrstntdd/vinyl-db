@@ -3,7 +3,7 @@ $(() => {
   let selectedRecordId = localStorage.tempDataStore;
   let userId = localStorage.userId;
   getRecordDetails(userId, selectedRecordId);
-  
+
   handleModal();
   handleDelete(userId, selectedRecordId);
 });
@@ -34,7 +34,7 @@ const bindRecordDataToHTML = (res) => {
         <p class='rating'></p>
         <p class='notes'></p>
         <a id='edit-record' href='/collection/details/edit'>
-          <button>Edit details</button>
+          <button>Edit</button>
         </a>
         <button id='delete-record'>Delete</button>
     </article>`
