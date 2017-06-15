@@ -1,8 +1,5 @@
 const passport = require('passport');
 const { User } = require('../models/user');
-const utilities = require('../models/util');
-
-var errHandler = utilities.errHandler;
 var LocalStrategy = require('passport-local').Strategy;
 
 module.exports = function (passport) {
@@ -14,9 +11,6 @@ module.exports = function (passport) {
 
   passport.deserializeUser((id, done) => {
     User.findById(id, (err, user) => {
-      if (err) {
-        logger.error(`There was an error accessing the records of the user with id ${id}`);
-      };
       done(err, user);
     });
   });
@@ -33,31 +27,18 @@ module.exports = function (passport) {
         email: email
       }, (err, user) => {
         if (err) {
-          return errHandler(err);
+          return done(err);
         }
         if (user) {
-          console.log('User already exists.');
-          return done(null, false, {
-            errMsg: 'email already exists'
-          });
+          return done(null, false, req.flash('signupMessage', 'That email is already taken.'));
         } else {
           var newUser = new User();
-          newUser.username = req.body.username;
           newUser.email = email;
           newUser.password = newUser.generateHash(password);
           newUser.save((err) => {
             if (err) {
-              console.log(err);
-              if (err.message == 'User validation failed') {
-                console.log(err.message);
-                return done(null, false, {
-                  errMsg: 'Please fill out all the fields.'
-                });
-              }
-              return errHandler(err);
+              throw err;
             }
-            console.log(`New user successfully created: ${newUser.username}`);
-            console.log(`Email: ${email}`);
             console.log(newUser);
             return done(null, newUser);
           });
@@ -73,26 +54,19 @@ module.exports = function (passport) {
       passReqToCallback: true,
     },
     (req, email, password, done) => {
-      User.findOne({
-        email: email
-      }, (err, user) => {
+      User.findOne({ email: email }, (err, user) => {
         if (err) {
-          return errHandler(err);
+          logger.error(err);
+          return done(err);
         };
         if (!user) {
-          return done(null, false, {
-            errMsg: 'User does not exist, please' +
-              ' <a class="errMsg" href="/signup">signup</a>'
-          });
+          return done(null, false, req.flash('loginMessage', 'User does not exist, please sign up.' ));
         };
         if (!user.validPassword(password)) {
-          return done(null, false, {
-            errMsg: 'Invalid password try again'
-          });
+          return done(null, false, req.flash('loginMessage', 'Invalid password try again.' ));
         };
         console.log('Successfully logged in');
         return done(null, user);
       });
     }));
-
 };

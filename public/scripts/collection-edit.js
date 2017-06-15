@@ -1,9 +1,8 @@
 $(() => {
   // DOCUMENT READY FUNCTIONS
   let selectedRecordId = localStorage.tempDataStore;
-  let userId = localStorage.userId;
-  getRecordDetails(userId, selectedRecordId);
-  handlePutRecordDetails(userId, selectedRecordId);
+  getRecordDetails(user._id, selectedRecordId);
+  handlePutRecordDetails(user._id, selectedRecordId);
 });
 
 const populate = (form, data) => {

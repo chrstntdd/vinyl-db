@@ -22,9 +22,6 @@ const router = require('./routes');
 const DATABASE_URL = process.env.DATABASE_URL;
 const PORT = process.env.PORT;
 
-// REQUIRE PASSPORT CONFIG AND PASS IN NPM PASSPORT MODULE
-require('../config/passport')(passport);
-
 // CONFIG TO SERVER STATIC ASSETS
 app.use(express.static(path.join(__dirname, '../public')));
 
@@ -53,6 +50,9 @@ app.use(session({
   secret: 'qwertyuiop123456789',
   resave: false,
   saveUninitialized: false,
+  httpOnly: true,
+  secure: true,
+  ephemeral: true,
   cookie: {
     maxAge: 1000 * 60 * 120, // 120 MINUTES
   },
@@ -60,6 +60,8 @@ app.use(session({
 app.use(passport.initialize());
 app.use(passport.session());
 app.use(flash());
+// REQUIRE PASSPORT CONFIG AND PASS IN NPM PASSPORT MODULE
+require('../config/passport')(passport);
 
 mongoose.Promise = global.Promise;
 

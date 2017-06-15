@@ -1,6 +1,8 @@
 $(() => {
   // DOCUMENT READY FUNCTIONS
-  getCollection(localStorage.userId);
+
+  // CALL FOR USER'S COLLECTION USING THEIR ID STORED IN SESSION, PASSED INTO VIEW, THEN PASSED IN HERE
+  getCollection(user._id);
   handleRecordSelection();
 });
 

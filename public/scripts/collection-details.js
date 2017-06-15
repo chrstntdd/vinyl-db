@@ -1,11 +1,10 @@
 $(() => {
   // DOCUMENT READY FUNCTIONS
   let selectedRecordId = localStorage.tempDataStore;
-  let userId = localStorage.userId;
-  getRecordDetails(userId, selectedRecordId);
+  getRecordDetails(user._id, selectedRecordId);
 
   handleModal();
-  handleDelete(userId, selectedRecordId);
+  handleDelete(user._id, selectedRecordId);
 });
 
 const getRecordDetails = (userId, selectedRecordId) => {

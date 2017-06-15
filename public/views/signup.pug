@@ -6,11 +6,9 @@ html(lang='en')
     include includes/nav.pug
     main
       article#signup-card
+        .error #{ message }
         h1 Sign up
         form(action='/signup' method='POST' autocomplete='off')
-          .input-group
-            input.m-input(name='username', type='text' required)
-            label(for='username' type='text') Username
           .input-group
             input.m-input(name='email', type='email' required)
             label(for='email' type='text') Email

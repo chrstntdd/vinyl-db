@@ -1,5 +1,6 @@
 module.exports = function(app, passport){
   const express = require('express');
+  require('dotenv').config();
   const utilities = require('../models/util');
   const map = require('lodash.map');
   const trim = require('lodash.trim');
@@ -7,6 +8,9 @@ module.exports = function(app, passport){
   const Discogs = require('disconnect').Client;
 
   const { User } = require('../models/user');
+
+  const SMTP_URL = process.env.SMTP_URL;
+  const FROM_EMAIL = process.env.FROM_EMAIL
 
   const router = express.Router();
 
@@ -20,30 +24,17 @@ module.exports = function(app, passport){
   };
 
 
-  const errHandler = utilities.errHandler;
-  const validationErr = utilities.validationErr;
-  const createNewUser = utilities.createNewUser;
-  const findUser = utilities.findUser;
-  const viewAllUsers = utilities.viewAllUsers;
-  const updateUser = utilities.updateUser;
-  const deleteUser = utilities.deleteUser;
-
-  // MIDDLEWARE
-  router.use(passport.initialize());
-  router.use(passport.session());
-
   // ROOT / HOMEPAGE
   router.get('/', (req, res) => {
-    res.render('index', {userId: JSON.stringify(req.session.userId)});
+    res.render('index', { user: req.user });
   });
 
   // SEARCH VIEW
   router.get('/search', isLoggedIn, (req, res) => {
-    res.render('search', {userId: JSON.stringify(req.session.userId)});
+    res.render('search', { user: req.user });
   });
 
   // SEARCH RESULTS VIEW
-
   router.get('/search/results', isLoggedIn, (req, res) => {
     res.render('search-results', 
     { userId: req.session.userId,
@@ -53,6 +44,7 @@ module.exports = function(app, passport){
       year: req.session.searchResult.year,
       discogsId: req.session.searchResult.id,
       searchResult: JSON.stringify(req.session.searchResult),
+      user: req.user,
     });
   });
 
@@ -67,77 +59,154 @@ module.exports = function(app, passport){
       year: req.session.searchResult.year,
       discogsId: req.session.searchResult.id,
       searchResult: JSON.stringify(req.session.searchResult),
+      user: req.user,
     });
   });
 
   // COLLECTION VIEW
   router.get('/collection', isLoggedIn, (req, res) => {
-    res.render('collection', {userId: JSON.stringify(req.session.userId)});
+    res.render('collection', { user : req.user });
   });
 
   // COLLECTION DETAILS VIEW
   router.get('/collection/details', isLoggedIn, (req, res) => {
-    res.render('collection-details', {userId: JSON.stringify(req.session.userId)});
+    res.render('collection-details', { user: req.user });
   });
 
   // COLLECTION DETAILS VIEW
   router.get('/collection/details/edit', isLoggedIn, (req, res) => {
-    res.render('collection-edit', {userId: JSON.stringify(req.session.userId)});
+    res.render('collection-edit', { user: req.user });
   });
 
   // SIGN-UP VIEW
   router.route('/signup')
-    .get((req, res) => res.render('signup'))
-    .post((req, res, next) => {
-      passport.authenticate('local-signup', (err, user, info) => {
-        if (err) {
-          return next(err); //GENERATES A 500 ERROR
-        }
-        if (!user) {
-          return res.status(409);
-        }
-        req.login(user, (err) => {
-          if (err) {
-            console.error(err);
-            return next(err);
-          }
-          return res.redirect('/');
-        });
-      })(req, res, next);
-    });
+    .get((req, res) => {
+      res.render('signup', {
+        user: req.user,
+        message: req.flash('signupMessage')
+      });
+    })
+    .post(
+      passport.authenticate('local-signup', {
+        successRedirect: '/collection',
+        failureRedirect: '/signup',
+        failureFlash: true,
+      }));
 
-  // LOGIN VIEW
-  router.route('/login')
-    .get((req, res) => res.render('login'))
-    .post((req, res, next) => {
-      passport.authenticate('local-login', (err, user, info) => {
-        if (err) {
-          return next(err) //GENERATES A 500 ERROR
-        };
-        if (!user) {
-          return res.status(409);
-        };
-        req.login(user, (err) => {
-          if (err) {
-            console.error(err);
-            return next(err);
-          };
-          req.session.userId = user.$__._id; // SET USER ID FOR USE BY CLIENT API CALLS
-          return res.redirect('/');
-        });
-      })(req, res, next);
+// LOGIN VIEW
+router.route('/login')
+  .get((req, res) => {
+    res.render('login', {
+      user: req.user,
+      message: req.flash('loginMessage'),
     });
+  })
+  .post(
+    passport.authenticate('local-login', {
+      successRedirect: '/collection',
+      failureRedirect: '/login',
+      failureFlash: true,
+    }));
 
-  // FORGOT PASSWORD VIEW
+  // FORGOT VIEW
   router.route('/forgot')
     .get((req, res) => {
-      res.render('forgot');
+      res.render('forgot', { user: req.user });
+    })
+    .post((req, res, next) => {
+      async.waterfall([
+        (done) => {
+          crypto.randomBytes(20, (err, buf) => {
+            let token = buf.toString('hex');
+            done(err, token);
+          });
+        },
+        (token, done) => {
+          User.findOne({ email: req.body.email }, (err, user) => {
+            if (!user) {
+              req.flash('error', 'No account with that email exists');
+              return res.redirect('/forgot');
+            }
+            user.resetPasswordToken = token;
+            user.resetPasswordExpires = Date.now() + 3600000; // 1 HOUR
+
+            user.save((err) => done(err, token, user));
+          });
+        },
+        (token, user, done) => {
+          const transporter = nodemailer.createTransport(SMTP_URL);
+          const emailData = {
+            to: user.email,
+            from: FROM_EMAIL,
+            subject: 'Node.js Password Reset',
+            text: 'You are receiving this because you (or someone else) have requested the reset of the password for your account.\n\n' +
+              'Please click on the following link, or paste this into your browser to complete the process:\n\n' +
+              'http://' + req.headers.host + '/reset/' + token + '\n\n' +
+              'If you did not request this, please ignore this email and your password will remain unchanged.\n',
+          };
+          transporter.sendMail(emailData, (err) => {
+            req.flash('info', `An e-mail has been sent to ${user.email} with further instructions.`);
+            done(err, done);
+          });
+        },
+      ], (err) => {
+        if (err) return next(err);
+        res.redirect('/forgot');
+      });
     });
 
   // RESET PASSWORD VIEW
-  router.route('/reset')
+  router.route('/reset/:token')
     .get((req, res) => {
-      res.render('reset');
+      User.findOne({
+        resetPasswordToken: req.params.token, 
+        resetPasswordExpires: { $gt: Date.now() },
+      })
+      .then((err, user) => {
+        if(!user) {
+          req.flash('error', 'Password reset token is invalid or has expired.');
+          return res.redirect('/forgot');
+        }
+        res.render('reset', { user: req.user });
+      });
+    })
+    .post((req, res) => {
+      async.waterfall([
+        (done) => {
+          User.findOne({
+            resetPasswordToken: req.params.token,
+            resetPasswordExpires: { $gt: Date.now() }
+          }, (err, user) => {
+            if (!user) {
+              req.flash('error', 'Password reset token is invalid or has expired.');
+              return res.redirect('back');
+            };
+
+            user.password = req.body.password;
+            user.resetPasswordToken = undefined;
+            user.resetPasswordExpires = undefined;
+
+            user.save((err) => {
+              req.logIn(user, (err) => {
+                done(err, user);
+              });
+            });
+          });
+        },
+        (user, done) => {
+          const transporter = nodemailer.createTransport(SMTP_URL);
+          const emailData = {
+            to: user.email,
+            from: FROM_EMAIL,
+            subject: 'Your password has been changed',
+            text: `Hello,\n\n This is a confirmation that the password for your account ${user.email} has just been changed.\n`
+          };
+          transporter.sendMail(emailData, (err) => {
+            req.flash('success', 'Success! Your password has been changed.');
+            done(err, done);
+          });
+        },
+      ], (err) => res.redirect('/'));
     });
     
   // LOGOUT HANDLER

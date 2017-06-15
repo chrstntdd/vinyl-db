@@ -7,10 +7,6 @@ html(lang='en')
     include includes/nav.pug
     main
       //- MAIN CONTENT GOES HERE
-    script.
-      //- CAPTURES THE USER'S ID AND SETS IN LOCALSTORAGE FOR USE IN API CALLS
-     var userId = !{JSON.stringify(userId)};
-     localStorage.userId = JSON.parse(userId);
     script(src='https://code.jquery.com/jquery-3.2.1.min.js' integrity='sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=' crossorigin='anonymous')
     script(src='https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.17.4/lodash.js')
     script(src='/scripts/app.js')

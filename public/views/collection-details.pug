@@ -17,6 +17,10 @@ html(lang='en')
             .content-right
               button.btn-return On second thought...
       #record-details.collection-details
+      
+    //- CONVERT USER OBJECT PASSED INTO TEMPLATE FROM EXPRESS AVAILABLE IN FOLLOWING SCRIPTS
+    script(type='text/javascript').
+      var user = !{JSON.stringify(user)}
     script(src='https://code.jquery.com/jquery-3.2.1.min.js' integrity='sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=' crossorigin='anonymous')
     script(src='https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.17.4/lodash.js')
     script(src='/scripts/collection-details.js')

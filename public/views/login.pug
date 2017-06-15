@@ -6,6 +6,7 @@ html(lang='en')
     include includes/nav.pug
     main
       article#login-card
+        .error #{ message }
         h1 Login
         form(action='/login' method='POST' autocomplete='off')
           .input-group

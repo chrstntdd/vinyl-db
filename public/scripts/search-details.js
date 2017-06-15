@@ -1,7 +1,6 @@
 $(() => {
   // DOCUMENT READY FUNCTIONS
-  let userId = localStorage.userId;
-  handleDetailsSubmit(userId);
+  handleDetailsSubmit(user._id);
   
   // LOOP THROUGH INPUTS TO GET LABEL OUT OF THE WAY
   _.forEach($('input').focus());
