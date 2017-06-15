@@ -1,24 +1,34 @@
 require('dotenv').config();
 
 const express = require('express');
+const app = express();
 const bodyParser = require('body-parser');
-const morgan = require('morgan');
+const cookieParser = require('cookie-parser');
 const compression = require('compression');
 const mongoose = require('mongoose');
+const morgan = require('morgan');
 const path = require('path');
 const logger = require('./logger').logger;
-
 const session = require('express-session');
+const passport = require('passport');
+const flash = require('connect-flash');
 const mongodbStore = require('connect-mongo')(session);
+
+// IMPORT USER MODEL AND ROUTER
 const { User } = require('../models/user');
 const router = require('./routes');
 
+// CONSTANTS FROM .ENV FILE
 const DATABASE_URL = process.env.DATABASE_URL;
 const PORT = process.env.PORT;
 
-const app = express();
+// REQUIRE PASSPORT CONFIG AND PASS IN NPM PASSPORT MODULE
+require('../config/passport')(passport);
 
+// CONFIG TO SERVER STATIC ASSETS
+app.use(express.static(path.join(__dirname, '../public')));
 
+// SET VIEW ENGINE AND VIEW DIRECTORY
 app.set('view engine', 'pug');
 app.set('views', path.join(__dirname, '../public/views'));
 
@@ -26,7 +36,7 @@ const env = app.get('env');
 
 // MIDDLEWARE STACK //
 app.use(compression());
-app.use(express.static('public'));
+app.use(cookieParser());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({
   extended: true,
@@ -34,7 +44,6 @@ app.use(bodyParser.urlencoded({
 app.use(morgan('common', {
   stream: logger.stream,
 }));
-
 app.use(session({
   name: 'xpressBlu.sess',
   store: new mongodbStore({
@@ -48,11 +57,14 @@ app.use(session({
     maxAge: 1000 * 60 * 120, // 120 MINUTES
   },
 }));
+app.use(passport.initialize());
+app.use(passport.session());
+app.use(flash());
 
 mongoose.Promise = global.Promise;
 
-// ROUTES //
-app.use('/', router);
+// USE ROUTER AND PASS APP AND PASSPORT INSTANCE IN
+app.use('/', router(app, passport));
 
 
 // closeServer needs access to a server object, but that only
