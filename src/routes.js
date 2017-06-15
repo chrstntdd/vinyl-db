@@ -128,6 +128,18 @@ router.route('/login')
     })(req, res, next);
   });
 
+// FORGOT PASSWORD VIEW
+router.route('/forgot')
+  .get((req, res) => {
+    res.render('forgot');
+  });
+
+// RESET PASSWORD VIEW
+router.route('/reset')
+  .get((req, res) => {
+    res.render('reset');
+  });
+  
 // LOGOUT HANDLER
 router.get('/logout', (req, res) => {
   req.logout();

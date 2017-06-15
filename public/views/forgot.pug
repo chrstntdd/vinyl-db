@@ -1,0 +1,29 @@
+doctype html
+
+html(lang='en')
+  include includes/head.pug
+  body
+    include includes/nav.pug
+    main
+      //- .container
+      //-   if messages.error
+      //-     .alert.alert-danger
+      //-       div= messages.error
+      //-   if messages.info
+      //-     .alert.alert-info
+      //-       div= messages.info
+      //-   if messages.success
+      //-     .alert.alert-success
+      //-       div= messages.success
+      section#forgot-password-card
+        form(method='POST')
+          legend Forgot Password
+            .input-group
+              input.m-input(type='email' name='email' autofocus required)
+              label(for='email') Email
+            button(type='submit') Reset Password
+
+    script(src='https://code.jquery.com/jquery-3.2.1.min.js' integrity='sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=' crossorigin='anonymous')
+    script(src='https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.17.4/lodash.js')
+    script(src='/scripts/input.js')
+    script(src='/scripts/nav.js')
