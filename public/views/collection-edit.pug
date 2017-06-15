@@ -14,20 +14,32 @@ html(lang='en')
             input(name='thumb' type='hidden')
             img(src='')
             .input-group
-              input.m-input(name='artist', type='text')
+              input.m-input(name='artist', type='text' required)
               label(for='artist' type='text') Artist
             .input-group
-              input.m-input(name='album', type='text')
+              input.m-input(name='album', type='text' required)
               label(for='album' type='text') Album
             .input-group
-              input.m-input(name='releaseYear', type='number')
+              input.m-input(name='releaseYear', type='number' required)
               label(for='releaseYear' type='text') Release Year
             .input-group
-              input.m-input(name='genre', type='text')
+              input.m-input(name='genre', type='text' required)
               label(for='genre' type='text') Genre
             .input-group
-              input.m-input(name='rating', type='number')
-              label(for='rating' type='text') Rating
+              input.m-input(name='rating', type='number' min='1' max='10')
+              label(for='rating' type='text') Rating (Between 1 and 10)
+            .input-group
+              input.m-input(name='vinylColor', type='text')
+              label(for='rating' type='text') Vinyl Color
+            .input-group
+              input.m-input(name='mood', type='text')
+              label(for='rating' type='text') Mood
+            .input-group
+              input.m-input(name='playCount', type='number' min='0')
+              label(for='rating' type='text') PlayCount
+            .input-group
+              input.m-input(name='notes', type='text')
+              label(for='rating' type='text') Notes
             .input-group
               button(type='submit') Update details
 

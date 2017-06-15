@@ -24,7 +24,7 @@ const bindRecordDataToHTML = (res) => {
   let basicRecordHTML = (
     `<article id=''>
         <img src=''>
-        <p class='title'></p>
+        <h1 class='title'></h1>
         <p class='genre'></p>
         <p class='release-year'></p>
         <p class='purchase-date'></p>
