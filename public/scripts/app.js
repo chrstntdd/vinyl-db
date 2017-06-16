@@ -10,8 +10,8 @@ const handleSearch = () => {
     e.preventDefault();
     $('#results').html(''); // CLEAR OLD SEARCH RESULTS
     let searchRequest = {
-      artist: _.startCase($('#search-artist').val()),
-      album: _.startCase($('#search-album').val()),
+      artist: _.trim(_.toLower($('#search-artist').val())),
+      album: _.trim(_.toLower($('#search-album').val())),
     }
     callDiscogsAPI(JSON.stringify(searchRequest));
     setTimeout(() => {
