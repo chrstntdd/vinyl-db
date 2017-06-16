@@ -72,8 +72,8 @@ const renderRecords = (res) => {
 const handleRecordSelection = () => {
   // SET SELECTED RECORD DISCOGS ID FOR USE IN COLLECTION DETAILS
   $('.cards').on('click', '#btn-rec-details', function (e) {
-    let selectedRecordDiscogsdId = $(this).closest('.card').attr('id');
-    localStorage.tempDataStore = selectedRecordDiscogsdId;
+    let selectedRecordId = $(this).closest('.card').attr('id');
+    localStorage.selectedRecordId = selectedRecordId;
     // BUG. CLICK ON LINK WON'T REDIRECT
     window.redirect('/collection/details');
   });

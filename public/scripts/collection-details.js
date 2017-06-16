@@ -1,6 +1,7 @@
 $(() => {
   // DOCUMENT READY FUNCTIONS
-  let selectedRecordId = localStorage.tempDataStore;
+  let selectedRecordId = localStorage.selectedRecordId;
+  console.log(selectedRecordId);
   getRecordDetails(user._id, selectedRecordId);
 
   handleModal();

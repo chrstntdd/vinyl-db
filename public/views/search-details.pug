@@ -12,17 +12,20 @@ html(lang='en')
             input(name='thumb' type='hidden' value=thumb)
             input(name='discogsId' type='hidden' value=discogsId)
             .input-group
-              input.m-input(name='artist', type='text' value=artist)
+              input.m-input(name='artist', type='text' value=artist required)
               label(for='artist' type='text') Artist
             .input-group
-              input.m-input(name='album', type='text' value=album)
+              input.m-input(name='album', type='text' value=album required)
               label(for='album' type='text') Album
             .input-group
-              input.m-input(name='releaseYear', type='number' value=year)
+              input.m-input(name='releaseYear', type='number' value=year required)
               label(for='releaseYear' type='text') Release Year
             .input-group
-              input.m-input(name='genre', type='text' value=genre)
+              input.m-input(name='genre', type='text' value=genre required)
               label(for='genre' type='text') Genre
+            .input-group
+              input.m-input(name='vinylColor', type='text' value=vinylColor)
+              label(for='genre' type='text') vinylColor
             .input-group
               button(type='submit') Add to collection
     //- CONVERT USER OBJECT PASSED INTO TEMPLATE FROM EXPRESS AVAILABLE IN FOLLOWING SCRIPTS

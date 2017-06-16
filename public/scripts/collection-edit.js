@@ -1,6 +1,6 @@
 $(() => {
   // DOCUMENT READY FUNCTIONS
-  let selectedRecordId = localStorage.tempDataStore;
+  let selectedRecordId = localStorage.selectedRecordId;
   getRecordDetails(user._id, selectedRecordId);
   handlePutRecordDetails(user._id, selectedRecordId);
 });
