@@ -12,6 +12,7 @@ const logger = require('./logger').logger;
 const session = require('express-session');
 const passport = require('passport');
 const flash = require('connect-flash');
+const helmet = require('helmet');
 const mongodbStore = require('connect-mongo')(session);
 
 // IMPORT USER MODEL AND ROUTER
@@ -21,6 +22,7 @@ const router = require('./routes');
 // CONSTANTS FROM .ENV FILE
 const DATABASE_URL = process.env.DATABASE_URL;
 const PORT = process.env.PORT;
+const COOKIE_SECRET = process.env.COOKIE_SECRET
 
 // CONFIG TO SERVER STATIC ASSETS
 app.use(express.static(path.join(__dirname, '../public')));
@@ -32,6 +34,7 @@ app.set('views', path.join(__dirname, '../public/views'));
 const env = app.get('env');
 
 // MIDDLEWARE STACK //
+app.use(helmet());
 app.use(compression());
 app.use(cookieParser());
 app.use(bodyParser.json());
@@ -47,7 +50,7 @@ app.use(session({
     mongooseConnection: mongoose.connection,
     touchAfter: 24 * 3600,
   }),
-  secret: 'qwertyuiop123456789',
+  secret: COOKIE_SECRET,
   resave: false,
   saveUninitialized: false,
   httpOnly: true,
@@ -74,8 +77,9 @@ app.use('/', router(app, passport));
 // and then assign a value to it in run
 let server;
 
-const runServer = () => new Promise((resolve, reject) => {
-  mongoose.connect(DATABASE_URL, (err) => {
+// TAKES A DATABASE URL AS AN ARGUMENT. NEEDED FOR INTEGRATION TESTS. DEFAULTS TO THE MAIN URL.
+const runServer = (databaseUrl = DATABASE_URL) => new Promise((resolve, reject) => {
+  mongoose.connect(databaseUrl, (err) => {
     if (err) {
       return reject(err);
     }
