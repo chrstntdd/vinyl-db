@@ -23,6 +23,7 @@
     "helmet": "^3.6.1",
     "lodash.map": "^4.6.0",
     "lodash.trim": "^4.5.1",
+    "lodash.words": "^4.2.0",
     "mongoose": "^4.9.9",
     "morgan": "^1.8.1",
     "nodemailer": "^4.0.1",
@@ -38,11 +39,12 @@
     "eslint-config-airbnb-base": "^11.2.0",
     "eslint-plugin-import": "^2.3.0",
     "faker": "^4.1.0",
+    "lodash.some": "^4.6.0",
     "mocha": "^3.3.0"
   },
   "scripts": {
     "start": "node src/server.js",
     "watch": "nodemon src/server.js",
-    "test": "mocha -c"
+    "test": "mocha -c --timeout 10000"
   }
 }
