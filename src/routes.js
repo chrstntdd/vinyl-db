@@ -330,21 +330,6 @@ module.exports = function(app, passport){
 
   // UPDATE RECORD BY ID
   router.put('/records/:userId/:id', (req, res) => {
-    if (!(req.params.id && req.body.id === req.body.id)) {
-      res.status(400).json({
-        error: 'Request path id and request body id must match. Try again.',
-      });
-    }
-
-    const updated = {};
-    const updatableFields = ['artist', 'album', 'releaseYear', 'purchaseDate', 'genre', 'rating', 'mood', 'playCount', 'notes', 'vinylColor', 'accolades'];
-    // ONLY UPDATE FIELDS THAT EXIST ON EACH RECORD
-    map(updatableFields, (field) => {
-      if (field in req.body) {
-        updated[field] = req.body[field];
-      }
-    });
-    // DOESN'T USE THE CHECK FROM ABOVE TO SET NEW CONTENT
     User
       .findById(req.params.userId)
       .then((res) => {

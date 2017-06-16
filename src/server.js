@@ -21,7 +21,7 @@ const router = require('./routes');
 
 // CONSTANTS FROM .ENV FILE
 const DATABASE_URL = process.env.DATABASE_URL;
-const PORT = process.env.PORT;
+const PORT = process.env.PORT || 27017
 const COOKIE_SECRET = process.env.COOKIE_SECRET
 
 // CONFIG TO SERVER STATIC ASSETS
@@ -68,7 +68,7 @@ require('../config/passport')(passport);
 
 mongoose.Promise = global.Promise;
 
-// USE ROUTER AND PASS APP AND PASSPORT INSTANCE IN
+// USE ROUTER AND PASS APP AND PASSPORT INSTANCE
 app.use('/', router(app, passport));
 
 
@@ -78,13 +78,13 @@ app.use('/', router(app, passport));
 let server;
 
 // TAKES A DATABASE URL AS AN ARGUMENT. NEEDED FOR INTEGRATION TESTS. DEFAULTS TO THE MAIN URL.
-const runServer = (databaseUrl = DATABASE_URL) => new Promise((resolve, reject) => {
+const runServer = (databaseUrl = DATABASE_URL, port = PORT) => new Promise((resolve, reject) => {
   mongoose.connect(databaseUrl, (err) => {
     if (err) {
       return reject(err);
     }
-    server = app.listen(PORT, () => {
-      logger.info(`Your app is listening on port ${PORT} in a ${env} environment.`);
+    server = app.listen(port, () => {
+      logger.info(`Your app is listening on port ${port} in a ${env} environment.`);
       resolve();
     })
       .on('error', (err) => {
