@@ -1,7 +1,6 @@
 module.exports = function(app, passport){
   const express = require('express');
   require('dotenv').config();
-  const utilities = require('../models/util');
   const map = require('lodash.map');
   const logger = require('./logger').logger;
   const async = require('async');
