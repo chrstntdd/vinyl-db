@@ -3,8 +3,11 @@ module.exports = function(app, passport){
   require('dotenv').config();
   const utilities = require('../models/util');
   const map = require('lodash.map');
-  const trim = require('lodash.trim');
   const logger = require('./logger').logger;
+  const async = require('async');
+  const nodemailer = require('nodemailer');
+  const bcrypt = require('bcrypt-nodejs');
+  const crypto = require('crypto');
   const Discogs = require('disconnect').Client;
 
   const { User } = require('../models/user');
@@ -23,10 +26,12 @@ module.exports = function(app, passport){
     req.isAuthenticated() ? next() : res.redirect('/login');
   };
 
-
   // ROOT / HOMEPAGE
   router.get('/', (req, res) => {
-    res.render('index', { user: req.user });
+    res.render('index', { 
+      user: req.user,
+      message: req.flash('success'),
+    });
   });
 
   // SEARCH VIEW
@@ -83,7 +88,7 @@ module.exports = function(app, passport){
     .get((req, res) => {
       res.render('signup', {
         user: req.user,
-        message: req.flash('signupMessage')
+        message: req.flash('signupMessage'),
       });
     })
     .post(
@@ -94,7 +99,7 @@ module.exports = function(app, passport){
       }));
 
 // LOGIN VIEW
-router.route('/login')
+  router.route('/login')
   .get((req, res) => {
     res.render('login', {
       user: req.user,
@@ -111,7 +116,10 @@ router.route('/login')
   // FORGOT VIEW
   router.route('/forgot')
     .get((req, res) => {
-      res.render('forgot', { user: req.user });
+      res.render('forgot', { 
+        user: req.user,
+        message: req.flash('info')
+      });
     })
     .post((req, res, next) => {
       async.waterfall([
@@ -138,7 +146,7 @@ router.route('/login')
           const emailData = {
             to: user.email,
             from: FROM_EMAIL,
-            subject: 'Node.js Password Reset',
+            subject: 'VinylDB Password Reset',
             text: 'You are receiving this because you (or someone else) have requested the reset of the password for your account.\n\n' +
               'Please click on the following link, or paste this into your browser to complete the process:\n\n' +
               'http://' + req.headers.host + '/reset/' + token + '\n\n' +
@@ -157,17 +165,20 @@ router.route('/login')
 
   // RESET PASSWORD VIEW
   router.route('/reset/:token')
-    .get((req, res) => {
+    .get(function (req, res) {
       User.findOne({
-        resetPasswordToken: req.params.token, 
-        resetPasswordExpires: { $gt: Date.now() },
-      })
-      .then((err, user) => {
-        if(!user) {
+        resetPasswordToken: req.params.token,
+        resetPasswordExpires: {
+          $gt: Date.now()
+        }
+      }, function (err, user) {
+        if (!user) {
           req.flash('error', 'Password reset token is invalid or has expired.');
           return res.redirect('/forgot');
         }
-        res.render('reset', { user: req.user });
+        res.render('reset', {
+          user: req.user
+        });
       });
     })
     .post((req, res) => {
@@ -180,9 +191,8 @@ router.route('/login')
             if (!user) {
               req.flash('error', 'Password reset token is invalid or has expired.');
               return res.redirect('back');
-            };
-
-            user.password = req.body.password;
+            }
+            user.password = bcrypt.hashSync(req.body.password, bcrypt.genSaltSync(8), null);
             user.resetPasswordToken = undefined;
             user.resetPasswordExpires = undefined;
 
@@ -199,7 +209,7 @@ router.route('/login')
             to: user.email,
             from: FROM_EMAIL,
             subject: 'Your password has been changed',
-            text: `Hello,\n\n This is a confirmation that the password for your account ${user.email} has just been changed.\n`
+            text: `Hello,\n\n This is a confirmation that the password for your account ${user.email} has just been changed.\n`,
           };
           transporter.sendMail(emailData, (err) => {
             req.flash('success', 'Success! Your password has been changed.');
@@ -282,7 +292,7 @@ router.route('/login')
           accolades: req.body.accolades,
           discogsId: req.body.discogsId,
           thumb: req.body.thumb,
-        }
+        };
         res.music.push(newRecord);
         res.save();
         return newRecord;
@@ -302,7 +312,7 @@ router.route('/login')
       .findById(req.params.userId)
       .then((res) => {
         res.music.pull(req.params.id);
-        res.save()
+        res.save();
       })
       .then(() => {
         let message = `Successfully deleted the record with an id of ${req.params.id}`;
@@ -335,7 +345,6 @@ router.route('/login')
         updated[field] = req.body[field];
       }
     });
-    
     // DOESN'T USE THE CHECK FROM ABOVE TO SET NEW CONTENT
     User
       .findById(req.params.userId)

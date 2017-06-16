@@ -5,17 +5,8 @@ html(lang='en')
   body
     include includes/nav.pug
     main
-      //- .container
-      //-   if messages.error
-      //-     .alert.alert-danger
-      //-       div= messages.error
-      //-   if messages.info
-      //-     .alert.alert-info
-      //-       div= messages.info
-      //-   if messages.success
-      //-     .alert.alert-success
-      //-       div= messages.success
       section#reset-password-card
+       .flash-message #{ message }
         form(method='POST')
           legend Reset Password
             .input-group

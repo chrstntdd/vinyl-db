@@ -5,18 +5,9 @@ html(lang='en')
   body
     include includes/nav.pug
     main
-      //- .container
-      //-   if messages.error
-      //-     .alert.alert-danger
-      //-       div= messages.error
-      //-   if messages.info
-      //-     .alert.alert-info
-      //-       div= messages.info
-      //-   if messages.success
-      //-     .alert.alert-success
-      //-       div= messages.success
       section#forgot-password-card
-        form(method='POST')
+        .flash-message.flash-info #{ message }
+        form(method='POST' autocomplete='off')
           legend Forgot Password
             .input-group
               input.m-input(type='email' name='email' autofocus required)
