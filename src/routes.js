@@ -350,6 +350,26 @@ module.exports = function(app, passport){
       });
   });
 
+  // INCREMENT PLAY COUNT
+  router.patch('/records/:userId/:id', (req, res) => {
+    User
+      .findById(req.params.userId)
+      .then((res) => {
+        let subDoc = res.music.id(req.params.id);
+        subDoc.playCount++;
+        res.save();
+      })
+      .then(() => {
+        res.status(204).end();
+      })
+      .catch((err) => {
+        logger.error(err);
+        res.status(500).json({
+          error: 'INTERNAL SERVER ERROR. SHRED ALL THE EVIDENCE.'
+        });
+      });
+  });
+
   // MAIN API CALL FOR DISCOGS SEARCH
   router.post('/search', (req, res) => {
     let artist = req.body.artist;
