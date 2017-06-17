@@ -38,7 +38,7 @@ div.card {
   background: #ffffff;
   display: inline-block;
   margin: 8px;
-  width: 18rem;
+  width: 19rem;
   text-align: left;
   transition: all 0.3s 0s ease-in;
   z-index: 1;
@@ -94,7 +94,9 @@ div.card div.card-title a.toggle-info span.right {
 div.card div.card-description {
   padding: 0 15px 10px;
   position: relative;
-  font-size: 14px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
 }
 
 div.card div.card-actions {
@@ -106,7 +108,7 @@ div.card div.card-actions {
 div.card div.card-flap {
   background: #d9d9d9;
   position: absolute;
-  width: 100%;
+  width: inherit;
   transform-origin: top;
   transform: rotateX(-90deg);
 }

@@ -201,13 +201,27 @@ header {
 }
 
 .card {
-  h2 {
-    margin-top: 0;
-    margin-bottom: 0;
-  }
+  h2,
   h3 {
     margin-top: 0;
     margin-bottom: 0;
+  }
+  p {
+    font-size: 1.5rem;
+    margin-top: 10px;
+    margin-bottom: 10px;
+  }
+  .play-count-container {
+    text-align: center;
+    button {
+      @include button($SKYBLUE);
+      margin-left: 5%;
+      padding: 15px !important;
+      line-height: 7px;
+    }
+    * {
+      display: inline-block;
+    }
   }
 }
 
@@ -237,4 +251,11 @@ header {
   color: #b94a48;
   background-color: #f2dede;
   border-color: #eed3d7;
+}
+
+.ellipsis {
+  text-overflow: ellipsis;
+  /* Required for text-overflow to do anything */
+  white-space: nowrap;
+  overflow: hidden;
 }
