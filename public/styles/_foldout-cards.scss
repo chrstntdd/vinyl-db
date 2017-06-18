@@ -1,3 +1,18 @@
+// RWD HELPERS //
+@function between($to, $from, $toWidth, $fromWidth) {
+  $slope: ($to - $from) / ($toWidth - $fromWidth);
+  $base: $from - $slope * $fromWidth;
+  @return calc(#{$base} + #{100vw * $slope});
+}
+
+// Breakpoints
+$bp-xxsmall: 320px;
+$bp-xsmall: 576px;
+$bp-small: 768px;
+$bp-medium: 1024px;
+$bp-large: 1366px;
+$bp-xlarge: 1920px;
+$bp-xxlarge: 2560px;
 a.btn {
   background: #0096a0;
   border-radius: 4px;
@@ -38,7 +53,7 @@ div.card {
   background: #ffffff;
   display: inline-block;
   margin: 8px;
-  width: 19rem;
+  width: 320px;
   text-align: left;
   transition: all 0.3s 0s ease-in;
   z-index: 1;

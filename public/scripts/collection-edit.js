@@ -3,6 +3,8 @@ $(() => {
   let selectedRecordId = localStorage.selectedRecordId;
   getRecordDetails(user._id, selectedRecordId);
   handlePutRecordDetails(user._id, selectedRecordId);
+  handleFormToggle();
+  TinyDatePicker(document.getElementById('pickadate'));
 });
 
 const populate = (form, data) => {
@@ -48,5 +50,25 @@ const handlePutRecordDetails = (userId, selectedRecordId) => {
       .fail((err) => {
         console.error(err);
       });
+  });
+};
+
+const handleFormToggle = () => {
+  $('.switch-button').on('click', (e) => {
+    formType = $('input[type="radio"]:checked').val();
+    if (formType == 'advanced') {
+      $('.advanced-details').show();
+      
+      $('input').each(function() {
+        if ($(this).attr('id') === 'pickadate'){
+          $(this).blur()
+        } else {
+          $(this).focus();
+        }
+      });
+
+    } else {
+      $('.advanced-details').hide();
+    };
   });
 };

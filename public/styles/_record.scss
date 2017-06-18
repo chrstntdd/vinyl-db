@@ -1,11 +1,12 @@
-$VINYL_COLOR: pink;
+$VINYL_COLOR: black;
 $VINYL_LABEL: #da5b33;
+$VINYL_DIAMETER: 275px;
+$VINYL_LABEL_DIAMETER: $VINYL_DIAMETER * 0.4;
 .record {
   position: relative;
-  margin: 200px auto;
   display: block;
-  width: 275px;
-  height: 275px;
+  width: $VINYL_DIAMETER;
+  height: $VINYL_DIAMETER;
   border-radius: 50%;
   background: $VINYL_COLOR;
   border: 1px solid #595959;
@@ -18,7 +19,7 @@ $VINYL_LABEL: #da5b33;
   width: 100%;
   height: 100%;
   border-radius: 100%;
-  background: radial-gradient(center, ellipse cover, $VINYL_COLOR 0%, darken($VINYL_COLOR, 20%) 1%, $VINYL_COLOR 2%, darken($VINYL_COLOR, 20%) 3%, $VINYL_COLOR 4%, darken($VINYL_COLOR, 20%) 5%, $VINYL_COLOR 6%, darken($VINYL_COLOR, 20%) 7%, $VINYL_COLOR 8%, darken($VINYL_COLOR, 20%) 9%, $VINYL_COLOR 10%, darken($VINYL_COLOR, 20%) 11%, $VINYL_COLOR 12%, darken($VINYL_COLOR, 20%) 13%, $VINYL_COLOR 14%, darken($VINYL_COLOR, 20%) 15%, $VINYL_COLOR 16%, darken($VINYL_COLOR, 20%) 17%, $VINYL_COLOR 18%, darken($VINYL_COLOR, 20%) 19%, $VINYL_COLOR 20%, darken($VINYL_COLOR, 20%) 21%, $VINYL_COLOR 22%, darken($VINYL_COLOR, 20%) 23%, $VINYL_COLOR 24%, darken($VINYL_COLOR, 20%) 25%, $VINYL_COLOR 26%, darken($VINYL_COLOR, 20%) 27%, $VINYL_COLOR 28%, darken($VINYL_COLOR, 20%) 29%, $VINYL_COLOR 30%, darken($VINYL_COLOR, 20%) 31%, $VINYL_COLOR 32%, darken($VINYL_COLOR, 20%) 33%, $VINYL_COLOR 34%, darken($VINYL_COLOR, 20%) 35%, $VINYL_COLOR 36%, darken($VINYL_COLOR, 20%) 37%, $VINYL_COLOR 38%, darken($VINYL_COLOR, 20%) 39%, $VINYL_COLOR 40%, darken($VINYL_COLOR, 20%) 41%, $VINYL_COLOR 42%, darken($VINYL_COLOR, 20%) 43%, $VINYL_COLOR 44%, darken($VINYL_COLOR, 20%) 45%, $VINYL_COLOR 46%, darken($VINYL_COLOR, 20%) 47%, $VINYL_COLOR 48%, darken($VINYL_COLOR, 20%) 49%, $VINYL_COLOR 50%, darken($VINYL_COLOR, 20%) 51%, $VINYL_COLOR 52%, darken($VINYL_COLOR, 20%) 53%, $VINYL_COLOR 54%, darken($VINYL_COLOR, 20%) 55%, $VINYL_COLOR 56%, darken($VINYL_COLOR, 20%) 57%, $VINYL_COLOR 58%, darken($VINYL_COLOR, 20%) 59%, $VINYL_COLOR 60%, darken($VINYL_COLOR, 20%) 61%, $VINYL_COLOR 62%, darken($VINYL_COLOR, 20%) 63%, $VINYL_COLOR 64%, darken($VINYL_COLOR, 20%) 65%, $VINYL_COLOR 66%, darken($VINYL_COLOR, 20%) 67%, $VINYL_COLOR 68%, darken($VINYL_COLOR, 20%) 69%, $VINYL_COLOR 70%, darken($VINYL_COLOR, 20%) 71%, $VINYL_COLOR 72%, darken($VINYL_COLOR, 20%) 73%, $VINYL_COLOR 74%, darken($VINYL_COLOR, 20%) 75%, $VINYL_COLOR 76%, darken($VINYL_COLOR, 20%) 77%, $VINYL_COLOR 78%, darken($VINYL_COLOR, 20%) 79%, $VINYL_COLOR 80%, darken($VINYL_COLOR, 20%) 81%, $VINYL_COLOR 82%, darken($VINYL_COLOR, 20%) 83%, $VINYL_COLOR 84%, darken($VINYL_COLOR, 20%) 85%, $VINYL_COLOR 86%, darken($VINYL_COLOR, 20%) 87%, $VINYL_COLOR 88%, darken($VINYL_COLOR, 20%) 89%, $VINYL_COLOR 90%, darken($VINYL_COLOR, 20%) 91%, $VINYL_COLOR 92%, darken($VINYL_COLOR, 20%) 93%, $VINYL_COLOR 94%, darken($VINYL_COLOR, 20%) 95%, $VINYL_COLOR 96%, darken($VINYL_COLOR, 20%) 97%, darken($VINYL_COLOR, 20%) 97%, $VINYL_COLOR 98%);
+  background: radial-gradient(center, ellipse cover, $VINYL_COLOR 0%, lighten($VINYL_COLOR, 20%) 1%, $VINYL_COLOR 2%, lighten($VINYL_COLOR, 20%) 3%, $VINYL_COLOR 4%, lighten($VINYL_COLOR, 20%) 5%, $VINYL_COLOR 6%, lighten($VINYL_COLOR, 20%) 7%, $VINYL_COLOR 8%, lighten($VINYL_COLOR, 20%) 9%, $VINYL_COLOR 10%, lighten($VINYL_COLOR, 20%) 11%, $VINYL_COLOR 12%, lighten($VINYL_COLOR, 20%) 13%, $VINYL_COLOR 14%, lighten($VINYL_COLOR, 20%) 15%, $VINYL_COLOR 16%, lighten($VINYL_COLOR, 20%) 17%, $VINYL_COLOR 18%, lighten($VINYL_COLOR, 20%) 19%, $VINYL_COLOR 20%, lighten($VINYL_COLOR, 20%) 21%, $VINYL_COLOR 22%, lighten($VINYL_COLOR, 20%) 23%, $VINYL_COLOR 24%, lighten($VINYL_COLOR, 20%) 25%, $VINYL_COLOR 26%, lighten($VINYL_COLOR, 20%) 27%, $VINYL_COLOR 28%, lighten($VINYL_COLOR, 20%) 29%, $VINYL_COLOR 30%, lighten($VINYL_COLOR, 20%) 31%, $VINYL_COLOR 32%, lighten($VINYL_COLOR, 20%) 33%, $VINYL_COLOR 34%, lighten($VINYL_COLOR, 20%) 35%, $VINYL_COLOR 36%, lighten($VINYL_COLOR, 20%) 37%, $VINYL_COLOR 38%, lighten($VINYL_COLOR, 20%) 39%, $VINYL_COLOR 40%, lighten($VINYL_COLOR, 20%) 41%, $VINYL_COLOR 42%, lighten($VINYL_COLOR, 20%) 43%, $VINYL_COLOR 44%, lighten($VINYL_COLOR, 20%) 45%, $VINYL_COLOR 46%, lighten($VINYL_COLOR, 20%) 47%, $VINYL_COLOR 48%, lighten($VINYL_COLOR, 20%) 49%, $VINYL_COLOR 50%, lighten($VINYL_COLOR, 20%) 51%, $VINYL_COLOR 52%, lighten($VINYL_COLOR, 20%) 53%, $VINYL_COLOR 54%, lighten($VINYL_COLOR, 20%) 55%, $VINYL_COLOR 56%, lighten($VINYL_COLOR, 20%) 57%, $VINYL_COLOR 58%, lighten($VINYL_COLOR, 20%) 59%, $VINYL_COLOR 60%, lighten($VINYL_COLOR, 20%) 61%, $VINYL_COLOR 62%, lighten($VINYL_COLOR, 20%) 63%, $VINYL_COLOR 64%, lighten($VINYL_COLOR, 20%) 65%, $VINYL_COLOR 66%, lighten($VINYL_COLOR, 20%) 67%, $VINYL_COLOR 68%, lighten($VINYL_COLOR, 20%) 69%, $VINYL_COLOR 70%, lighten($VINYL_COLOR, 20%) 71%, $VINYL_COLOR 72%, lighten($VINYL_COLOR, 20%) 73%, $VINYL_COLOR 74%, lighten($VINYL_COLOR, 20%) 75%, $VINYL_COLOR 76%, lighten($VINYL_COLOR, 20%) 77%, $VINYL_COLOR 78%, lighten($VINYL_COLOR, 20%) 79%, $VINYL_COLOR 80%, lighten($VINYL_COLOR, 20%) 81%, $VINYL_COLOR 82%, lighten($VINYL_COLOR, 20%) 83%, $VINYL_COLOR 84%, lighten($VINYL_COLOR, 20%) 85%, $VINYL_COLOR 86%, lighten($VINYL_COLOR, 20%) 87%, $VINYL_COLOR 88%, lighten($VINYL_COLOR, 20%) 89%, $VINYL_COLOR 90%, lighten($VINYL_COLOR, 20%) 91%, $VINYL_COLOR 92%, lighten($VINYL_COLOR, 20%) 93%, $VINYL_COLOR 94%, lighten($VINYL_COLOR, 20%) 95%, $VINYL_COLOR 96%, lighten($VINYL_COLOR, 20%) 97%, lighten($VINYL_COLOR, 20%) 97%, $VINYL_COLOR 98%);
   top: 0;
   left: 0;
 }
@@ -27,9 +28,8 @@ $VINYL_LABEL: #da5b33;
   border: 10px solid $VINYL_COLOR;
   content: "\2022";
   color: #fff;
-  width: 110px;
-  display: block;
-  height: 110px;
+  width: $VINYL_LABEL_DIAMETER;
+  height: $VINYL_LABEL_DIAMETER;
   border-radius: 50%;
   text-align: center;
   line-height: 85px;

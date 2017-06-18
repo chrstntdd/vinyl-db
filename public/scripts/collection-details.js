@@ -1,7 +1,6 @@
 $(() => {
   // DOCUMENT READY FUNCTIONS
   let selectedRecordId = localStorage.selectedRecordId;
-  console.log(selectedRecordId);
   getRecordDetails(user._id, selectedRecordId);
 
   handleModal();
@@ -25,13 +24,38 @@ const bindRecordDataToHTML = (res) => {
     `<article id=''>
         <img src=''>
         <h1 class='title'></h1>
-        <p class='genre'></p>
-        <p class='release-year'></p>
-        <p class='purchase-date'></p>
-        <p class='play-count'></p>
-        <p class='vinyl-color'></p>
-        <p class='mood'></p>
-        <p class='rating'></p>
+        <div class='stats'>
+          <ul>
+            <li>
+              <p class='heading genre'></p>
+              <p class='footing'>Genre</p>
+            </li>
+            <li>
+              <p class='heading release-year'></p>
+              <p class='footing'>Release Year</p>
+            </li>
+            <li>
+              <p class='heading purchase-date'></p>
+              <p class='footing'>Purchase Date</p>
+            </li>
+            <li>
+              <p class='heading play-count'>Spins</p>
+              <p class='footing'>Spins</p>
+            </li>
+            <li>
+              <p class='heading mood'></p>
+              <p class='footing'>Mood(s)</p>
+            </li>
+            <li>
+              <p class='heading rating'></p>
+              <p class='footing'>rating</p>
+            </li>
+            <li>
+              <p class='heading vinyl-color'></p>
+              <p class='footing'>Vinyl Color</p>
+            </li>
+          </ul>
+        </div>  
         <p class='notes'></p>
         <a id='edit-record' href='/collection/details/edit'>
           <button>Edit</button>
@@ -46,37 +70,37 @@ const bindRecordDataToHTML = (res) => {
   $record.find('.title').text(`${res.artist} - ${res.album}`);
   $record.find('.release-year').text(`${res.releaseYear}`);
   $record.find('.genre').text(`${_.join(res.genre, ', ')}`);
-  $record.find('.play-count').text(`${res.playCount} Spins`);
+  $record.find('.play-count').text(`${res.playCount}`);
   // OPTIONAL DATA
   if (res.purchaseDate) {
-    $record.find('.purchase-date').text(`Purchased on ${res.purchaseDate}`);
+    $record.find('.purchase-date').text(`${res.purchaseDate}`);
   } else {
-    $record.find('.purchase-date').remove();
+    $record.find('.purchase-date').closest('li').remove();
   };
 
   if (res.vinylColor) {
-    $record.find('.vinyl-color').text(`Vinyl Color: ${res.vinylColor}`);
-    $record.find('.vinyl-color').after(`<div class='record'></div>`);
+    $record.find('.vinyl-color').text(`${res.vinylColor}`);
+    $record.find('.stats').after(`<div class='record'></div>`);
   } else {
-    $record.find('.vinyl-color').remove();
+    $record.find('.vinyl-color').closest('li').remove();
   };
 
   if (res.mood.length != 0) {
-    $record.find('.mood').text(`Mood(s): ${_.join(res.mood, ', ')}`);
+    $record.find('.mood').text(`${_.join(res.mood, ', ')}`);
   } else {
-    $record.find('.mood').remove()
+    $record.find('.mood').closest('li').remove();
   };
 
   if (res.rating) {
-    $record.find('.rating').text(`Rating: ${res.rating}`);
+    $record.find('.rating').text(`${res.rating}`);
   } else {
-    $record.find('.rating').remove();
+    $record.find('.rating').closest('li').remove();
   };
 
   if (res.notes) {
     $record.find('.notes').text(`Notes: ${res.notes}`);
   } else {
-    $record.find('.notes').remove()
+    $record.find('.notes').closest('li').remove();
   };
 
   return $record;

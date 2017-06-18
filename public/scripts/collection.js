@@ -64,7 +64,7 @@ const bindRecordDataToHTML = (res) => {
   $record.find('.play-count').text(`${res.playCount}`);
   $record.find('.album').text(`${res.album}`);
   $record.find('.release-year').html(`<i class="fa fa-calendar" aria-hidden="true"></i> ${res.releaseYear}`);
-  $record.find('.genre').html(`<i class="fa fa-music" aria-hidden="true"></i> ${res.genre}`);
+  $record.find('.genre').html(`<i class="fa fa-music" aria-hidden="true"></i> ${res.genre[0]}`);
   return $record;
 };
 

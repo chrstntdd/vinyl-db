@@ -8,8 +8,14 @@ html(lang='en')
       article#edit-details-card
         h1 Edit Album Details
         section#record-details
-          form(action='/records' method='POST' autocomplete='off')
+          form(autocomplete='off')
             //- HIDDEN INPUTS ARE NEEDED TO PASS DATA TO SERVER FROM API RESPONSE
+            .switch-button
+              input(type='radio' name='radio' value='basic' checked)
+              label(for='') Basic
+              input#advanced-form(type='radio' name='radio' value='advanced')
+              label.advanced(for='') Advanced
+
             input(name='discogsId' type='hidden')
             input(name='thumb' type='hidden')
             img(src='')
@@ -19,35 +25,41 @@ html(lang='en')
             .input-group
               input.m-input(name='album', type='text' required)
               label(for='album' type='text') Album
-            .input-group
-              input.m-input(name='releaseYear', type='number' required)
-              label(for='releaseYear' type='text') Release Year
-            .input-group
+            .input-group.half
               input.m-input(name='genre', type='text' required)
               label(for='genre' type='text') Genre
+            .input-group.half
+              input.m-input(name='releaseYear', type='number' required)
+              label(for='releaseYear' type='text') Release Year
+            .advanced-details
+              .input-group.half
+                input.m-input(name='rating', type='number' min='1' max='10')
+                label(for='rating' type='text') Rating (Between 1 and 10)
+              .input-group.half
+                input.m-input(name='playCount', type='number' min='0')
+                label(for='rating' type='text') Spins
+              .input-group
+                input.m-input(name='vinylColor', type='text')
+                label(for='rating' type='text') Vinyl Color
+              .input-group
+                input.m-input(name='mood', type='text')
+                label(for='rating' type='text') Mood
+              .input-group
+                input.m-input#pickadate(name='purchaseDate', type='text')
+                label(for='purchaseDate' type='text') Purchase Date
+              .input-group
+                input.m-input(name='notes', type='text')
+                label(for='rating' type='text') Notes
             .input-group
-              input.m-input(name='rating', type='number' min='1' max='10')
-              label(for='rating' type='text') Rating (Between 1 and 10)
-            .input-group
-              input.m-input(name='vinylColor', type='text')
-              label(for='rating' type='text') Vinyl Color
-            .input-group
-              input.m-input(name='mood', type='text')
-              label(for='rating' type='text') Mood
-            .input-group
-              input.m-input(name='playCount', type='number' min='0')
-              label(for='rating' type='text') PlayCount
-            .input-group
-              input.m-input(name='notes', type='text')
-              label(for='rating' type='text') Notes
-            .input-group
-              button(type='submit') Update details
+              button#update(type='submit') Update details
               
     //- CONVERT USER OBJECT PASSED INTO TEMPLATE FROM EXPRESS AVAILABLE IN FOLLOWING SCRIPTS
     script(type='text/javascript').
       var user = !{JSON.stringify(user)}
     script(src='https://code.jquery.com/jquery-3.2.1.min.js' integrity='sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=' crossorigin='anonymous')
     script(src='https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.17.4/lodash.js')
+    script(src='/scripts/colorpicker.js')
+    script(src='/scripts/tiny-date-picker/tiny-date-picker.min.js')
     script(src='/scripts/jq-serialize-obj.js')
     script(src='/scripts/collection-edit.js')
     script(src='/scripts/input.js')
