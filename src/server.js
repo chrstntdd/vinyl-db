@@ -8,7 +8,7 @@ const compression = require('compression');
 const mongoose = require('mongoose');
 const morgan = require('morgan');
 const path = require('path');
-const logger = require('./logger').logger;
+const logger = require('../config/logger').logger;
 const session = require('express-session');
 const passport = require('passport');
 const flash = require('connect-flash');
@@ -25,11 +25,11 @@ const PORT = process.env.PORT || 27017
 const COOKIE_SECRET = process.env.COOKIE_SECRET
 
 // CONFIG TO SERVER STATIC ASSETS
-app.use(express.static(path.join(__dirname, '../public')));
+app.use(express.static(path.join(__dirname, '/public')));
 
 // SET VIEW ENGINE AND VIEW DIRECTORY
 app.set('view engine', 'pug');
-app.set('views', path.join(__dirname, '../public/views'));
+app.set('views', path.join(__dirname, '/public/views'));
 
 const env = app.get('env');
 

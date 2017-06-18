@@ -40,7 +40,8 @@
     "eslint-plugin-import": "^2.3.0",
     "faker": "^4.1.0",
     "lodash.some": "^4.6.0",
-    "mocha": "^3.3.0"
+    "mocha": "^3.3.0",
+    "webpack": "^2.6.1"
   },
   "scripts": {
     "start": "node src/server.js",

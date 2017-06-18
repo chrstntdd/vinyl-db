@@ -56,7 +56,6 @@ module.exports = function (passport) {
     (req, email, password, done) => {
       User.findOne({ email: email }, (err, user) => {
         if (err) {
-          logger.error(err);
           return done(err);
         };
         if (!user) {
