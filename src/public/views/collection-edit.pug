@@ -27,26 +27,26 @@ html(lang='en')
               label(for='album' type='text') Album
             .input-group.half
               input.m-input(name='genre', type='text' required)
-              label(for='genre' type='text') Genre
+              label(for='genre' type='text') Genre (Comma separated)
             .input-group.half
               input.m-input(name='releaseYear', type='number' required)
               label(for='releaseYear' type='text') Release Year
             .advanced-details
               .input-group.half
                 input.m-input(name='rating', type='number' min='1' max='10')
-                label(for='rating' type='text') Rating (Between 1 and 10)
+                label(for='rating' type='text') Rating
               .input-group.half
                 input.m-input(name='playCount', type='number' min='0')
-                label(for='rating' type='text') Spins
+                label(for='playCount' type='text') Spins
               .input-group
                 input.m-input(name='vinylColor', type='text')
-                label(for='rating' type='text') Vinyl Color
+                label(for='vinylColor' type='text') Vinyl Color
               .input-group
                 input.m-input(name='mood', type='text')
-                label(for='rating' type='text') Mood
+                label(for='mood' type='text') Mood (Comma separated)
               .input-group
-                input.m-input#pickadate(name='purchaseDate', type='text')
-                label(for='purchaseDate' type='text') Purchase Date
+                input.m-input(name='purchaseDate', type='text')
+                label(for='purchaseDate' type='text') Purchase Date (MM/DD/YYYY)
               .input-group
                 input.m-input(name='notes', type='text')
                 label(for='rating' type='text') Notes
@@ -58,8 +58,6 @@ html(lang='en')
       var user = !{JSON.stringify(user)}
     script(src='https://code.jquery.com/jquery-3.2.1.min.js' integrity='sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=' crossorigin='anonymous')
     script(src='https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.17.4/lodash.js')
-    script(src='/scripts/colorpicker.js')
-    script(src='/scripts/tiny-date-picker/tiny-date-picker.min.js')
     script(src='/scripts/jq-serialize-obj.js')
     script(src='/scripts/collection-edit.js')
     script(src='/scripts/input.js')
