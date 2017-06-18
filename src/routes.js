@@ -2,6 +2,8 @@ module.exports = function(app, passport){
   const express = require('express');
   require('dotenv').config();
   const map = require('lodash.map');
+  const trim = require('lodash.trim');
+  const words = require('lodash.words');
   const logger = require('./logger').logger;
   const async = require('async');
   const nodemailer = require('nodemailer');
@@ -277,14 +279,15 @@ module.exports = function(app, passport){
     User
       .findById(req.params.userId)
       .then((res) => {
+        logger.error(genre);
         let newRecord = {
           artist: req.body.artist,
           album: req.body.album,
           releaseYear: req.body.releaseYear,
           purchaseDate: req.body.purchaseDate,
-          genre: req.body.genre,
+          genre: map(words(req.body.genre, /[^,]+/g), (word) => trim(word)),
           rating: req.body.rating,
-          mood: req.body.mood,
+          mood: map(words(req.body.mood, /[^,]+/g), (word) => trim(word)),
           playCount: req.body.playCount,
           notes: req.body.notes,
           vinylColor: req.body.vinylColor,
@@ -334,6 +337,9 @@ module.exports = function(app, passport){
       .findById(req.params.userId)
       .then((res) => {
         let subDoc = res.music.id(req.params.id);
+        // PARSE INTO AN ARRAY SEPARATED BY COMMAS
+        req.body.genre = map(words(subDoc.genre, /[^,]+/g), (word) => trim(word));
+        req.body.mood = map(words(subDoc.mood, /[^,]+/g), (word) => trim(word));
         subDoc.set(req.body);
         res.save();
       })

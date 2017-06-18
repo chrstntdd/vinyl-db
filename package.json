@@ -23,6 +23,7 @@
     "helmet": "^3.6.1",
     "lodash.map": "^4.6.0",
     "lodash.trim": "^4.5.1",
+    "lodash.words": "^4.2.0",
     "mongoose": "^4.9.9",
     "morgan": "^1.8.1",
     "nodemailer": "^4.0.1",
