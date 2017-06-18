@@ -6,7 +6,33 @@ html(lang='en')
     include includes/nav.pug
     main
       h1 My Collection
-      .cards.contianer
+      .cards.container
+        each album in music
+          .card(id= album.id)
+            .card-img-container
+              img(src=album.thumb)
+            .card-title
+              a.toggle-info.btn(href='#')
+                span.left 
+                span.right
+              h2.album.ellipsis= album.album
+              h3.artist.ellipsis= album.artist
+            .card-flap.flap1
+              .card-description
+                i(class='fa fa-music' aria-hidden='true')
+                p.genre= album.genre[0]
+                i(class='fa fa-calendar' aria-hidden='true')
+                p.release-year= album.releaseYear
+                .play-count-container
+                  p.play-count= album.playCount
+                  | 
+                  p.spin Spins
+                  button.increment-play-count +
+              .card-flap.flap2
+                .card-actions
+                  a#btn-rec-details(href='/collection/details')
+                    button See more details
+
       
     //- CONVERT USER OBJECT PASSED INTO TEMPLATE FROM EXPRESS AVAILABLE IN FOLLOWING SCRIPTS
     script(type='text/javascript').

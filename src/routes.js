@@ -71,7 +71,10 @@ module.exports = function(app, passport){
 
   // COLLECTION VIEW
   router.get('/collection', isLoggedIn, (req, res) => {
-    res.render('collection', { user : req.user });
+    res.render('collection', { 
+      user : req.user,
+      music: req.user.music,
+    });
   });
 
   // COLLECTION DETAILS VIEW
@@ -279,7 +282,6 @@ module.exports = function(app, passport){
     User
       .findById(req.params.userId)
       .then((res) => {
-        logger.error(genre);
         let newRecord = {
           artist: req.body.artist,
           album: req.body.album,
@@ -338,8 +340,8 @@ module.exports = function(app, passport){
       .then((res) => {
         let subDoc = res.music.id(req.params.id);
         // PARSE INTO AN ARRAY SEPARATED BY COMMAS
-        req.body.genre = map(words(subDoc.genre, /[^,]+/g), (word) => trim(word));
-        req.body.mood = map(words(subDoc.mood, /[^,]+/g), (word) => trim(word));
+        req.body.genre = map(words(req.body.genre, /[^,]+/g), (word) => trim(word));
+        req.body.mood = map(words(req.body.mood, /[^,]+/g), (word) => trim(word));
         subDoc.set(req.body);
         res.save();
       })
