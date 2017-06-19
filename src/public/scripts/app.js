@@ -14,9 +14,6 @@ const handleSearch = () => {
       album: _.trim(_.toLower($('#search-album').val())),
     }
     callDiscogsAPI(JSON.stringify(searchRequest));
-    setTimeout(() => {
-      $('input').val('');
-    }, 1000);
   });
 };
 
@@ -29,7 +26,11 @@ const callDiscogsAPI = (searchRequest) => {
       contentType: 'application/json'
     })
     .done((data) => {
-      window.location.replace('/search/results');
+      if (data) {
+        window.location.replace('/search/results');
+      } else {
+        window.location.replace('/search');
+      }
     })
     .fail((err) => {
       console.error(`Request Failed: ${err}`);

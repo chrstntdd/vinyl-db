@@ -37,7 +37,10 @@ module.exports = function(app, passport){
 
   // SEARCH VIEW
   router.get('/search', isLoggedIn, (req, res) => {
-    res.render('search', { user: req.user });
+    res.render('search', { 
+      user: req.user,
+      message: req.flash('no-results'),
+    });
   });
 
   // SEARCH RESULTS VIEW
@@ -49,7 +52,6 @@ module.exports = function(app, passport){
       thumb: req.session.searchResult.images[0].resource_url,
       year: req.session.searchResult.year,
       discogsId: req.session.searchResult.id,
-      searchResult: JSON.stringify(req.session.searchResult),
       user: req.user,
     });
   });
@@ -64,7 +66,6 @@ module.exports = function(app, passport){
       thumb: req.session.searchResult.images[0].resource_url,
       year: req.session.searchResult.year,
       discogsId: req.session.searchResult.id,
-      searchResult: JSON.stringify(req.session.searchResult),
       user: req.user,
     });
   });
@@ -403,9 +404,9 @@ module.exports = function(app, passport){
               logger.info(err);
             });
         } else {
-          res.json({
-            error: 'No results found. Please try your search again.',
-          });
+          // HANDLE NO RESULTS FOUND
+          req.flash('no-results', 'Sorry, we couldn\'t find that album.');
+          res.end();
         }
       })
       .catch((err) => {

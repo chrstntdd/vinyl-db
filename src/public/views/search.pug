@@ -7,6 +7,8 @@ html(lang='en')
     main
       article#search-card
         h1 Search
+        if message != ''
+          .flash-msg #{ message }
         form#search-form(autocomplete='off')
           .input-group
             input#search-artist.m-input(name='artist', type='text' required)
