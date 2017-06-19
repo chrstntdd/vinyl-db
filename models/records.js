@@ -4,7 +4,7 @@ const recordSchema = mongoose.Schema({
   artist: { type: String, required: true },
   album: { type: String, required: true },
   releaseYear: { type: Number, required: true },
-  purchaseDate: Date,
+  purchaseDate: String,
   genre: { type: [String], required: true },
   rating: Number,
   mood: [String],

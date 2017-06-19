@@ -39,8 +39,8 @@ const bindRecordDataToHTML = (res) => {
               <p class='footing'>Purchase Date</p>
             </li>
             <li>
-              <p class='heading play-count'>Spins</p>
-              <p class='footing'>Spins</p>
+              <p class='heading play-count'></p>
+              <p class='footing spins'></p>
             </li>
             <li>
               <p class='heading mood'></p>
@@ -70,6 +70,11 @@ const bindRecordDataToHTML = (res) => {
   $record.find('.title').text(`${res.artist} - ${res.album}`);
   $record.find('.release-year').text(`${res.releaseYear}`);
   $record.find('.genre').text(`${_.join(res.genre, ', ')}`);
+  if (res.playCount == 1){
+    $record.find('.spins').text('Spin')
+  } else {
+    $record.find('.spins').text('Spins')
+  }
   $record.find('.play-count').text(`${res.playCount}`);
   // OPTIONAL DATA
   if (res.purchaseDate) {
