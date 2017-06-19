@@ -1,6 +1,4 @@
-@import 'colors';
 @import 'navbar';
-@import 'record';
 @import 'modal';
 @import 'input';
 @import 'foldout-cards';
@@ -20,6 +18,13 @@ $bp-medium: 1024px;
 $bp-large: 1366px;
 $bp-xlarge: 1920px;
 $bp-xxlarge: 2560px;
+// COLORS
+$PINKINSH: #EF476F;
+$KINDAYELLOW: #FFD166;
+$MINTYGREEN: #06D6A0;
+$SKYBLUE: #118AB2;
+$DARKTEAL: #073B4C;
+$DARKTEAL2: #2c3e51;
 // GLOBALS //
 html * {
   -webkit-font-smoothing: antialiased;
@@ -34,7 +39,7 @@ html * {
 
 body {
   font-family: "Source Sans Pro", sans-serif;
-  background-image: linear-gradient(45deg, rgb(53, 57, 74) 0%, rgb(31, 34, 46) 100%);
+  background-image: linear-gradient(45deg, lighten(#35394a, 5%) 0%, lighten(#1f222e, 1%) 100%);
   background-repeat: no-repeat;
   background-attachment: fixed;
   text-rendering: optimizeLegibility;
@@ -87,7 +92,6 @@ header {
 
 // GLOBAL BUTTON STYLES
 @mixin button($COLOR) {
-  border-radius: 50px;
   background: transparent;
   padding: 10px 50px;
   border: 2px solid $COLOR;
@@ -151,12 +155,20 @@ header {
 
 #edit-details-card {
   background-color: #eee;
-  margin: 0 auto;
-  max-width: 560px;
+  margin-top: 10px;
+  margin-bottom: 50px;
+  margin-left: auto;
+  margin-right: auto;
+  @media(min-width: $bp-xsmall) {
+    margin-top: between(10px, 100px, $bp-xsmall, $bp-medium);
+    margin-bottom: between(50px, 150px, $bp-xsmall, $bp-medium)
+  }
+  max-width: 640px;
   width: 95%;
   padding: 20px;
   border-radius: 2px;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12),
+  0 1px 2px rgba(0, 0, 0, 0.24);
   .input-group {
     text-align: center;
     position: relative;
@@ -281,37 +293,6 @@ header {
   }
   .record {
     margin: 10px auto;
-  }
-}
-
-#btn-rec-details {
-  button {
-    @include button($MINTYGREEN);
-  }
-}
-
-.card {
-  h2,
-  h3 {
-    margin-top: 0;
-    margin-bottom: 0;
-  }
-  p {
-    font-size: 1.5rem;
-    margin-top: 10px;
-    margin-bottom: 10px;
-  }
-  .play-count-container {
-    text-align: center;
-    button {
-      @include button($SKYBLUE);
-      margin-left: 5%;
-      padding: 15px !important;
-      line-height: 7px;
-    }
-    * {
-      display: inline-block;
-    }
   }
 }
 

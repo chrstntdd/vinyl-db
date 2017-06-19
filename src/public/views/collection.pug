@@ -19,15 +19,15 @@ html(lang='en')
               h3.artist.ellipsis= album.artist
             .card-flap.flap1
               .card-description
-                i(class='fa fa-music' aria-hidden='true')
-                p.genre= album.genre[0]
-                i(class='fa fa-calendar' aria-hidden='true')
-                p.release-year= album.releaseYear
+                .genre-container
+                  p.genre= album.genre[0]
+                  i(class='fa fa-music' aria-hidden='true')
+                .release-year-conatiner
+                  p.release-year= album.releaseYear
+                  i(class='fa fa-calendar' aria-hidden='true')
                 .play-count-container
                   p.play-count= album.playCount
-                  | 
-                  p.spin Spins
-                  button.increment-play-count +
+                  button.increment-play-count: i(class='fa fa-refresh' aria-hidden='true')
               .card-flap.flap2
                 .card-actions
                   a#btn-rec-details(href='/collection/details')
