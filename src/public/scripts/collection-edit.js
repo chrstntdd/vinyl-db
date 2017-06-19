@@ -4,7 +4,6 @@ $(() => {
   getRecordDetails(user._id, selectedRecordId);
   handlePutRecordDetails(user._id, selectedRecordId);
   handleFormToggle();
-  TinyDatePicker(document.getElementById('pickadate'));
 });
 
 const populate = (form, data) => {
@@ -58,17 +57,12 @@ const handleFormToggle = () => {
     formType = $('input[type="radio"]:checked').val();
     if (formType == 'advanced') {
       $('.advanced-details').show();
-      
-      $('input').each(function() {
-        if ($(this).attr('id') === 'pickadate'){
-          $(this).blur()
-        } else {
-          $(this).focus();
-        }
+      $('input').each(function () {
+        $(this).focus();
+        $(this).blur();
       });
-
     } else {
       $('.advanced-details').hide();
-    };
+    }
   });
 };
