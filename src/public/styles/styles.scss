@@ -3,6 +3,7 @@
 @import 'input';
 @import 'foldout-cards';
 @import 'form-toggle';
+@import '404';
 // RWD HELPERS //
 @function between($to, $from, $toWidth, $fromWidth) {
   $slope: ($to - $from) / ($toWidth - $fromWidth);
@@ -19,7 +20,7 @@ $bp-large: 1366px;
 $bp-xlarge: 1920px;
 $bp-xxlarge: 2560px;
 // COLORS
-$PINKINSH: #EF476F;
+$PINKINSH: #F2385A;
 $KINDAYELLOW: #FFD166;
 $MINTYGREEN: #06D6A0;
 $SKYBLUE: #118AB2;
@@ -58,35 +59,6 @@ a {
   transition: color 0.25s;
   &:hover {
     color: lighten($SKYBLUE, 10%);
-  }
-}
-
-header {
-  img {
-    position: fixed;
-    top: 0;
-    left: 0;
-    min-width: 100%;
-    min-height: 100%;
-  }
-}
-
-#record-details article {
-  margin: 0 auto;
-  width: 100vw;
-  background-color: white;
-  margin-top: 5rem;
-  margin-bottom: 10rem;
-  @media (min-width: $bp-xsmall) {
-    width: between(320px, 760px, $bp-xsmall, $bp-large);
-  }
-  @media (min-width: $bp-large) {
-    width: 760px;
-  }
-  img {
-    object-fit: cover;
-    width: 100%;
-    height: 100%;
   }
 }
 
@@ -258,11 +230,21 @@ header {
 }
 
 #record-details.collection-details {
-  #edit-record button {
-    @include button($MINTYGREEN);
+  margin: 0 auto;
+  width: 100vw;
+  background-color: white;
+  margin-top: 5rem;
+  margin-bottom: 10rem;
+  @media (min-width: $bp-xxsmall) {
+    width: between(320px, 760px, $bp-xxsmall, $bp-xlarge);
   }
-  button#delete-record {
-    @include button(red);
+  .title {
+    margin-left: 10px;
+  }
+  img {
+    object-fit: cover;
+    width: 100%;
+    height: 100%;
   }
   .stats {
     ul {
@@ -278,21 +260,56 @@ header {
         list-style: none;
         background-color: #eee;
         width: 32%;
-        height: 80px;
         .heading {
-          text-align: center;
-          font-size: 16px;
-        }
-        .footing {
           text-align: center;
           font-weight: 600;
           text-transform: uppercase;
         }
+        .footing {
+          text-align: center;
+          font-size: 18px;
+          @media (min-width: $bp-xxlarge) {
+            font-size: between(18px, 26px, $bp-xxsmall, $bp-xlarge);
+          }
+        }
       }
     }
   }
-  .record {
-    margin: 10px auto;
+  .notes-container {
+    display: flex;
+    align-items: center;
+    background-color: #eee;
+    flex-wrap: wrap;
+    margin-bottom: 10%;
+    .heading {
+      width: 100%;
+      text-align: center;
+      font-weight: 600;
+      text-transform: uppercase;
+      margin-bottom: 0;
+    }
+    .footing {
+      margin-top: 0;
+      padding: 15px;
+      width: 100%;
+      font-size: 20px;
+      word-wrap: break-word;
+      @media (min-width) {
+        font-size: between(20px, 26px, $bp-xxsmall, $bp-xlarge);
+      }
+    }
+  }
+  .btn-group {
+    display: flex;
+    justify-content: space-around;
+    #edit-record button {
+      @include button($MINTYGREEN);
+      margin-bottom: 20px;
+    }
+    button#delete-record {
+      @include button(red);
+      margin-bottom: 20px;
+    }
   }
 }
 
@@ -332,4 +349,86 @@ header {
   /* Required for text-overflow to do anything */
   white-space: nowrap;
   overflow: hidden;
+}
+
+// Hero
+// - - - - - - - - - - - - - - - - - - - - - - - - -
+.hero {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  position: relative;
+  overflow: hidden;
+  .hero__image {
+    background-image: linear-gradient(to bottom, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.6)), url('../img/header.jpg');
+    background-size: cover;
+    background-position: center center;
+    background-repeat: no-repeat;
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    z-index: 25;
+  }
+  .hero__content {
+    text-align: center;
+    position: relative;
+    z-index: 50;
+    h1 {
+      font-family: 'Playfair Display', sans-serif;
+      font-size: 76px;
+      @media (min-width: $bp-xxsmall) {
+        font-size: between(76px, 110px, $bp-xxsmall, $bp-xlarge);
+      }
+      font-weight: 900;
+      line-height: 1.1;
+      color: #fff;
+      margin: 0 0 20px 0;
+    }
+    h4 {
+      font-family: 'Lato', sans-serif;
+      font-size: 28px;
+      font-weight: 300;
+      color: #fff;
+      margin: 0 0 0 0;
+    }
+  }
+}
+
+// Copy
+// - - - - - - - - - - - - - - - - - - - - - - - - -
+.copy {
+  background-color: #f2f2f2;
+  text-align: center;
+  padding: 60px 25px 55px 25px;
+  width: 100vw;
+  font-family: 'Lato', sans-serif;
+  font-size: 18px;
+  font-weight: 300;
+  line-height: 1.95;
+  color: #262626;
+  margin: 0 auto;
+  h2 {
+    font-family: 'Playfair Display', sans-serif;
+    font-size: 70px;
+    font-weight: 900;
+    color: #262626;
+    margin: 0 0 10px 0;
+  }
+  h3 {
+    font-family: 'Lato', sans-serif;
+    font-size: 24px;
+    font-weight: 300;
+    color: #262626;
+    margin: 0 0 60px 0;
+  }
+  p {
+    width: 320px;
+    margin: 0 auto;
+    @media(min-width: $bp-xxsmall) {
+      width: between(320px, 680px, $bp-xxsmall, $bp-large)
+    }
+  }
 }
