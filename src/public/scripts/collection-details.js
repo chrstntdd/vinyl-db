@@ -27,40 +27,45 @@ const bindRecordDataToHTML = (res) => {
         <div class='stats'>
           <ul>
             <li>
-              <p class='heading genre'></p>
-              <p class='footing'>Genre</p>
+              <p class='heading'>Genre</p>
+              <p class='footing genre'></p>
             </li>
             <li>
-              <p class='heading release-year'></p>
-              <p class='footing'>Release Year</p>
+              <p class='heading'>Released</p>
+              <p class='footing release-year'></p>
             </li>
             <li>
-              <p class='heading purchase-date'></p>
-              <p class='footing'>Purchase Date</p>
+              <p class='heading'>Purchased</p>
+              <p class='footing purchase-date'></p>
             </li>
             <li>
-              <p class='heading play-count'></p>
-              <p class='footing spins'></p>
+              <p class='heading spins'></p>
+              <p class='footing play-count'></p>
             </li>
             <li>
-              <p class='heading mood'></p>
-              <p class='footing'>Mood(s)</p>
+              <p class='heading'>Mood</p>
+              <p class='footing mood'></p>
             </li>
             <li>
-              <p class='heading rating'></p>
-              <p class='footing'>rating</p>
+              <p class='heading'>Rating</p>
+              <p class='footing rating'></p>
             </li>
             <li>
-              <p class='heading vinyl-color'></p>
-              <p class='footing'>Vinyl Color</p>
+              <p class='heading'>Vinyl Color</p>
+              <p class='footing vinyl-color'></p>
             </li>
           </ul>
-        </div>  
-        <p class='notes'></p>
-        <a id='edit-record' href='/collection/details/edit'>
-          <button>Edit</button>
-        </a>
-        <button id='delete-record'>Delete</button>
+        </div>
+        <div class='notes-container'>
+          <p class='heading'>Notes</p>
+          <p class='footing notes'></p>
+        </div>
+        <div class='btn-group'>
+          <a id='edit-record' href='/collection/details/edit'>
+            <button>Edit</button>
+          </a>
+          <button id='delete-record'>Delete</button>
+        </div>
     </article>`
   );
 
@@ -103,9 +108,9 @@ const bindRecordDataToHTML = (res) => {
   };
 
   if (res.notes) {
-    $record.find('.notes').text(`Notes: ${res.notes}`);
+    $record.find('.notes').text(`${res.notes}`);
   } else {
-    $record.find('.notes').closest('li').remove();
+    $record.find('.notes').closest('.notes-container').remove();
   };
 
   return $record;
@@ -145,3 +150,11 @@ const handleDelete = (userId, selectedRecordId) => {
       });
   });
 };
+
+module.exports = {
+  getRecordDetails,
+  bindRecordDataToHTML,
+  renderRecord,
+  handleModal,
+  handleDelete,
+}
