@@ -6,7 +6,8 @@ html(lang='en')
     include includes/nav.pug
     main
       section#reset-password-card
-       .flash-message #{ message }
+      if message != ''
+        .flash-msg #{ message }
         form(method='POST')
           legend Reset Password
             .input-group
