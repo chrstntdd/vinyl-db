@@ -30,6 +30,8 @@ module.exports = function(app, passport){
   // ROOT / HOMEPAGE
   router.get('/', (req, res) => {
     res.render('index', { 
+      title: 'VinylDB',
+      tagline: 'Something catchy',
       user: req.user,
       message: req.flash('success'),
     });
@@ -103,7 +105,7 @@ module.exports = function(app, passport){
         failureFlash: true,
       }));
 
-// LOGIN VIEW
+  // LOGIN VIEW
   router.route('/login')
   .get((req, res) => {
     res.render('login', {
@@ -405,7 +407,7 @@ module.exports = function(app, passport){
             });
         } else {
           // HANDLE NO RESULTS FOUND
-          req.flash('no-results', 'Sorry, we couldn\'t find that album.');
+          req.flash('no-results', 'Sorry, we couldn\'t find that album. Please try your search again.');
           res.end();
         }
       })
@@ -419,9 +421,7 @@ module.exports = function(app, passport){
 
   // CATCH ALL HANDLERS
   router.get('*', (req, res) => {
-    res.status(404).json({
-      message: '404 ERROR: Page not found.',
-    });
+    res.render('404');
   });
 
   router.use((err, req, res) => {
