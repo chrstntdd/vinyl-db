@@ -59,10 +59,10 @@ module.exports = function (passport) {
           return done(err);
         };
         if (!user) {
-          return done(null, false, req.flash('loginMessage', 'User does not exist, please sign up.' ));
+          return done(null, false, req.flash('loginMessage', 'Looks like you don\'t have an account with us. Please sign up.' ));
         };
         if (!user.validPassword(password)) {
-          return done(null, false, req.flash('loginMessage', 'Invalid password try again.' ));
+          return done(null, false, req.flash('loginMessage', 'Your password looks a bit off. Please try again.' ));
         };
         console.log('Successfully logged in');
         return done(null, user);
