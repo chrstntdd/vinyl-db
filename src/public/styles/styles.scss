@@ -4,6 +4,7 @@
 @import 'foldout-cards';
 @import 'form-toggle';
 @import '404';
+@import 'album';
 // RWD HELPERS //
 @function between($to, $from, $toWidth, $fromWidth) {
   $slope: ($to - $from) / ($toWidth - $fromWidth);
@@ -20,7 +21,7 @@ $bp-large: 1366px;
 $bp-xlarge: 1920px;
 $bp-xxlarge: 2560px;
 // COLORS
-$PINKINSH: #F2385A;
+$PINKISH: #F2385A;
 $KINDAYELLOW: #FFD166;
 $MINTYGREEN: #06D6A0;
 $SKYBLUE: #118AB2;
@@ -39,7 +40,7 @@ html * {
 }
 
 body {
-  font-family: "Source Sans Pro", sans-serif;
+  font-family: "Lato", sans-serif;
   background-image: linear-gradient(45deg, lighten(#35394a, 5%) 0%, lighten(#1f222e, 1%) 100%);
   background-repeat: no-repeat;
   background-attachment: fixed;
@@ -67,11 +68,12 @@ a {
   background: transparent;
   padding: 10px 50px;
   border: 2px solid $COLOR;
+  border-radius: 3px;
   color: $COLOR;
   text-transform: uppercase;
   font-size: 11px;
   transition-property: background, color;
-  transition-duration: 0.2s;
+  transition-duration: 0.5s;
   &:hover {
     color: white;
     background: $COLOR;
@@ -110,7 +112,24 @@ a {
 }
 
 #login-card {
-  @include forms(350px, $MINTYGREEN);
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  background-color: #eee;
+  max-width: 560px;
+  width: 95%;
+  padding: 20px;
+  border-radius: 2px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
+  @include input($SKYBLUE);
+  button {
+    @include button($SKYBLUE);
+  }
+  .forgot {
+    display: block;
+    margin-top: 20px;
+  }
 }
 
 #signup-card {
@@ -118,11 +137,37 @@ a {
 }
 
 #search-card {
-  @include forms(430px, $MINTYGREEN);
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  background-color: #eee;
+  max-width: 560px;
+  width: 95%;
+  padding: 20px;
+  border-radius: 2px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
+  @include input($SKYBLUE);
+  button {
+    @include button($SKYBLUE);
+  }
 }
 
 #record-details-card {
-  @include forms(430px, $MINTYGREEN);
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  background-color: #eee;
+  max-width: 560px;
+  width: 95%;
+  padding: 20px;
+  border-radius: 2px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
+  @include input($SKYBLUE);
+  button {
+    @include button($SKYBLUE);
+  }
 }
 
 #edit-details-card {
@@ -197,35 +242,38 @@ a {
 }
 
 #forgot-password-card {
-  @include forms(450px, $MINTYGREEN);
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  background-color: #eee;
+  max-width: 560px;
+  width: 95%;
+  padding: 20px;
+  border-radius: 2px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
+  @include input($MINTYGREEN);
+  button {
+    display: block;
+    margin: 20px auto;
+    @include button ($MINTYGREEN);
+  }
 }
 
 #reset-password-card {
-  @include forms(450px, $MINTYGREEN);
-}
-
-#result-card {
-  margin: 10% auto 0 auto;
-  width: 25rem;
-  padding: 10px;
-  background-color: white;
-  img {
-    object-fit: cover;
-    width: 100%;
-    height: 100%;
-  }
-  .btn-group {
-    text-align: center;
-    button.confirm {
-      @include button($MINTYGREEN);
-      display: inline-block;
-      width: 150px;
-    }
-    button.deny {
-      @include button(red);
-      display: inline-block;
-      width: 150px;
-    }
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  background-color: #eee;
+  max-width: 560px;
+  width: 95%;
+  padding: 20px;
+  border-radius: 2px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
+  @include input($MINTYGREEN);
+  button {
+    @include button ($MINTYGREEN);
   }
 }
 
@@ -314,8 +362,7 @@ a {
 }
 
 .flash-msg {
-  padding: 8px 35px 8px 14px;
-  margin-bottom: 18px;
+  padding: 20px;
   color: #c09853;
   background-color: #fcf8e3;
   border: 1px solid #fbeed5;
@@ -431,4 +478,40 @@ a {
       width: between(320px, 680px, $bp-xxsmall, $bp-large)
     }
   }
+}
+
+#result-card {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  padding: 20px;
+  transform: translate(-50%, -50%);
+  background-color: #eee;
+  border-radius: 2px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
+  .btn-group {
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+    a {
+      margin-bottom: 10px;
+      .confirm {
+        @include button($MINTYGREEN);
+        cursor: pointer;
+      }
+      .deny {
+        @include button($PINKISH);
+        cursor: pointer;
+      }
+    }
+  }
+  @include album;
+}
+
+.center {
+  z-index: 9000;
+  position: absolute;
+  left: 50%;
+  top: 25%;
+  transform: translate(-50%, -50%);
 }

@@ -1,0 +1,112 @@
+@mixin album {
+  .vinyl {
+    width: 310px;
+    @media (min-width: $bp-xxsmall) {
+      width: between(310px, 500px, $bp-xxsmall, $bp-xlarge);
+      height: between(310px, 500px, $bp-xxsmall, $bp-xlarge);
+    }
+    margin: 20px auto;
+    width: 500px;
+    height: 500px;
+    position: relative;
+    transition: all 600ms ease-in-out;
+    &:hover {
+      opacity: 0.9;
+      transition: all 250ms ease-in-out
+    }
+    &:active {
+      opacity: 0.75;
+    }
+    &__cover {
+      width: inherit;
+      height: inherit;
+      border-radius: 2px;
+      overflow: hidden;
+      z-index: 10;
+      box-shadow: 0 0 0 -3px transparent;
+      transition: all 0.4s ease-out;
+    }
+    .active {
+      box-shadow: 0 5px 40px rgba(0, 0, 0, 0.25);
+    }
+  }
+  .info {
+    opacity: 0;
+    top: 0;
+    left: 0;
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background: rgba(35, 35, 35, 0.95);
+    text-align: center;
+    color: #ffffff;
+    z-index: 999;
+    border-radius: 2px;
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    transition: all 0.2s ease-in;
+    &__artist,
+    &__album,
+    &__year,
+    &__genre {
+      transform: translateY(15px);
+      transition: all 0.25s ease-in-out;
+    }
+    &__artist {
+      font-size: 22px;
+      font-size: 1.375rem;
+      line-height: 1.2;
+      font-weight: bold;
+      transition-delay: 0.035s;
+    }
+    &__album {
+      font-size: 15px;
+      font-size: 0.9375rem;
+      line-height: 1.2;
+      margin-bottom: 20px;
+      transition-delay: 0.05s;
+    }
+    &__year,
+    &__genre {
+      font-size: 12px;
+      font-size: 0.75rem;
+      line-height: 1.4;
+      text-transform: uppercase;
+      transition-delay: 0.075s;
+    }
+    &__genre {
+      display: inline-flex;
+    }
+  }
+  .active {
+    .info {
+      opacity: 1;
+      &__artist,
+      &__album,
+      &__year,
+      &__genre {
+        transform: translateY(0);
+      }
+    }
+    .vinyl__cover {
+      box-shadow: 8px 0 0 -3px rgba(0, 0, 0, 0.1);
+      transition: all 0.47s ease-in;
+    }
+  }
+  .peek.info {
+    opacity: 1;
+    .info__artist,
+    .info__album,
+    .info__year,
+    .info__genre {
+      transform: translateY(0);
+    }
+  }
+  .peek.vinyl__cover {
+    box-shadow: 4px 0 0 -3px rgba(0, 0, 0, 0.1);
+    transition: all 0.47s ease-in;
+  }
+}
