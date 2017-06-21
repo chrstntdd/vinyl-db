@@ -49,7 +49,8 @@ module.exports = function(app, passport){
   router.get('/search/results', isLoggedIn, (req, res) => {
     res.render('search-results', 
     { userId: req.session.userId,
-      title: `${req.session.searchResult.title} - ${req.session.searchResult.artists[0].name}`,
+      artist: req.session.searchResult.artists[0].name,
+      album: req.session.searchResult.title,
       genre: req.session.searchResult.genres[0],
       thumb: req.session.searchResult.images[0].resource_url,
       year: req.session.searchResult.year,
@@ -184,7 +185,8 @@ module.exports = function(app, passport){
           return res.redirect('/forgot');
         }
         res.render('reset', {
-          user: req.user
+          user: req.user,
+          message: req.flash('info'),
         });
       });
     })
