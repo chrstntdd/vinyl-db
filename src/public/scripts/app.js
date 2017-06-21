@@ -2,6 +2,7 @@ $(() => {
   // DOCUMENT READY FUNCTIONS
   handleSearch();
   handleLogout();
+  handleRecordResult();
 });
 
 
@@ -42,3 +43,24 @@ const handleLogout = () => {
     localStorage.clear();
   });
 };
+
+const handleRecordResult = () => {
+  $('.vinyl').on({
+    click: function () {
+      if ($('.vinyl__record').hasClass('peek')) {
+        $(this).toggleClass('active');
+        $('.vinyl__record').removeClass('peek');
+      } else {
+        $(this).toggleClass('active');
+      }
+    },
+    mouseenter: function () {
+      if (!$(this).hasClass('active')) {
+        $('.info, .vinyl__record, .vinyl__cover').addClass('peek');
+      }
+    },
+    mouseleave: function () {
+      $('.info, .vinyl__record, .vinyl__cover').removeClass('peek');
+    }
+  });
+}
