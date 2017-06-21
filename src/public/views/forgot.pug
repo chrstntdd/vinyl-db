@@ -6,11 +6,12 @@ html(lang='en')
     include includes/nav.pug
     main
       section#forgot-password-card
-        .flash-message.flash-info #{ message }
+        if message != ''
+          .flash-msg.flash-info #{ message }
+        h1 Forgot Password
         form(method='POST' autocomplete='off')
-          legend Forgot Password
             .input-group
-              input.m-input(type='email' name='email' autofocus required)
+              input.m-input(type='email' name='email' required)
               label(for='email') Email
             button(type='submit') Reset Password
 

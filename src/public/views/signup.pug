@@ -6,7 +6,8 @@ html(lang='en')
     include includes/nav.pug
     main
       article#signup-card
-        .error #{ message }
+        if message != ''
+          .flash-msg.flash-info #{ message }
         h1 Sign up
         form(action='/signup' method='POST' autocomplete='off')
           .input-group

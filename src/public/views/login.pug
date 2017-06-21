@@ -7,7 +7,7 @@ html(lang='en')
     main
       article#login-card
         if message != ''
-          .flash-msg #{ message }
+          .flash-msg.flash-info #{ message }
         h1 Login
         form(action='/login' method='POST' autocomplete='off')
           .input-group
@@ -18,10 +18,8 @@ html(lang='en')
             label(for='password' type='text') Password
           .input-group
             button(type='submit') Login
-          a(href='/forgot') Forgot password?
+            a.forgot(href='/forgot') Forgot password?
 
     script(src='https://code.jquery.com/jquery-3.2.1.min.js' integrity='sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=' crossorigin='anonymous')
-    script(src='https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.17.4/lodash.js')
     script(src='/scripts/input.js')
-    script(src='/scripts/app.js')
     script(src='/scripts/nav.js')

@@ -7,10 +7,13 @@ html(lang='en')
     main
       article#result-card
         h1 Is this what you were looking for?
-        img(src=thumb)
-        h2= title
-        h3= year
-        h3= genre
+        .vinyl
+          .info
+            .info__artist= artist
+            .info__album= album
+            .info__year= year
+            .info__genre= genre
+          .vinyl__cover(style='background: url("'+ thumb +'") no-repeat center/cover')
         .btn-group
           a(href='/search/details'): button.confirm That's right
           a(href='/search'): button.deny Try again...

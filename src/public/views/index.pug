@@ -4,8 +4,9 @@ html(lang='en')
   include includes/head.pug
   body
     include includes/nav.pug
-    if message != ''
-      .flash-message.flash-success #{ message }
+    .center
+      if message != ''
+        .flash-msg.flash-success #{ message }
     .hero
       .hero__image#ParallaxImage
       .hero__content#ParallaxContent
