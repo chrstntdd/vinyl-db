@@ -24,7 +24,7 @@ module.exports = function(app, passport){
   }).database();
 
   const isLoggedIn = (req, res, next) => {
-    req.isAuthenticated() ? next() : res.redirect('/login');
+    req.isAuthenticated() ? next() : res.redirect('/entrance');
   };
 
   const sanitizeInputs = (req) => {
@@ -154,7 +154,7 @@ module.exports = function(app, passport){
           });
           req.sanitizeBody('email').escape();
           req.sanitizeBody('email').trim();
-          
+
           User.findOne({ email: req.body.email }, (err, user) => {
             if (!user) {
               req.flash('info', 'Hmm, we can\'t find an account associated with that email. Try again please.');
@@ -190,13 +190,11 @@ module.exports = function(app, passport){
 
   // RESET PASSWORD VIEW
   router.route('/reset/:token')
-    .get(function (req, res) {
+    .get((req, res) => {
       User.findOne({
         resetPasswordToken: req.params.token,
-        resetPasswordExpires: {
-          $gt: Date.now()
-        }
-      }, function (err, user) {
+        resetPasswordExpires: {$gt: Date.now()}
+      }, (err, user) => {
         if (!user) {
           req.flash('error', 'Password reset token is invalid or has expired.');
           return res.redirect('/forgot');
