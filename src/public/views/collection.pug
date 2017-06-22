@@ -5,7 +5,10 @@ html(lang='en')
   body
     include includes/nav.pug
     main
-      h1#collection-heading My Collection
+      if music != ''
+        h1#collection-heading My Collection
+      else
+        .get-started: h1 Get started by adding your first record!
       .cards.container
         each album in music
           .card(id= album.id)
