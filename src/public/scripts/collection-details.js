@@ -72,43 +72,43 @@ const bindRecordDataToHTML = (res) => {
   let $record = $(basicRecordHTML);
   $record.find('img').attr('src', res.thumb);
   $record.attr('id', res.discogsId);
-  $record.find('.title').text(`${res.artist} - ${res.album}`);
-  $record.find('.release-year').text(`${res.releaseYear}`);
-  $record.find('.genre').text(`${_.join(res.genre, ', ')}`);
+  $record.find('.title').html(`${res.artist} - ${res.album}`);
+  $record.find('.release-year').html(`${res.releaseYear}`);
+  $record.find('.genre').html(`${_.join(res.genre, ', ')}`);
   if (res.playCount == 1){
-    $record.find('.spins').text('Spin')
+    $record.find('.spins').html('Spin')
   } else {
-    $record.find('.spins').text('Spins')
+    $record.find('.spins').html('Spins')
   }
-  $record.find('.play-count').text(`${res.playCount}`);
+  $record.find('.play-count').html(`${res.playCount}`);
   // OPTIONAL DATA
   if (res.purchaseDate) {
-    $record.find('.purchase-date').text(`${res.purchaseDate}`);
+    $record.find('.purchase-date').html(`${res.purchaseDate}`);
   } else {
     $record.find('.purchase-date').closest('li').remove();
   };
 
   if (res.vinylColor) {
-    $record.find('.vinyl-color').text(`${res.vinylColor}`);
+    $record.find('.vinyl-color').html(`${res.vinylColor}`);
     $record.find('.stats').after(`<div class='record'></div>`);
   } else {
     $record.find('.vinyl-color').closest('li').remove();
   };
 
-  if (res.mood.length != 0) {
-    $record.find('.mood').text(`${_.join(res.mood, ', ')}`);
+  if (res.mood != 0) {
+    $record.find('.mood').html(`${res.mood}`);
   } else {
     $record.find('.mood').closest('li').remove();
   };
 
   if (res.rating) {
-    $record.find('.rating').text(`${res.rating}`);
+    $record.find('.rating').html(`${res.rating}`);
   } else {
     $record.find('.rating').closest('li').remove();
   };
 
   if (res.notes) {
-    $record.find('.notes').text(`${res.notes}`);
+    $record.find('.notes').html(`${res.notes}`);
   } else {
     $record.find('.notes').closest('.notes-container').remove();
   };
@@ -150,11 +150,3 @@ const handleDelete = (userId, selectedRecordId) => {
       });
   });
 };
-
-module.exports = {
-  getRecordDetails,
-  bindRecordDataToHTML,
-  renderRecord,
-  handleModal,
-  handleDelete,
-}
