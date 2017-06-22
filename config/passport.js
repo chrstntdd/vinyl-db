@@ -25,6 +25,7 @@ module.exports = (passport) => {
       // VALIDATE WITH ERROR MESSAGES
       req.checkBody('email', 'Please enter a valid email.').notEmpty().isEmail();
       req.checkBody('password', 'Please enter a valid password that\'s at least 6 characters long.').notEmpty().isAlpha().isLength( {min: 6 });
+      req.checkBody('password', 'Please make sure your two passwords match.').equals(req.body.confirmPassword);
 
       // SANITIZE
       req.sanitizeBody('email').normalizeEmail({

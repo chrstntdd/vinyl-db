@@ -1,6 +1,7 @@
 $(() => {
   // DOCUMENT READY FUNCTIONS
   handleDetailsSubmit(user._id);
+  handleFormToggle();
   
   // LOOP THROUGH INPUTS TO GET LABEL OUT OF THE WAY
   _.forEach($('input').focus());
@@ -26,5 +27,20 @@ const handleDetailsSubmit = (userId) => {
       .fail((err) => {
         console.log(err);
       });
+  });
+};
+
+const handleFormToggle = () => {
+  $('.switch-button').on('click', (e) => {
+    formType = $('input[type="radio"]:checked').val();
+    if (formType == 'advanced') {
+      $('.advanced-details').show();
+      $('input').each(function () {
+        $(this).focus();
+        $(this).blur();
+      });
+    } else {
+      $('.advanced-details').hide();
+    }
   });
 };

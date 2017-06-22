@@ -9,6 +9,12 @@ html(lang='en')
         h1 Album Details
         section#record-details
           form(autocomplete='off')
+            .switch-button
+              input(type='radio' name='radio' value='basic' checked)
+              label(for='') Basic
+              input#advanced-form(type='radio' name='radio' value='advanced')
+              label.advanced(for='') Advanced
+
             input(name='thumb' type='hidden' value=thumb)
             input(name='discogsId' type='hidden' value=discogsId)
             .input-group
@@ -17,15 +23,31 @@ html(lang='en')
             .input-group
               input.m-input(name='album', type='text' value=album required)
               label(for='album' type='text') Album
-            .input-group
-              input.m-input(name='releaseYear', type='number' value=year required)
-              label(for='releaseYear' type='text') Release Year
-            .input-group
-              input.m-input(name='genre', type='text' value=genre required)
+            .input-group.half
+              input.m-input(name='genre', type='text' value= genre required)
               label(for='genre' type='text') Genre
-            .input-group
-              input.m-input(name='vinylColor', type='text' value=vinylColor)
-              label(for='genre' type='text') Vinyl Color
+            .input-group.half
+              input.m-input(name='releaseYear', type='number' value= year required)
+              label(for='releaseYear' type='text') Release Year
+            .advanced-details
+              .input-group.half
+                input.m-input(name='rating', type='number' min='1' max='10')
+                label(for='rating' type='text') Rating
+              .input-group.half
+                input.m-input(name='playCount', type='number' min='0')
+                label(for='playCount' type='text') Spins
+              .input-group
+                input.m-input(name='vinylColor', type='text')
+                label(for='vinylColor' type='text') Vinyl Color
+              .input-group
+                input.m-input(name='mood', type='text')
+                label(for='mood' type='text') Mood
+              .input-group
+                input.m-input(name='purchaseDate', type='text')
+                label(for='purchaseDate' type='text') Purchase Date (MM/DD/YYYY)
+              .input-group
+                input.m-input(name='notes', type='text')
+                label(for='rating' type='text') Notes
             .input-group
               button(type='submit') Add to collection
     //- CONVERT USER OBJECT PASSED INTO TEMPLATE FROM EXPRESS AVAILABLE IN FOLLOWING SCRIPTS

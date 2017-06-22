@@ -5,14 +5,18 @@
 @import 'form-toggle';
 @import '404';
 @import 'album';
-// RWD HELPERS //
+// - - - - - - - - - - - - - - - - - - - - - - - - -
+// RWD HELPERS 
+// - - - - - - - - - - - - - - - - - - - - - - - - -
 @function between($to, $from, $toWidth, $fromWidth) {
   $slope: ($to - $from) / ($toWidth - $fromWidth);
   $base: $from - $slope * $fromWidth;
   @return calc(#{$base} + #{100vw * $slope});
 }
 
-// Breakpoints
+// - - - - - - - - - - - - - - - - - - - - - - - - -
+// BREAKPOINTS
+// - - - - - - - - - - - - - - - - - - - - - - - - -
 $bp-xxsmall: 320px;
 $bp-xsmall: 576px;
 $bp-small: 768px;
@@ -20,28 +24,36 @@ $bp-medium: 1024px;
 $bp-large: 1366px;
 $bp-xlarge: 1920px;
 $bp-xxlarge: 2560px;
+// - - - - - - - - - - - - - - - - - - - - - - - - -
 // COLORS
+// - - - - - - - - - - - - - - - - - - - - - - - - -
 $PINKISH: #F2385A;
 $KINDAYELLOW: #FFD166;
 $MINTYGREEN: #06D6A0;
 $SKYBLUE: #118AB2;
 $DARKTEAL: #073B4C;
 $DARKTEAL2: #2c3e51;
+// - - - - - - - - - - - - - - - - - - - - - - - - -
 // GLOBALS //
+// - - - - - - - - - - - - - - - - - - - - - - - - -
 html * {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
 *,
-*:after,
-*:before {
+*::after,
+*::before {
   box-sizing: border-box;
+}
+
+html {
+  height: 100%;
 }
 
 body {
   font-family: "Lato", sans-serif;
-  background-image: linear-gradient(45deg, lighten(#35394a, 5%) 0%, lighten(#1f222e, 1%) 100%);
+  background-image: linear-gradient(45deg, lighten(#222d3b, 10%) 0%, lighten(#222d3b, 1%) 100%);
   background-repeat: no-repeat;
   background-attachment: fixed;
   text-rendering: optimizeLegibility;
@@ -50,20 +62,6 @@ body {
   overflow-x: hidden;
 }
 
-html {
-  height: 100%;
-}
-
-a {
-  text-decoration: none;
-  color: $SKYBLUE;
-  transition: color 0.25s;
-  &:hover {
-    color: lighten($SKYBLUE, 10%);
-  }
-}
-
-// GLOBAL BUTTON STYLES
 @mixin button($COLOR) {
   background: transparent;
   padding: 10px 50px;
@@ -81,16 +79,21 @@ a {
   }
 }
 
-@mixin card-center ($HEIGHT) {
-  background-color: #eee;
+a {
+  text-decoration: none;
+  color: $SKYBLUE;
+  transition: color 0.25s;
+  &:hover {
+    color: lighten($SKYBLUE, 10%);
+  }
+}
+
+@mixin center-card {
   position: absolute;
-  top: 0;
-  right: 0;
-  bottom: 0;
-  left: 0;
-  margin: auto;
-  z-index: 1;
-  height: $HEIGHT;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  background-color: #eee;
   max-width: 560px;
   width: 95%;
   padding: 20px;
@@ -98,55 +101,104 @@ a {
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
 }
 
-@mixin forms ($HEIGHT, $COLOR) {
-  @include card-center($HEIGHT);
-  @include input($COLOR);
-  h1 {
-    text-align: center;
-  }
-  button {
-    @include button($COLOR);
-    display: block;
-    margin: 20px auto 20px auto;
-  }
-}
-
+// - - - - - - - - - - - - - - - - - - - - - - - - -
+// ACCOUNT VIEWS
+// - - - - - - - - - - - - - - - - - - - - - - - - -
 #login-card {
-  position: absolute;
-  left: 50%;
-  top: 50%;
-  transform: translate(-50%, -50%);
-  background-color: #eee;
-  max-width: 560px;
-  width: 95%;
-  padding: 20px;
-  border-radius: 2px;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
   @include input($SKYBLUE);
-  button {
-    @include button($SKYBLUE);
+  .form-module {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    height: 450px;
+    background: #FFF;
+    max-width: 480px;
+    width: 100%;
+    box-shadow: 0 0 3px rgba(0, 0, 0, 0.1);
+    margin: 0 auto;
   }
-  .forgot {
+  .form-module .form {
+    display: none;
+    padding: 40px;
+  }
+  .form-module .form:nth-child(2) {
     display: block;
-    margin-top: 20px;
+  }
+  .form-module h2 {
+    margin: 0 0 20px;
+    color: $SKYBLUE;
+    font-size: 18px;
+    font-weight: 400;
+    line-height: 1;
+  }
+  .form-module input {
+    background-color: transparent;
+    outline: none;
+    display: block;
+    width: 100%;
+    box-sizing: border-box;
+    font-weight: 400;
+    -webkit-transition: 0.3s ease;
+    transition: 0.3s ease;
+  }
+  .form-module input:focus {
+    color: #333333;
+  }
+  button {
+    width: 100%;
+    margin-bottom: 20px;
+    @include button($SKYBLUE)
+  } // =======
+  .toggle {
+    height: 45px;
+    margin-left: auto;
+    margin-right: auto;
+    width: 100%;
+    display: inline-block;
+    background-color: lighten(#222d3b, 10%);
+    color: #82909b;
+    display: flex;
+    justify-content: space-around;
+  }
+  .toggle .choice {
+    font-size: 16px;
+    width: 240px;
+    height: 100%;
+    text-align: center;
+    padding: 12px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+  }
+  .toggle .choice.on {
+    color: #fff;
+    background-color: #222d3b;
   }
 }
 
-#signup-card {
-  @include forms(430px, $MINTYGREEN);
+#forgot-password-card {
+  @include center-card();
+  @include input($MINTYGREEN);
+  button {
+    display: block;
+    margin: 20px auto;
+    @include button ($MINTYGREEN);
+  }
 }
 
+#reset-password-card {
+  @include center-card();
+  @include input($MINTYGREEN);
+  button {
+    @include button ($MINTYGREEN);
+  }
+}
+
+// - - - - - - - - - - - - - - - - - - - - - - - - -
+// MAIN UI COMPONENTS
+// - - - - - - - - - - - - - - - - - - - - - - - - -
 #search-card {
-  position: absolute;
-  left: 50%;
-  top: 50%;
-  transform: translate(-50%, -50%);
-  background-color: #eee;
-  max-width: 560px;
-  width: 95%;
-  padding: 20px;
-  border-radius: 2px;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
+  @include center-card();
   @include input($SKYBLUE);
   button {
     @include button($SKYBLUE);
@@ -154,33 +206,15 @@ a {
 }
 
 #record-details-card {
-  position: absolute;
-  left: 50%;
-  top: 50%;
-  transform: translate(-50%, -50%);
-  background-color: #eee;
-  max-width: 560px;
-  width: 95%;
-  padding: 20px;
-  border-radius: 2px;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
-  @include input($SKYBLUE);
-  button {
-    @include button($SKYBLUE);
-  }
-}
-
-#edit-details-card {
-  background-color: #eee;
-  margin-top: 10px;
-  margin-bottom: 50px;
   margin-left: auto;
   margin-right: auto;
-  @media(min-width: $bp-xsmall) {
-    margin-top: between(10px, 100px, $bp-xsmall, $bp-medium);
-    margin-bottom: between(50px, 150px, $bp-xsmall, $bp-medium)
+  @media(min-width: $bp-xxsmall) {
+    margin-top: between(30px, 120px, $bp-xxsmall, $bp-medium);
+    margin-bottom: between(30px, 60px, $bp-xxsmall, $bp-xlarge);
   }
-  max-width: 640px;
+  display: block;
+  background-color: #eee;
+  max-width: 560px;
   width: 95%;
   padding: 20px;
   border-radius: 2px;
@@ -192,7 +226,77 @@ a {
     padding-top: 20px;
     margin-top: 20px;
     width: 100%;
-    &:after {
+    &::after {
+      content: '';
+      display: table;
+      clear: both;
+    }
+    input {
+      border: none;
+      border-bottom: solid 1px #aaa;
+      width: 100%;
+      padding: 10px 0;
+      background-color: #eeeeee;
+      transition: border-color 0.2s ease, box-shadow 0.2s ease;
+      &:focus {
+        outline: none;
+        border-color: $SKYBLUE;
+        box-shadow: 0 1px 0 0 $SKYBLUE;
+      }
+      &:focus+label {
+        color: $SKYBLUE;
+      }
+    }
+    label {
+      position: absolute;
+      top: 30px;
+      left: 0;
+      color: darken(#aaa, 70%);
+      font-weight: 300;
+      transition: transform 0.2s ease, color 0.2s ease;
+      &:hover {
+        cursor: text;
+      }
+    }
+  }
+  .half {
+    display: inline-block;
+    width: 50%;
+    input {
+      width: 96%;
+    }
+  }
+  .input-group input:focus+label,
+  .input-group input.active+label {
+    transform: translateY(-30px);
+  }
+  button {
+    @include button($SKYBLUE);
+  }
+}
+
+#edit-details-card {
+  margin-left: auto;
+  margin-right: auto;
+  @media(min-width: $bp-xxsmall) {
+    margin-top: between(30px, 120px, $bp-xxsmall, $bp-medium);
+    margin-bottom: between(30px, 60px, $bp-xxsmall, $bp-xlarge);
+  }
+  display: block;
+  background-color: #eee;
+  max-width: 560px;
+  width: 95%;
+  padding: 20px;
+  border-radius: 2px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12),
+  0 1px 2px rgba(0, 0, 0, 0.24);
+  .input-group {
+    text-align: center;
+    position: relative;
+    padding-top: 20px;
+    margin-top: 20px;
+    width: 100%;
+    &::after {
       content: '';
       display: table;
       clear: both;
@@ -241,50 +345,16 @@ a {
   }
 }
 
-#forgot-password-card {
-  position: absolute;
-  left: 50%;
-  top: 50%;
-  transform: translate(-50%, -50%);
-  background-color: #eee;
-  max-width: 560px;
-  width: 95%;
-  padding: 20px;
-  border-radius: 2px;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
-  @include input($MINTYGREEN);
-  button {
-    display: block;
-    margin: 20px auto;
-    @include button ($MINTYGREEN);
-  }
-}
-
-#reset-password-card {
-  position: absolute;
-  left: 50%;
-  top: 50%;
-  transform: translate(-50%, -50%);
-  background-color: #eee;
-  max-width: 560px;
-  width: 95%;
-  padding: 20px;
-  border-radius: 2px;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
-  @include input($MINTYGREEN);
-  button {
-    @include button ($MINTYGREEN);
-  }
-}
-
 #record-details.collection-details {
   margin: 0 auto;
   width: 100vw;
   background-color: white;
-  margin-top: 5rem;
-  margin-bottom: 10rem;
+  margin-top: 0px;
+  margin-bottom: 0px;
   @media (min-width: $bp-xxsmall) {
     width: between(320px, 760px, $bp-xxsmall, $bp-xlarge);
+    margin-top: between(0px, 200px, $bp-xxsmall, $bp-xlarge);
+    margin-bottom: between(0px, 200px, $bp-xxsmall, $bp-xlarge);
   }
   .title {
     margin-left: 10px;
@@ -316,7 +386,7 @@ a {
         .footing {
           text-align: center;
           font-size: 18px;
-          @media (min-width: $bp-xxlarge) {
+          @media (min-width: $bp-xxsmall) {
             font-size: between(18px, 26px, $bp-xxsmall, $bp-xlarge);
           }
         }
@@ -361,6 +431,8 @@ a {
   }
 }
 
+// FLASH MESSAGES
+// - - - - - - - - - - - - - - - - - - - - - - - - -
 .flash-msg {
   padding: 20px;
   color: #c09853;
@@ -385,6 +457,16 @@ a {
   color: #b94a48;
   background-color: #f2dede;
   border-color: #eed3d7;
+}
+
+// HLPER CLASS FOR FLASH MESSAGE ON HOME PAGE
+// - - - - - - - - - - - - - - - - - - - - - - - - -
+.home-flash {
+  z-index: 9000;
+  position: absolute;
+  left: 50%;
+  top: 25%;
+  transform: translate(-50%, -50%);
 }
 
 .advanced-details {
@@ -508,10 +590,49 @@ a {
   @include album;
 }
 
-.center {
-  z-index: 9000;
-  position: absolute;
-  left: 50%;
-  top: 25%;
-  transform: translate(-50%, -50%);
+#title {
+  font-family: 'Lato', sans-serif; //'Source Sans Pro', sans-serif;
+  font-size: 7rem;
+  font-weight: 300;
+  color: #FFF;
+  text-shadow: -1px 1px 0px darken($MINTYGREEN, 5%), -2px 2px 0px darken($SKYBLUE, 10%), -3px 3px 0px darken($MINTYGREEN, 15%), -4px 4px 0px darken($SKYBLUE, 20%), -5px 5px 0px darken($MINTYGREEN, 25%);
+}
+
+#collection-heading {
+  @media (min-width: $bp-xsmall) {
+    margin-top: between(80px, 130px, $bp-xsmall, $bp-xlarge);
+    font-size: between(40px, 70px, $bp-xsmall, $bp-xlarge);
+  }
+  text-align: center;
+  font-family: 'PT Sans',
+  sans-serif;
+  text-transform: uppercase;
+  font-size: 3rem;
+  font-weight: 200;
+  color: #FFF;
+  text-shadow: -1px 1px 0px darken($MINTYGREEN,
+  5%),
+  -2px 2px 0px darken($SKYBLUE,
+  10%),
+  -3px 3px 0px darken($MINTYGREEN,
+  15%),
+  -4px 4px 0px darken($SKYBLUE,
+  20%),
+  -5px 5px 0px darken($MINTYGREEN,
+  25%);
+  &::before,
+  &::after {
+    content: " ";
+    position: absolute;
+    width: 50px;
+    height: 10px;
+    border-top: 2px solid white;
+    border-bottom: 2px solid white;
+  }
+  &::before {
+    margin: 24px 0 0 -60px;
+  }
+  &::after {
+    margin: 24px 0 0 10px;
+  }
 }

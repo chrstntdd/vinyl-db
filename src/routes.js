@@ -107,35 +107,28 @@ module.exports = function(app, passport){
     res.render('collection-edit', { user: req.user });
   });
 
-  // SIGN-UP VIEW
-  router.route('/signup')
-    .get((req, res) => {
-      res.render('signup', {
-        user: req.user,
-        message: req.flash('signupMessage'),
-      });
-    })
-    .post(
-      passport.authenticate('local-signup', {
-        successRedirect: '/collection',
-        failureRedirect: '/signup',
-        failureFlash: true,
-      }));
+  // SIGN-UP CONTROLLER
+  router.post('/signup', passport.authenticate('local-signup', {
+    successRedirect: '/collection',
+    failureRedirect: '/entrance',
+    failureFlash: true,
+  }));
 
-  // LOGIN VIEW
-  router.route('/login')
-    .get((req, res) => {
-      res.render('login', {
-        user: req.user,
-        message: req.flash('loginMessage'),
-      });
-    })
-    .post(
-        passport.authenticate('local-login', {
-          successRedirect: '/collection',
-          failureRedirect: '/login',
-          failureFlash: true,
-        }));
+  // SIGN-IN CONTROLLER
+  router.post('/login', passport.authenticate('local-login', {
+    successRedirect: '/collection',
+    failureRedirect: '/entrance',
+    failureFlash: true,
+  }))
+
+  // SIGN-IN / SIGN-UP VIEW
+  router.get('/entrance', (req, res) => {
+    res.render('entrance', {
+      user: req.user,
+      loginMessage: req.flash('loginMessage'),
+      signupMessage: req.flash('signupMessage'),
+    });
+  });
 
   // FORGOT VIEW
   router.route('/forgot')
@@ -154,9 +147,17 @@ module.exports = function(app, passport){
           });
         },
         (token, done) => {
+          // SANITIZE
+          req.sanitizeBody('email').normalizeEmail({
+            all_lowercase: true,
+            gmail_remove_dots: false,
+          });
+          req.sanitizeBody('email').escape();
+          req.sanitizeBody('email').trim();
+          
           User.findOne({ email: req.body.email }, (err, user) => {
             if (!user) {
-              req.flash('error', 'No account with that email exists');
+              req.flash('info', 'Hmm, we can\'t find an account associated with that email. Try again please.');
               return res.redirect('/forgot');
             }
             user.resetPasswordToken = token;

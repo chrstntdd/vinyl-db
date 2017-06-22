@@ -12,9 +12,7 @@ html(lang='en')
             .card-img-container
               img(src=album.thumb)
             .card-title
-              a.toggle-info.btn(href='#')
-                span.left 
-                span.right
+              a.toggle-info.btn(href='#'): i.fa.fa-chevron-down
               h2.album.ellipsis= album.album
               h3.artist.ellipsis= album.artist
             .card-flap.flap1

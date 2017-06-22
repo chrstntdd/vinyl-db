@@ -2,6 +2,8 @@ $(document).ready(function(){
   let zindex = 10;
   $('.cards').on('click', '.toggle-info', function(e){
     e.preventDefault();
+    // TOGGLE BETWEEN ICONS.
+    $(this).find('i').toggleClass('fa-times fa-chevron-down');
 
     let isShowing = false;
     

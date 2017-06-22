@@ -49,7 +49,7 @@ a.btn:active {
   // FLEX CONTAINER
   text-align: center;
   display: flex;
-  justify-content: space-around;
+  justify-content: center;
   flex-wrap: wrap;
   margin-top: 20px;
   margin-bottom: 170px;
@@ -97,8 +97,9 @@ a.btn:active {
     text-align: left;
     transition: all 0.3s 0s ease-in;
     z-index: 1;
-    box-shadow: 0px 3px 6px rgba(0, 0, 0, 0.16),
-    0px 3px 6px rgba(0, 0, 0, 0.23);
+    box-shadow: 0 1.7em 5.5em -.94em rgba(black, .3),
+    0 2em 3em .5em rgba(black, .1),
+    0 1.8em 2em -1.5em rgba(black, .2);
     .card-img-container {
       img {
         object-fit: cover;
@@ -119,22 +120,17 @@ a.btn:active {
         right: 15px;
         top: -15px;
         width: 32px;
-        span {
-          background: #ffffff;
-          display: block;
-          height: 2px;
+        .fa-chevron-down {
+          color: white;
           position: absolute;
-          top: 16px;
-          transition: all 0.15s 0s ease-out;
-          width: 12px;
+          top: 8px;
+          left: 7px;
         }
-        span.left {
-          right: 14px;
-          transform: rotate(45deg);
-        }
-        span.right {
-          left: 14px;
-          transform: rotate(-45deg);
+        .fa-times {
+          color: white;
+          position: absolute;
+          top: 8px;
+          left: 9px;
         }
       }
     }
@@ -215,18 +211,6 @@ div.card.show {
 
 div.card.show div.card-title a.toggle-info {
   background: $PINKINSH !important;
-}
-
-div.card.show div.card-title a.toggle-info span {
-  top: 15px;
-}
-
-div.card.show div.card-title a.toggle-info span.left {
-  right: 10px;
-}
-
-div.card.show div.card-title a.toggle-info span.right {
-  left: 10px;
 }
 
 div.card.show div.card-flap {
