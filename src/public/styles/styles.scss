@@ -529,9 +529,8 @@ a {
 // Copy
 // - - - - - - - - - - - - - - - - - - - - - - - - -
 .copy {
-  background-color: #f2f2f2;
   text-align: center;
-  padding: 60px 25px 55px 25px;
+  background-color: #f2f2f2;
   width: 100vw;
   font-family: 'Lato', sans-serif;
   font-size: 18px;
@@ -540,25 +539,29 @@ a {
   color: #262626;
   margin: 0 auto;
   h2 {
-    font-family: 'Playfair Display', sans-serif;
     font-size: 70px;
     font-weight: 900;
     color: #262626;
-    margin: 0 0 10px 0;
+    margin: 0 auto;
   }
-  h3 {
-    font-family: 'Lato', sans-serif;
-    font-size: 24px;
+  h4 {
+    font-size: 20px;
     font-weight: 300;
     color: #262626;
-    margin: 0 0 60px 0;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 0;
+    margin-bottom: 40px;
   }
   p {
-    width: 320px;
     margin: 0 auto;
     @media(min-width: $bp-xxsmall) {
-      width: between(320px, 680px, $bp-xxsmall, $bp-large)
+      width: between(310px, 720px, $bp-xxsmall, $bp-large)
     }
+  }
+  button {
+    margin: 20px 0;
+    @include button($DARKTEAL);
   }
 }
 
@@ -609,6 +612,7 @@ a {
   text-transform: uppercase;
   font-size: 3rem;
   font-weight: 200;
+  letter-spacing: 5px;
   color: #FFF;
   text-shadow: -1px 1px 0px darken($MINTYGREEN,
   5%),
@@ -620,19 +624,19 @@ a {
   20%),
   -5px 5px 0px darken($MINTYGREEN,
   25%);
-  &::before,
-  &::after {
-    content: " ";
-    position: absolute;
-    width: 50px;
-    height: 10px;
-    border-top: 2px solid white;
-    border-bottom: 2px solid white;
-  }
-  &::before {
-    margin: 24px 0 0 -60px;
-  }
-  &::after {
-    margin: 24px 0 0 10px;
+}
+
+.get-started {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  padding: 20px;
+  transform: translate(-50%, -50%);
+  background-color: #eee;
+  border-radius: 2px;
+  width: 75%;
+  box-shadow: 0 1.7em 5.5em -.94em rgba(black, .3), 0 2em 3em .5em rgba(black, .1), 0 1.8em 2em -1.5em rgba(black, .2);
+  h1 {
+    color: white;
   }
 }

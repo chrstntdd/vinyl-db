@@ -54,7 +54,7 @@ a.btn:active {
   margin-top: 20px;
   margin-bottom: 170px;
   @media(min-width: $bp-xxsmall) {
-    margin-top: between(20px, 100px, $bp-xxsmall, $bp-xlarge);
+    margin-top: between(20px, 40px, $bp-xxsmall, $bp-xlarge);
   }
   .card {
     #btn-rec-details {
