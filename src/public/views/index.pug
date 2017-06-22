@@ -4,14 +4,14 @@ html(lang='en')
   include includes/head.pug
   body
     include includes/nav.pug
-    .center
+    .home-flash
       if message != ''
         .flash-msg.flash-success #{ message }
     .hero
       .hero__image#ParallaxImage
       .hero__content#ParallaxContent
-        h1= title
-        h4= tagline
+        h1#title: span.underline= title
+        h4#tagline= tagline
     section.copy
       h2 Description
       h3 More

@@ -7,11 +7,12 @@ html(lang='en')
     main
       article#login-card
         if message != ''
-          .flash-msg.flash-info #{ message }
+          each msg in message
+            .flash-msg.flash-info= msg
         h1 Login
         form(action='/login' method='POST' autocomplete='off')
           .input-group
-            input.m-input(name='email', type='email' required)
+            input.m-input(name='email' required)
             label(for='email' type='text') Email
           .input-group
             input.m-input(name='password', type='password' required)
