@@ -27,11 +27,27 @@ module.exports = function(app, passport){
     req.isAuthenticated() ? next() : res.redirect('/login');
   };
 
+  const sanitizeInputs = (req) => {
+    req.sanitizeBody('artist').trim();
+    req.sanitizeBody('album').trim();
+    req.sanitizeBody('releaseYear').trim();
+    req.sanitizeBody('purchaseDate').trim();
+    req.sanitizeBody('genre').trim();
+    req.sanitizeBody('rating').trim();
+    req.sanitizeBody('mood').trim();
+    req.sanitizeBody('playCount').trim();
+    req.sanitizeBody('notes').trim();
+    req.sanitizeBody('vinylColor').trim();
+    req.sanitizeBody('accolades').trim();
+    req.sanitizeBody('discogsId').trim();
+    return req;
+  }
+
   // ROOT / HOMEPAGE
   router.get('/', (req, res) => {
     res.render('index', { 
-      title: 'VinylDB',
-      tagline: 'Something catchy',
+      title: 'LpDB',
+      tagline: 'Your personal vinyl discography, always at your fingertips.',
       user: req.user,
       message: req.flash('success'),
     });
@@ -86,7 +102,7 @@ module.exports = function(app, passport){
     res.render('collection-details', { user: req.user });
   });
 
-  // COLLECTION DETAILS VIEW
+  // COLLECTION EDIT VIEW
   router.get('/collection/details/edit', isLoggedIn, (req, res) => {
     res.render('collection-edit', { user: req.user });
   });
@@ -108,18 +124,18 @@ module.exports = function(app, passport){
 
   // LOGIN VIEW
   router.route('/login')
-  .get((req, res) => {
-    res.render('login', {
-      user: req.user,
-      message: req.flash('loginMessage'),
-    });
-  })
-  .post(
-    passport.authenticate('local-login', {
-      successRedirect: '/collection',
-      failureRedirect: '/login',
-      failureFlash: true,
-    }));
+    .get((req, res) => {
+      res.render('login', {
+        user: req.user,
+        message: req.flash('loginMessage'),
+      });
+    })
+    .post(
+        passport.authenticate('local-login', {
+          successRedirect: '/collection',
+          failureRedirect: '/login',
+          failureFlash: true,
+        }));
 
   // FORGOT VIEW
   router.route('/forgot')
@@ -287,14 +303,15 @@ module.exports = function(app, passport){
     User
       .findById(req.params.userId)
       .then((res) => {
+        sanitizeInputs(req);
         let newRecord = {
           artist: req.body.artist,
           album: req.body.album,
           releaseYear: req.body.releaseYear,
           purchaseDate: req.body.purchaseDate,
-          genre: map(words(req.body.genre, /[^,]+/g), (word) => trim(word)),
+          genre: req.body.genre, 
           rating: req.body.rating,
-          mood: map(words(req.body.mood, /[^,]+/g), (word) => trim(word)),
+          mood: req.body.mood,
           playCount: req.body.playCount,
           notes: req.body.notes,
           vinylColor: req.body.vinylColor,
@@ -344,9 +361,7 @@ module.exports = function(app, passport){
       .findById(req.params.userId)
       .then((res) => {
         let subDoc = res.music.id(req.params.id);
-        // PARSE INTO AN ARRAY SEPARATED BY COMMAS
-        req.body.genre = map(words(req.body.genre, /[^,]+/g), (word) => trim(word));
-        req.body.mood = map(words(req.body.mood, /[^,]+/g), (word) => trim(word));
+        sanitizeInputs(req);
         subDoc.set(req.body);
         res.save();
       })

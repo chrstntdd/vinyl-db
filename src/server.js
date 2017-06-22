@@ -13,6 +13,7 @@ const session = require('express-session');
 const passport = require('passport');
 const flash = require('connect-flash');
 const helmet = require('helmet');
+const validator = require('express-validator');
 const mongodbStore = require('connect-mongo')(session);
 
 // IMPORT USER MODEL AND ROUTER
@@ -41,6 +42,7 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({
   extended: true,
 }));
+app.use(validator())
 app.use(morgan('common', {
   stream: logger.stream,
 }));
