@@ -2,7 +2,6 @@ require('dotenv').config();
 const chai = require('chai');
 const chaiHttp = require('chai-http');
 const mongoose = require('mongoose');
-const some = require('lodash.some')
 const faker = require('faker');
 const should = chai.should();
 chai.use(chaiHttp);
