@@ -171,7 +171,39 @@ describe('The API', () => {
           return User.findOne().exec()
         })
         .then((user) => {
-          some(user.music, updatedRecord).should.be.true;
+          user.music[0].should.be.an('object');
+          user.music[0].artist.should.be.a('string');
+          user.music[0].album.should.be.a('string');
+          user.music[0].releaseYear.should.be.a('number');
+          user.music[0].artist.should.equal('Young Thug');
+          user.music[0].album.should.equal('Beautiful Thugger Girls');
+          user.music[0].releaseYear.should.equal(2017);
+          user.music[0].should.not.deep.equal(updatedRecord);
+        });
+    });
+  });
+
+  describe('*PATCH ENDPOINT', () => {
+    it('should increment a particular record\'s play count', () => {
+      let userId;
+      let recordId;
+      let initialPlayCount;
+
+      return User
+        .findOne()
+        .exec()
+        .then((userObject) => {
+          userId = userObject.id;
+          recordId = userObject.music[0].id;
+          initialPlayCount = userObject.music[0].playCount;
+
+          return chai.request(app)
+            .patch(`/records/${userId}/${recordId}`)
+        })
+        .then((res) => {
+          res.should.have.status(200);
+          res.body.playCount.should.be.a('number');
+          res.body.playCount.should.be.equal(initialPlayCount + 1);
         });
     });
   });

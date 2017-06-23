@@ -385,9 +385,11 @@ module.exports = function(app, passport){
         let subDoc = res.music.id(req.params.id);
         subDoc.playCount++;
         res.save();
+        return subDoc;
       })
-      .then(() => {
-        res.status(204).end();
+      .then((subDoc) => {
+        // RETURN UPDATED RECORD
+        res.status(200).json(subDoc);
       })
       .catch((err) => {
         logger.error(err);
