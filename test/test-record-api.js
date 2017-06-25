@@ -14,7 +14,6 @@ const TEST_DATABASE_URL = process.env.TEST_DATABASE_URL;
 
 const seedUser = () => {
   let testUser = generateUser()
-  // console.log(testUser);
   return User.insertMany(testUser);
 }
 

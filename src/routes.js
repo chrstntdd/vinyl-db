@@ -1,4 +1,4 @@
-module.exports = function(app, passport){
+module.exports = function (app, passport) {
   const express = require('express');
   require('dotenv').config();
   const map = require('lodash.map');
@@ -14,7 +14,7 @@ module.exports = function(app, passport){
   const { User } = require('../models/user');
 
   const SMTP_URL = process.env.SMTP_URL;
-  const FROM_EMAIL = process.env.FROM_EMAIL
+  const FROM_EMAIL = process.env.FROM_EMAIL;
 
   const router = express.Router();
 
@@ -41,11 +41,11 @@ module.exports = function(app, passport){
     req.sanitizeBody('accolades').trim();
     req.sanitizeBody('discogsId').trim();
     return req;
-  }
+  };
 
   // ROOT / HOMEPAGE
   router.get('/', (req, res) => {
-    res.render('index', { 
+    res.render('index', {
       title: 'LpDB',
       tagline: 'Your personal vinyl discography, always at your fingertips.',
       user: req.user,
@@ -55,7 +55,7 @@ module.exports = function(app, passport){
 
   // SEARCH VIEW
   router.get('/search', isLoggedIn, (req, res) => {
-    res.render('search', { 
+    res.render('search', {
       user: req.user,
       message: req.flash('no-results'),
     });
@@ -63,36 +63,36 @@ module.exports = function(app, passport){
 
   // SEARCH RESULTS VIEW
   router.get('/search/results', isLoggedIn, (req, res) => {
-    res.render('search-results', 
-    { userId: req.session.userId,
-      artist: req.session.searchResult.artists[0].name,
-      album: req.session.searchResult.title,
-      genre: req.session.searchResult.genres[0],
-      thumb: req.session.searchResult.images[0].resource_url,
-      year: req.session.searchResult.year,
-      discogsId: req.session.searchResult.id,
-      user: req.user,
-    });
+    res.render('search-results',
+      { userId: req.session.userId,
+        artist: req.session.searchResult.artists[0].name,
+        album: req.session.searchResult.title,
+        genre: req.session.searchResult.genres[0],
+        thumb: req.session.searchResult.images[0].resource_url,
+        year: req.session.searchResult.year,
+        discogsId: req.session.searchResult.id,
+        user: req.user,
+      });
   });
 
   // SEARCH DETAILS VIEW
   router.get('/search/details', isLoggedIn, (req, res) => {
     res.render('search-details',
-    { userId: req.session.userId,
-      artist: req.session.searchResult.artists[0].name,
-      album: req.session.searchResult.title,
-      genre: req.session.searchResult.genres[0],
-      thumb: req.session.searchResult.images[0].resource_url,
-      year: req.session.searchResult.year,
-      discogsId: req.session.searchResult.id,
-      user: req.user,
-    });
+      { userId: req.session.userId,
+        artist: req.session.searchResult.artists[0].name,
+        album: req.session.searchResult.title,
+        genre: req.session.searchResult.genres[0],
+        thumb: req.session.searchResult.images[0].resource_url,
+        year: req.session.searchResult.year,
+        discogsId: req.session.searchResult.id,
+        user: req.user,
+      });
   });
 
   // COLLECTION VIEW
   router.get('/collection', isLoggedIn, (req, res) => {
-    res.render('collection', { 
-      user : req.user,
+    res.render('collection', {
+      user: req.user,
       music: req.user.music,
     });
   });
@@ -119,7 +119,7 @@ module.exports = function(app, passport){
     successRedirect: '/collection',
     failureRedirect: '/entrance',
     failureFlash: true,
-  }))
+  }));
 
   // SIGN-IN / SIGN-UP VIEW
   router.get('/entrance', (req, res) => {
@@ -133,16 +133,16 @@ module.exports = function(app, passport){
   // FORGOT VIEW
   router.route('/forgot')
     .get((req, res) => {
-      res.render('forgot', { 
+      res.render('forgot', {
         user: req.user,
-        message: req.flash('info')
+        message: req.flash('info'),
       });
     })
     .post((req, res, next) => {
       async.waterfall([
         (done) => {
           crypto.randomBytes(20, (err, buf) => {
-            let token = buf.toString('hex');
+            const token = buf.toString('hex');
             done(err, token);
           });
         },
@@ -163,7 +163,7 @@ module.exports = function(app, passport){
             user.resetPasswordToken = token;
             user.resetPasswordExpires = Date.now() + 3600000; // 1 HOUR
 
-            user.save((err) => done(err, token, user));
+            user.save(err => done(err, token, user));
           });
         },
         (token, user, done) => {
@@ -172,10 +172,10 @@ module.exports = function(app, passport){
             to: user.email,
             from: FROM_EMAIL,
             subject: 'VinylDB Password Reset',
-            text: 'You are receiving this because you (or someone else) have requested the reset of the password for your account.\n\n' +
+            text: `${'You are receiving this because you (or someone else) have requested the reset of the password for your account.\n\n' +
               'Please click on the following link, or paste this into your browser to complete the process:\n\n' +
-              'http://' + req.headers.host + '/reset/' + token + '\n\n' +
-              'If you did not request this, please ignore this email and your password will remain unchanged.\n',
+              'http://'}${  req.headers.host  }/reset/${  token  }\n\n` +
+              `If you did not request this, please ignore this email and your password will remain unchanged.\n`,
           };
           transporter.sendMail(emailData, (err) => {
             req.flash('info', `An e-mail has been sent to ${user.email} with further instructions.`);
@@ -193,7 +193,7 @@ module.exports = function(app, passport){
     .get((req, res) => {
       User.findOne({
         resetPasswordToken: req.params.token,
-        resetPasswordExpires: {$gt: Date.now()}
+        resetPasswordExpires: { $gt: Date.now() },
       }, (err, user) => {
         if (!user) {
           req.flash('error', 'Password reset token is invalid or has expired.');
@@ -210,7 +210,7 @@ module.exports = function(app, passport){
         (done) => {
           User.findOne({
             resetPasswordToken: req.params.token,
-            resetPasswordExpires: { $gt: Date.now() }
+            resetPasswordExpires: { $gt: Date.now() },
           }, (err, user) => {
             if (!user) {
               req.flash('error', 'Password reset token is invalid or has expired.');
@@ -240,9 +240,9 @@ module.exports = function(app, passport){
             done(err, done);
           });
         },
-      ], (err) => res.redirect('/'));
+      ], err => res.redirect('/'));
     });
-    
+
   // LOGOUT HANDLER
   router.get('/logout', (req, res) => {
     req.logout();
@@ -250,16 +250,16 @@ module.exports = function(app, passport){
     return res.redirect('/');
   });
 
-  //=================================================
+  //= ================================================
   // RECORD API CRUD OPERATIONS =====================
-  //=================================================
+  //= ================================================
 
   // RETRIEVE ALL RECORDS
   router.get('/records/:userId', (req, res) => {
     User
       .findById(req.params.userId)
       .then((res) => {
-        let records = res.music;
+        const records = res.music;
         return records;
       })
       .then(records => res.json(records))
@@ -276,7 +276,7 @@ module.exports = function(app, passport){
     User
       .findById(req.params.userId)
       .then((res) => {
-        let record = res.music.id(req.params.id);
+        const record = res.music.id(req.params.id);
         return record;
       })
       .then(record => res.json(record))
@@ -303,12 +303,12 @@ module.exports = function(app, passport){
       .findById(req.params.userId)
       .then((res) => {
         sanitizeInputs(req);
-        let newRecord = {
+        const newRecord = {
           artist: req.body.artist,
           album: req.body.album,
           releaseYear: req.body.releaseYear,
           purchaseDate: req.body.purchaseDate,
-          genre: req.body.genre, 
+          genre: req.body.genre,
           rating: req.body.rating,
           mood: req.body.mood,
           playCount: req.body.playCount,
@@ -340,10 +340,10 @@ module.exports = function(app, passport){
         res.save();
       })
       .then(() => {
-        let message = `Successfully deleted the record with an id of ${req.params.id}`;
+        const message = `Successfully deleted the record with an id of ${req.params.id}`;
         logger.info(message);
         res.status(204).json({
-          message: message,
+          message,
         }).end();
       })
       .catch((err) => {
@@ -359,13 +359,13 @@ module.exports = function(app, passport){
     User
       .findById(req.params.userId)
       .then((res) => {
-        let subDoc = res.music.id(req.params.id);
+        const subDoc = res.music.id(req.params.id);
         sanitizeInputs(req);
         subDoc.set(req.body);
         res.save();
       })
       .then((updatedRecord) => {
-        let message = `Successfully updated the record with an id of ${req.params.id}`;
+        const message = `Successfully updated the record with an id of ${req.params.id}`;
         logger.info(message);
         res.status(201).json(updatedRecord);
       })
@@ -382,7 +382,7 @@ module.exports = function(app, passport){
     User
       .findById(req.params.userId)
       .then((res) => {
-        let subDoc = res.music.id(req.params.id);
+        const subDoc = res.music.id(req.params.id);
         subDoc.playCount++;
         res.save();
         return subDoc;
@@ -394,18 +394,18 @@ module.exports = function(app, passport){
       .catch((err) => {
         logger.error(err);
         res.status(500).json({
-          error: 'INTERNAL SERVER ERROR. SHRED ALL THE EVIDENCE.'
+          error: 'INTERNAL SERVER ERROR. SHRED ALL THE EVIDENCE.',
         });
       });
   });
 
   // MAIN API CALL FOR DISCOGS SEARCH
   router.post('/search', (req, res) => {
-    let artist = req.body.artist;
-    let album = req.body.album;
+    const artist = req.body.artist;
+    const album = req.body.album;
 
     db.search(artist, {
-      artist: artist,
+      artist,
       title: album,
       release_title: album,
       type: 'release',

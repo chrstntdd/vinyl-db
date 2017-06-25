@@ -1,6 +1,6 @@
 $(() => {
   // DOCUMENT READY FUNCTIONS
-  let selectedRecordId = localStorage.selectedRecordId;
+  const selectedRecordId = localStorage.selectedRecordId;
   getRecordDetails(user._id, selectedRecordId);
   handlePutRecordDetails(user._id, selectedRecordId);
   handleFormToggle();
@@ -15,12 +15,12 @@ const populate = (form, data) => {
 
 const getRecordDetails = (userId, selectedRecordId) => {
   $.ajax({
-      method: 'GET',
-      url: `/records/${userId}/${selectedRecordId}`,
-      processData: false,
-      dataType: 'json',
-      contentType: 'application/json',
-    })
+    method: 'GET',
+    url: `/records/${userId}/${selectedRecordId}`,
+    processData: false,
+    dataType: 'json',
+    contentType: 'application/json',
+  })
     .done((res) => {
       populate($('#record-details form'), res);
     })
@@ -32,17 +32,17 @@ const getRecordDetails = (userId, selectedRecordId) => {
 const handlePutRecordDetails = (userId, selectedRecordId) => {
   $('#record-details form').on('submit', (e) => {
     e.preventDefault();
-    let formData = $('#record-details form').serializeJSON();
+    const formData = $('#record-details form').serializeJSON();
     formData.id = selectedRecordId;
 
     $.ajax({
-        method: 'PUT',
-        url: `/records/${userId}/${selectedRecordId}`,
-        processData: false,
-        dataType: 'text', // THROWS ERROR WITH 'JSON'
-        contentType: 'application/json',
-        data: formData,
-      })
+      method: 'PUT',
+      url: `/records/${userId}/${selectedRecordId}`,
+      processData: false,
+      dataType: 'text', // THROWS ERROR WITH 'JSON'
+      contentType: 'application/json',
+      data: formData,
+    })
       .done((data) => {
         window.location.replace('/collection/details');
       })

@@ -10,22 +10,22 @@ const handleSearch = () => {
   $('#search-form').on('submit', (e) => {
     e.preventDefault();
     $('#results').html(''); // CLEAR OLD SEARCH RESULTS
-    let searchRequest = {
+    const searchRequest = {
       artist: _.trim(_.toLower($('#search-artist').val())),
       album: _.trim(_.toLower($('#search-album').val())),
-    }
+    };
     callDiscogsAPI(JSON.stringify(searchRequest));
   });
 };
 
 const callDiscogsAPI = (searchRequest) => {
   $.ajax({
-      type: 'POST',
-      url: '/search',
-      processData: false,
-      data: searchRequest,
-      contentType: 'application/json'
-    })
+    type: 'POST',
+    url: '/search',
+    processData: false,
+    data: searchRequest,
+    contentType: 'application/json',
+  })
     .done((data) => {
       if (data) {
         window.location.replace('/search/results');
@@ -46,7 +46,7 @@ const handleLogout = () => {
 
 const handleRecordResult = () => {
   $('.vinyl').on({
-    click: function () {
+    click () {
       if ($('.vinyl__record').hasClass('peek')) {
         $(this).toggleClass('active');
         $('.vinyl__record').removeClass('peek');
@@ -54,13 +54,13 @@ const handleRecordResult = () => {
         $(this).toggleClass('active');
       }
     },
-    mouseenter: function () {
+    mouseenter () {
       if (!$(this).hasClass('active')) {
         $('.info, .vinyl__record, .vinyl__cover').addClass('peek');
       }
     },
-    mouseleave: function () {
+    mouseleave () {
       $('.info, .vinyl__record, .vinyl__cover').removeClass('peek');
-    }
+    },
   });
-}
+};

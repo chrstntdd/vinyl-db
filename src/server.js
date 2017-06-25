@@ -42,7 +42,7 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({
   extended: true,
 }));
-app.use(validator())
+app.use(validator());
 app.use(morgan('common', {
   stream: logger.stream,
 }));
@@ -108,8 +108,6 @@ const closeServer = () => mongoose.disconnect().then(() => {
     });
   });
 });
-
-
 
 if (require.main === module) {
   runServer().catch(err => logger.error(err));

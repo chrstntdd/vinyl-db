@@ -1,16 +1,16 @@
-$(document).ready(function(){
+$(document).ready(() =>  {
   let zindex = 10;
-  $('.cards').on('click', '.toggle-info', function(e){
+  $('.cards').on('click', '.toggle-info', function (e) {
     e.preventDefault();
     // TOGGLE BETWEEN ICONS.
     $(this).find('i').toggleClass('fa-times fa-chevron-down');
 
     let isShowing = false;
-    
-    let parentCard = $(this).parentsUntil('card');
+
+    const parentCard = $(this).parentsUntil('card');
 
     if (parentCard.hasClass('show')) {
-      isShowing = true
+      isShowing = true;
     }
 
     if (parentCard.hasClass('showing')) {
@@ -22,13 +22,13 @@ $(document).ready(function(){
         $('div.cards').removeClass('showing');
       } else {
         // this card isn't showing - get in with it
-        parentCard.css({zIndex: zindex}).addClass('show');
+        parentCard.css({ zIndex: zindex }).addClass('show');
       }
       zindex++;
     } else {
       // no cards in view
       $('div.cards').addClass('showing');
-      parentCard.css({zIndex:zindex}).addClass('show');
+      parentCard.css({ zIndex: zindex }).addClass('show');
       zindex++;
     }
   });
