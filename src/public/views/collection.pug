@@ -8,7 +8,9 @@ html(lang='en')
       if music != ''
         h1#collection-heading My Collection
       else
-        .get-started: h1 Get started by adding your first record!
+        .get-started: h2 Let's get started by adding your first record!
+          br
+          a(href='/search'): button Add A Record
       .cards.container
         each album in music
           .card(id= album.id)
@@ -33,6 +35,7 @@ html(lang='en')
                 .card-actions
                   a#btn-rec-details(href='/collection/details')
                     button See more details
+      footer#collection
 
       
     //- CONVERT USER OBJECT PASSED INTO TEMPLATE FROM EXPRESS AVAILABLE IN FOLLOWING SCRIPTS

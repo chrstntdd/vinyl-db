@@ -51,8 +51,13 @@ html {
   height: 100%;
 }
 
-main#collection {
-  margin-bottom: 170px
+footer#collection {
+  // SPACER FOR MOBILE VIEW
+  width: 100%;
+  height: 200px;
+  @media(min-width: $bp-xxsmall) {
+    height: between(200px, 10px, $bp-xsmall, $bp-xlarge);
+  }
 }
 
 body {
@@ -632,9 +637,13 @@ a {
   transform: translate(-50%, -50%);
   background-color: #eee;
   border-radius: 2px;
-  width: 75%;
+  width: 70%;
   box-shadow: 0 1.7em 5.5em -.94em rgba(black, .3), 0 2em 3em .5em rgba(black, .1), 0 1.8em 2em -1.5em rgba(black, .2);
-  h1 {
-    color: white;
+  h2 {
+    text-align: center;
+  }
+  button {
+    @include button($DARKTEAL);
+    margin-top: 10px;
   }
 }
