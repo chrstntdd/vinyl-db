@@ -52,7 +52,6 @@ a.btn:active {
   justify-content: center;
   flex-wrap: wrap;
   margin-top: 20px;
-  margin-bottom: 170px;
   @media(min-width: $bp-xxsmall) {
     margin-top: between(20px, 40px, $bp-xxsmall, $bp-xlarge);
   }
