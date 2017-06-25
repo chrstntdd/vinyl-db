@@ -346,87 +346,81 @@ a {
 }
 
 #record-details.collection-details {
-  margin: 0 auto;
-  width: 100vw;
+  margin-left: auto;
+  margin-right: auto;
+  border-radius: 2px;
   background-color: white;
-  margin-top: 0px;
-  margin-bottom: 0px;
-  @media (min-width: $bp-xxsmall) {
+  @media(min-width: $bp-xxsmall) {
     width: between(320px, 760px, $bp-xxsmall, $bp-xlarge);
-    margin-top: between(0px, 200px, $bp-xxsmall, $bp-xlarge);
-    margin-bottom: between(0px, 200px, $bp-xxsmall, $bp-xlarge);
+    margin-top: between(30px, 120px, $bp-xxsmall, $bp-medium);
+    margin-bottom: between(30px, 60px, $bp-xxsmall, $bp-xlarge);
   }
-  .title {
-    margin-left: 10px;
-  }
-  img {
-    object-fit: cover;
-    width: 100%;
-    height: 100%;
-  }
-  .stats {
-    ul {
-      margin-top: 0;
-      padding-left: 0;
+  article {
+    img {
+      object-fit: cover;
+      width: 100%;
+      height: 100%;
+    }
+    .wrapper {
+      margin: 0px;
+      display: grid;
+      grid-gap: 5px;
+    }
+    /* no grid support? */
+    .wrapper {
       display: flex;
-      justify-content: space-around;
-      align-items: center;
       flex-wrap: wrap;
-      flex-direction: row;
-      li {
-        margin-top: 20px;
-        list-style: none;
-        background-color: #eee;
-        width: 32%;
-        .heading {
-          text-align: center;
-          font-weight: 600;
-          text-transform: uppercase;
-        }
-        .footing {
-          text-align: center;
-          font-size: 18px;
-          @media (min-width: $bp-xxsmall) {
-            font-size: between(18px, 26px, $bp-xxsmall, $bp-xlarge);
-          }
-        }
-      }
     }
-  }
-  .notes-container {
-    display: flex;
-    align-items: center;
-    background-color: #eee;
-    flex-wrap: wrap;
-    margin-bottom: 10%;
-    .heading {
-      width: 100%;
+    .wrapper {
+      display: grid;
+      margin: 0 auto;
+      grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+      grid-auto-rows: minmax(100px, auto);
+    }
+    .panel {
+      /* needed for the flex layout*/
+      margin-left: 5px;
+      margin-right: 5px;
+      flex: 0 1 100%;
+      background-color: #eee;
       text-align: center;
-      font-weight: 600;
-      text-transform: uppercase;
-      margin-bottom: 0;
+      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
+      .heading {
+        text-transform: uppercase;
+        font-weight: 600;
+      }
+      .footing {
+        margin: 0;
+      }
     }
-    .footing {
-      margin-top: 0;
-      padding: 15px;
-      width: 100%;
-      font-size: 20px;
-      word-wrap: break-word;
-      @media (min-width) {
-        font-size: between(20px, 26px, $bp-xxsmall, $bp-xlarge);
+    .wide-panel {
+      grid-column-end: span 2;
+    }
+    .widest-panel {
+      grid-column-end: span 4;
+    }
+    .header,
+    .footer {
+      flex: 0 1 100%;
+      grid-column: 1 / -1;
+    }
+    @supports (display: grid) {
+      .wrapper>* {
+        margin: 0;
       }
     }
   }
-  .btn-group {
+  footer.btn-group {
+    margin-top: 20px;
     display: flex;
     justify-content: space-around;
-    #edit-record button {
+    #edit-record {
       @include button($MINTYGREEN);
-      margin-bottom: 20px;
+      text-align: center;
     }
-    button#delete-record {
+    #delete-record {
       @include button(red);
-      margin-bottom: 20px;
+      text-align: center;
     }
   }
 }

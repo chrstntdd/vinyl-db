@@ -182,7 +182,7 @@ describe('The API', () => {
     });
   });
 
-  describe('*PATCH ENDPOINT', () => {
+  describe('*PATCH endpoint', () => {
     it('should increment a particular record\'s play count', () => {
       let userId;
       let recordId;
