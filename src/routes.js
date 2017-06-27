@@ -4,6 +4,7 @@ module.exports = function(app, passport) {
 	const map = require('lodash.map');
 	const trim = require('lodash.trim');
 	const words = require('lodash.words');
+	const orderby = require('lodash.orderby');
 	const logger = require('../config/logger').logger;
 	const async = require('async');
 	const nodemailer = require('nodemailer');
@@ -93,7 +94,8 @@ module.exports = function(app, passport) {
 	router.get('/collection', isLoggedIn, (req, res) => {
 		res.render('collection', {
 			user: req.user,
-			music: req.user.music,
+			// ORDER MUSIC ALPHABETICALLY BY ARTIST THEN ALBUM
+			music: orderby(req.user.music, [ 'artist', 'album' ], [ 'asc', 'asc' ]),
 		});
 	});
 
