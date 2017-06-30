@@ -22,6 +22,12 @@ html(lang='en')
               .input-group
                 button(type='submit') Login
                 a.forgot(href='/forgot') Forgot password?
+              .demo-acct
+                p Demo credentials
+                p email: 
+                  span test@test.com
+                p password: 
+                  span securepassword
           .form
             h2 Create an account
             form(action='/signup' method='POST', autocomplete='off')
