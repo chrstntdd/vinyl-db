@@ -40,33 +40,33 @@ app.use(compression());
 app.use(cookieParser());
 app.use(bodyParser.json());
 app.use(
-	bodyParser.urlencoded({
-		extended: true,
-	})
+  bodyParser.urlencoded({
+    extended: true,
+  })
 );
 app.use(validator());
 app.use(
-	morgan('common', {
-		stream: logger.stream,
-	})
+  morgan('common', {
+    stream: logger.stream,
+  })
 );
 app.use(
-	session({
-		name: 'xpressBlu.sess',
-		store: new mongodbStore({
-			mongooseConnection: mongoose.connection,
-			touchAfter: 24 * 3600,
-		}),
-		secret: COOKIE_SECRET,
-		resave: false,
-		saveUninitialized: false,
-		httpOnly: true,
-		secure: true,
-		ephemeral: true,
-		cookie: {
-			maxAge: 1000 * 60 * 120, // 120 MINUTES
-		},
-	})
+  session({
+    name: 'xpressBlu.sess',
+    store: new mongodbStore({
+      mongooseConnection: mongoose.connection,
+      touchAfter: 24 * 3600,
+    }),
+    secret: COOKIE_SECRET,
+    resave: false,
+    saveUninitialized: false,
+    httpOnly: true,
+    secure: true,
+    ephemeral: true,
+    cookie: {
+      maxAge: 1000 * 60 * 120, // 120 MINUTES
+    },
+  })
 );
 app.use(passport.initialize());
 app.use(passport.session());
@@ -86,38 +86,40 @@ let server;
 
 // TAKES A DATABASE URL AS AN ARGUMENT. NEEDED FOR INTEGRATION TESTS. DEFAULTS TO THE MAIN URL.
 const runServer = (databaseUrl = DATABASE_URL, port = PORT) =>
-	new Promise((resolve, reject) => {
-		mongoose.connect(databaseUrl, (err) => {
-			if (err) {
-				return reject(err);
-			}
-			server = app
-				.listen(port, () => {
-					logger.info(`Your app is listening on port ${port} in a ${env} environment.`);
-					resolve();
-				})
-				.on('error', (err) => {
-					mongoose.disconnect();
-					reject(err);
-				});
-		});
-	});
+  new Promise((resolve, reject) => {
+    mongoose.connect(databaseUrl, err => {
+      if (err) {
+        return reject(err);
+      }
+      server = app
+        .listen(port, () => {
+          logger.info(
+            `Your app is listening on port ${port} in a ${env} environment.`
+          );
+          resolve();
+        })
+        .on('error', err => {
+          mongoose.disconnect();
+          reject(err);
+        });
+    });
+  });
 
 const closeServer = () =>
-	mongoose.disconnect().then(() => {
-		return new Promise((resolve, reject) => {
-			logger.info('Closing server. Goodbye old friend.');
-			server.close((err) => {
-				if (err) {
-					return reject(err);
-				}
-				return resolve();
-			});
-		});
-	});
+  mongoose.disconnect().then(() => {
+    return new Promise((resolve, reject) => {
+      logger.info('Closing server. Goodbye old friend.');
+      server.close(err => {
+        if (err) {
+          return reject(err);
+        }
+        return resolve();
+      });
+    });
+  });
 
 if (require.main === module) {
-	runServer().catch((err) => logger.error(err));
+  runServer().catch(err => logger.error(err));
 }
 
 module.exports = { runServer, closeServer, app };

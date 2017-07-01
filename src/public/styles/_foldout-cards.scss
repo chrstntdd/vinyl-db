@@ -14,10 +14,10 @@ $bp-large: 1366px;
 $bp-xlarge: 1920px;
 $bp-xxlarge: 2560px;
 // COLORS
-$PINKINSH: #EF476F;
-$KINDAYELLOW: #FFD166;
-$MINTYGREEN: #06D6A0;
-$SKYBLUE: #118AB2;
+$PINKINSH: #ef476f;
+$KINDAYELLOW: #ffd166;
+$MINTYGREEN: #06d6a0;
+$SKYBLUE: #118ab2;
 a.btn {
   background: $SKYBLUE;
   border-radius: 4px;
@@ -52,7 +52,7 @@ a.btn:active {
   justify-content: center;
   flex-wrap: wrap;
   margin-top: 20px;
-  @media(min-width: $bp-xxsmall) {
+  @media (min-width: $bp-xxsmall) {
     margin-top: between(20px, 40px, $bp-xxsmall, $bp-xlarge);
   }
   .card {
@@ -88,7 +88,7 @@ a.btn:active {
     margin-right: 0px;
     margin-bottom: 18px;
     width: 320px;
-    @media(min-width: $bp-xxsmall) {
+    @media (min-width: $bp-xxsmall) {
       width: between(320px, 220px, $bp-xxsmall, $bp-xlarge);
       margin-left: between(0px, 10px, $bp-xxsmall, $bp-xlarge);
       margin-right: between(0px, 10px, $bp-xxsmall, $bp-xlarge);
@@ -97,8 +97,7 @@ a.btn:active {
     transition: all 0.3s 0s ease-in;
     z-index: 1;
     box-shadow: 0 1.7em 5.5em -.94em rgba(black, .3),
-    0 2em 3em .5em rgba(black, .1),
-    0 1.8em 2em -1.5em rgba(black, .2);
+      0 2em 3em .5em rgba(black, .1), 0 1.8em 2em -1.5em rgba(black, .2);
     .card-img-container {
       img {
         object-fit: cover;

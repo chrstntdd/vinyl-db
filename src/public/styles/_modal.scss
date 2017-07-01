@@ -25,11 +25,11 @@ $RETURN: #47ba6b;
 }
 
 .btn-delete {
-  @include button($DELETE)
+  @include button($DELETE);
 }
 
 .btn-return {
-  @include button($RETURN)
+  @include button($RETURN);
 }
 
 .overlay {
@@ -46,7 +46,7 @@ $RETURN: #47ba6b;
 }
 
 .global-modal_contents {
-  background: #FFF;
+  background: #fff;
   box-shadow: 0 0 8px 2px rgba(182, 182, 182, 0.75);
   width: 50%;
   position: fixed;
@@ -62,7 +62,7 @@ $RETURN: #47ba6b;
 }
 
 .global-modal-header h3 {
-  color: #34495E;
+  color: #34495e;
   text-align: center;
   font-weight: bold;
   font-size: 22px;
@@ -81,7 +81,7 @@ $RETURN: #47ba6b;
 }
 
 .global-modal-body p {
-  color: #34495E;
+  color: #34495e;
   font-size: 16px;
   line-height: 23px;
   text-align: center;
@@ -93,7 +93,7 @@ $RETURN: #47ba6b;
   position: relative;
   top: 55px;
   float: left;
-  border-right: 1px solid #CCC;
+  border-right: 1px solid #ccc;
 }
 
 .global-modal-body .content-right {
@@ -166,7 +166,7 @@ $RETURN: #47ba6b;
   }
 }
 
-@media(max-width: 1027px) {
+@media (max-width: 1027px) {
   .global-modal-header h3 {
     font-size: 18px;
   }

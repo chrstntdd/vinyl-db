@@ -17,7 +17,7 @@
     &:last-of-type {
       left: 50%;
     }
-    &+label {
+    & + label {
       position: absolute;
       width: 50%;
       background: darken(#ececec, 10%);
@@ -34,11 +34,11 @@
   }
   input[type='radio']:checked {
     cursor: default;
-    &+label {
+    & + label {
       background: #74c2b2;
       color: #fff;
     }
-    &+label.advanced {
+    & + label.advanced {
       background: #ea7172;
     }
   }
