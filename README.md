@@ -1,5 +1,5 @@
 # LpDB  
-![Build Status](https://travis-ci.org/chrstntdd/vinyl-db.svg?branch=master)
+[![Build Status](https://travis-ci.org/chrstntdd/vinyl-db.svg?branch=master)](https://travis-ci.org/chrstntdd/vinyl-db)
 
 ### About
 
